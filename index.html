@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ellectra - Electrifying Components Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg-primary:#0a0a0f;
+--bg-secondary:#12121a;
+--bg-card:#1a1a2e;
+--bg-card-hover:#222240;
+--yellow-primary:#ffd700;
+--yellow-secondary:#ffaa00;
+--yellow-glow:#ffcc0066;
+--yellow-dim:#b8860b;
+--yellow-bright:#fff700;
+--text-primary:#f0e6d3;
+--text-secondary:#a09880;
+--text-muted:#605848;
+--danger:#ff4444;
+--success:#44ff88;
+--border-color:#2a2a3e;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--bg-primary)}
+::-webkit-scrollbar-thumb{background:var(--yellow-dim);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--yellow-primary)}
+#intro-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg-primary);z-index:10000;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.8s ease,visibility 0.8s ease}
+#intro-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.intro-logo{width:150px;height:150px;animation:intro-pulse 1.5s ease-in-out infinite alternate;filter:drop-shadow(0 0 30px var(--yellow-primary)) drop-shadow(0 0 60px var(--yellow-secondary))}
+.intro-title{font-family:'Orbitron',sans-serif;font-size:3rem;font-weight:900;background:linear-gradient(135deg,var(--yellow-primary),var(--yellow-bright),var(--yellow-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-top:20px;animation:intro-glow 2s ease-in-out infinite alternate}
+.intro-tagline{font-family:'Share Tech Mono',monospace;color:var(--yellow-dim);font-size:1rem;margin-top:10px;letter-spacing:3px}
+@keyframes intro-pulse{0%{transform:scale(1);filter:drop-shadow(0 0 20px var(--yellow-primary))}100%{transform:scale(1.1);filter:drop-shadow(0 0 50px var(--yellow-bright)) drop-shadow(0 0 100px var(--yellow-secondary))}}
+@keyframes intro-glow{0%{text-shadow:0 0 20px var(--yellow-glow)}100%{text-shadow:0 0 40px var(--yellow-primary),0 0 80px var(--yellow-secondary)}}
+.spark-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
+.spark{position:absolute;width:4px;height:4px;border-radius:50%;animation:spark-fly linear forwards}
+@keyframes spark-fly{0%{opacity:1;transform:translate(0,0) scale(1)}50%{opacity:0.8}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0)}}
+.spark-line{position:absolute;width:2px;background:linear-gradient(to bottom,transparent,var(--yellow-primary),transparent);animation:spark-line-fall linear forwards}
+@keyframes spark-line-fall{0%{opacity:1;transform:translateY(-100px)}100%{opacity:0;transform:translateY(100vh)}}
+.navbar{position:fixed;top:0;left:0;right:0;height:70px;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-color);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:1000;box-shadow:0 2px 20px rgba(255,215,0,0.1)}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-logo{width:40px;height:40px;filter:drop-shadow(0 0 10px var(--yellow-glow))}
+.nav-title{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:700;background:linear-gradient(135deg,var(--yellow-primary),var(--yellow-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-actions{display:flex;align-items:center;gap:15px}
+.nav-btn{background:transparent;border:1px solid var(--yellow-dim);color:var(--yellow-primary);padding:8px 16px;border-radius:8px;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:600;transition:all 0.3s ease;display:flex;align-items:center;gap:6px}
+.nav-btn:hover{background:var(--yellow-primary);color:var(--bg-primary);box-shadow:0 0 20px var(--yellow-glow)}
+.cart-badge{position:relative}
+.cart-count{position:absolute;top:-8px;right:-8px;background:var(--danger);color:#fff;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700}
+.user-avatar{width:35px;height:35px;border-radius:50%;border:2px solid var(--yellow-primary);cursor:pointer}
+.user-info{display:flex;align-items:center;gap:8px}
+.user-name{font-size:0.85rem;color:var(--yellow-primary);font-weight:600;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hero{margin-top:70px;padding:60px 20px;text-align:center;background:radial-gradient(ellipse at center,rgba(255,215,0,0.05) 0%,transparent 70%);position:relative;overflow:hidden}
+.hero h1{font-family:'Orbitron',sans-serif;font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,var(--yellow-primary),var(--yellow-bright),var(--yellow-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;position:relative}
+.hero p{font-size:1.2rem;color:var(--text-secondary);font-weight:400;letter-spacing:1px}
+.hero-bolt{font-size:4rem;color:var(--yellow-primary);filter:drop-shadow(0 0 20px var(--yellow-glow));animation:bolt-flicker 3s ease-in-out infinite}
+@keyframes bolt-flicker{0%,100%{opacity:1;filter:drop-shadow(0 0 20px var(--yellow-glow))}50%{opacity:0.7;filter:drop-shadow(0 0 5px var(--yellow-glow))}92%{opacity:1}93%{opacity:0.3}94%{opacity:1}}
+.search-section{padding:20px;max-width:800px;margin:0 auto}
+.search-box{display:flex;gap:10px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:8px;transition:border-color 0.3s}
+.search-box:focus-within{border-color:var(--yellow-primary);box-shadow:0 0 20px var(--yellow-glow)}
+.search-box input{flex:1;background:transparent;border:none;outline:none;color:var(--text-primary);font-size:1rem;font-family:'Rajdhani',sans-serif;padding:8px 12px}
+.search-box input::placeholder{color:var(--text-muted)}
+.search-box button{background:var(--yellow-primary);border:none;color:var(--bg-primary);padding:10px 20px;border-radius:8px;cursor:pointer;font-weight:700;font-size:1rem}
+.category-filters{display:flex;gap:8px;margin-top:15px;overflow-x:auto;padding-bottom:5px;flex-wrap:wrap;justify-content:center}
+.cat-btn{background:var(--bg-card);border:1px solid var(--border-color);color:var(--text-secondary);padding:6px 16px;border-radius:20px;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.85rem;font-weight:600;white-space:nowrap;transition:all 0.3s}
+.cat-btn:hover,.cat-btn.active{background:var(--yellow-primary);color:var(--bg-primary);border-color:var(--yellow-primary)}
+.products-section{padding:20px;max-width:1400px;margin:0 auto}
+.products-section h2{font-family:'Orbitron',sans-serif;font-size:1.5rem;color:var(--yellow-primary);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.product-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:16px;overflow:hidden;transition:all 0.3s ease;cursor:pointer;position:relative}
+.product-card:hover{transform:translateY(-5px);border-color:var(--yellow-dim);box-shadow:0 10px 40px rgba(255,215,0,0.15)}
+.product-card:hover .product-img img{transform:scale(1.05)}
+.product-img{height:200px;overflow:hidden;background:var(--bg-secondary);display:flex;align-items:center;justify-content:center;position:relative}
+.product-img img{max-width:100%;max-height:100%;object-fit:contain;padding:15px;transition:transform 0.3s}
+.product-stock{position:absolute;top:10px;right:10px;padding:3px 10px;border-radius:12px;font-size:0.75rem;font-weight:700}
+.stock-in{background:rgba(68,255,136,0.15);color:var(--success)}
+.stock-out{background:rgba(255,68,68,0.15);color:var(--danger)}
+.product-info{padding:15px}
+.product-name{font-size:1.1rem;font-weight:700;color:var(--text-primary);margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.product-category{font-size:0.8rem;color:var(--yellow-dim);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.product-price{font-family:'Orbitron',sans-serif;font-size:1.3rem;font-weight:700;color:var(--yellow-primary)}
+.add-cart-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--yellow-primary),var(--yellow-secondary));border:none;border-radius:0 0 16px 16px;color:var(--bg-primary);font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:8px}
+.add-cart-btn:hover{background:linear-gradient(135deg,var(--yellow-bright),var(--yellow-primary))}
+.add-cart-btn:disabled{background:var(--text-muted);cursor:not-allowed}
+.no-products{text-align:center;padding:60px 20px;color:var(--text-muted);grid-column:1/-1}
+.no-products i{font-size:3rem;margin-bottom:15px;color:var(--yellow-dim)}
+.cart-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:2000;opacity:0;visibility:hidden;transition:all 0.3s}
+.cart-overlay.open{opacity:1;visibility:visible}
+.cart-sidebar{position:fixed;top:0;right:-420px;width:400px;max-width:90vw;height:100%;background:var(--bg-secondary);z-index:2001;transition:right 0.4s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;border-left:1px solid var(--border-color)}
+.cart-sidebar.open{right:0}
+.cart-header{padding:20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border-color)}
+.cart-header h2{font-family:'Orbitron',sans-serif;font-size:1.2rem;color:var(--yellow-primary)}
+.cart-close{background:none;border:none;color:var(--text-secondary);font-size:1.5rem;cursor:pointer}
+.cart-items{flex:1;overflow-y:auto;padding:15px}
+.cart-item{display:flex;gap:12px;padding:12px;margin-bottom:10px;background:var(--bg-card);border-radius:12px;border:1px solid var(--border-color)}
+.cart-item-img{width:60px;height:60px;border-radius:8px;overflow:hidden;background:var(--bg-primary);flex-shrink:0}
+.cart-item-img img{width:100%;height:100%;object-fit:contain;padding:5px}
+.cart-item-info{flex:1}
+.cart-item-name{font-size:0.9rem;font-weight:600;margin-bottom:3px}
+.cart-item-price{font-size:0.85rem;color:var(--yellow-primary);font-weight:700}
+.cart-item-qty{display:flex;align-items:center;gap:8px;margin-top:5px}
+.qty-btn{width:26px;height:26px;background:var(--bg-secondary);border:1px solid var(--border-color);color:var(--yellow-primary);border-radius:6px;cursor:pointer;font-size:0.9rem;display:flex;align-items:center;justify-content:center}
+.qty-btn:hover{background:var(--yellow-primary);color:var(--bg-primary)}
+.cart-item-remove{background:none;border:none;color:var(--danger);cursor:pointer;font-size:1.1rem;align-self:flex-start}
+.cart-empty{text-align:center;padding:40px;color:var(--text-muted)}
+.cart-empty i{font-size:3rem;margin-bottom:10px;color:var(--yellow-dim)}
+.cart-footer{padding:20px;border-top:1px solid var(--border-color)}
+.coupon-section{display:flex;gap:8px;margin-bottom:15px}
+.coupon-section input{flex:1;background:var(--bg-card);border:1px solid var(--border-color);color:var(--text-primary);padding:10px 12px;border-radius:8px;font-family:'Rajdhani',sans-serif;font-size:0.9rem;text-transform:uppercase}
+.coupon-section input:focus{border-color:var(--yellow-primary);outline:none}
+.coupon-section button{background:var(--yellow-primary);color:var(--bg-primary);border:none;padding:10px 16px;border-radius:8px;font-weight:700;cursor:pointer;font-family:'Rajdhani',sans-serif}
+.coupon-msg{font-size:0.8rem;margin-bottom:10px;padding:6px 10px;border-radius:6px;display:none}
+.coupon-msg.success{display:block;background:rgba(68,255,136,0.1);color:var(--success)}
+.coupon-msg.error{display:block;background:rgba(255,68,68,0.1);color:var(--danger)}
+.cart-summary{margin-bottom:15px}
+.cart-summary-row{display:flex;justify-content:space-between;padding:5px 0;font-size:0.95rem}
+.cart-summary-row.total{font-size:1.2rem;font-weight:700;color:var(--yellow-primary);border-top:1px solid var(--border-color);padding-top:10px;margin-top:5px}
+.cart-summary-row.discount{color:var(--success)}
+.checkout-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--yellow-primary),var(--yellow-secondary));border:none;border-radius:12px;color:var(--bg-primary);font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.3s}
+.checkout-btn:hover{box-shadow:0 0 30px var(--yellow-glow);transform:translateY(-2px)}
+.checkout-btn:disabled{background:var(--text-muted);cursor:not-allowed;transform:none;box-shadow:none}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:3000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:20px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto}
+.modal-header{padding:20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border-color)}
+.modal-header h2{font-family:'Orbitron',sans-serif;font-size:1.2rem;color:var(--yellow-primary)}
+.modal-close{background:none;border:none;color:var(--text-secondary);font-size:1.5rem;cursor:pointer}
+.modal-body{padding:20px}
+.form-group{margin-bottom:15px}
+.form-group label{display:block;margin-bottom:5px;font-size:0.9rem;font-weight:600;color:var(--text-secondary)}
+.form-group input,.form-group textarea{width:100%;padding:12px;background:var(--bg-card);border:1px solid var(--border-color);color:var(--text-primary);border-radius:10px;font-family:'Rajdhani',sans-serif;font-size:1rem;transition:border-color 0.3s}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--yellow-primary);outline:none;box-shadow:0 0 10px var(--yellow-glow)}
+.form-group textarea{resize:vertical;min-height:60px}
+.form-note{font-size:0.75rem;color:var(--text-muted);margin-top:3px}
+.receipt-modal .modal{max-width:550px}
+.receipt{background:#ffffff;color:#000;padding:30px;border-radius:10px;font-family:'Courier New',monospace}
+.receipt-header{text-align:center;margin-bottom:20px;border-bottom:2px dashed #000;padding-bottom:15px}
+.receipt-logo{width:60px;margin-bottom:8px}
+.receipt-store{font-size:1.3rem;font-weight:700}
+.receipt-id{font-size:0.85rem;color:#555;margin-top:5px}
+.receipt-table{width:100%;border-collapse:collapse;margin:15px 0}
+.receipt-table th{text-align:left;border-bottom:1px solid #000;padding:5px 0;font-size:0.8rem}
+.receipt-table td{padding:4px 0;font-size:0.85rem}
+.receipt-table .amt{text-align:right}
+.receipt-totals{border-top:2px dashed #000;padding-top:10px;margin-top:10px}
+.receipt-totals div{display:flex;justify-content:space-between;padding:3px 0;font-size:0.9rem}
+.receipt-totals .grand{font-size:1.1rem;font-weight:700;border-top:1px solid #000;padding-top:8px;margin-top:5px}
+.receipt-footer{text-align:center;margin-top:20px;border-top:2px dashed #000;padding-top:15px;font-size:0.8rem;color:#555}
+.receipt-actions{display:flex;gap:10px;margin-top:15px;justify-content:center}
+.receipt-actions button{padding:10px 20px;border-radius:8px;border:none;font-family:'Rajdhani',sans-serif;font-weight:700;cursor:pointer;font-size:0.95rem}
+.btn-download{background:var(--yellow-primary);color:var(--bg-primary)}
+.btn-whatsapp{background:#25D366;color:#ffffff}
+.auth-modal .modal{max-width:400px;text-align:center}
+.auth-modal .modal-body{padding:40px 30px}
+.google-btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:14px;background:#ffffff;color:#333;border:2px solid #ddd;border-radius:12px;font-size:1.05rem;font-weight:700;cursor:pointer;transition:all 0.3s;font-family:'Rajdhani',sans-serif}
+.google-btn:hover{border-color:var(--yellow-primary);box-shadow:0 4px 15px rgba(0,0,0,0.3)}
+.google-btn img{width:24px;height:24px}
+.auth-info{margin-top:20px;font-size:0.85rem;color:var(--text-muted)}
+.footer{margin-top:60px;padding:30px 20px;text-align:center;border-top:1px solid var(--border-color);background:var(--bg-secondary)}
+.footer-brand{font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--yellow-primary);margin-bottom:5px}
+.footer p{color:var(--text-muted);font-size:0.85rem}
+.toast-container{position:fixed;top:80px;right:20px;z-index:5000;display:flex;flex-direction:column;gap:10px}
+.toast{padding:12px 20px;background:var(--bg-card);border:1px solid var(--yellow-primary);border-radius:10px;color:var(--text-primary);font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(255,215,0,0.2);animation:toast-in 0.3s ease;min-width:250px}
+.toast.success{border-color:var(--success)}
+.toast.error{border-color:var(--danger)}
+@keyframes toast-in{0%{opacity:0;transform:translateX(100px)}100%{opacity:1;transform:translateX(0)}}
+.loading-spinner{display:flex;align-items:center;justify-content:center;padding:60px}
+.spinner{width:40px;height:40px;border:3px solid var(--border-color);border-top-color:var(--yellow-primary);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:768px){
+.nav-title{font-size:1.1rem}.user-name{display:none}.hero h1{font-size:1.8rem}.hero p{font-size:1rem}
+.products-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.product-img{height:140px}.product-name{font-size:0.95rem}.product-price{font-size:1.1rem}
+.intro-title{font-size:2rem}.nav-btn span{display:none}.nav-btn{padding:8px 10px}
+}
+@media(max-width:480px){
+.products-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+.product-info{padding:10px}.product-img{height:120px}.hero{padding:40px 15px}.hero h1{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<div id="intro-screen">
+<div class="spark-container" id="intro-sparks"></div>
+<img src="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png" class="intro-logo" alt="Ellectra">
+<div class="intro-title">ELLECTRA</div>
+<div class="intro-tagline">&#9889; ELECTRIFYING COMPONENTS &#9889;</div>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+
+<nav class="navbar" id="navbar" style="display:none">
+<a href="#" class="nav-brand">
+<img src="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png" class="nav-logo" alt="Ellectra">
+<span class="nav-title">ELLECTRA</span>
+</a>
+<div class="nav-actions">
+<div id="auth-area">
+<button class="nav-btn" id="login-btn" onclick="showAuthModal()">
+<i class="fas fa-bolt"></i><span>Sign In</span>
+</button>
+</div>
+<button class="nav-btn cart-badge" onclick="toggleCart()">
+<i class="fas fa-shopping-cart"></i>
+<span>Cart</span>
+<div class="cart-count" id="cart-count" style="display:none">0</div>
+</button>
+</div>
+</nav>
+
+<section class="hero" id="hero" style="display:none">
+<div class="hero-bolt">&#9889;</div>
+<h1>ELECTRIFYING COMPONENTS</h1>
+<p>Premium Electronic Components at Shocking Prices</p>
+</section>
+
+<section class="search-section" id="search-section" style="display:none">
+<div class="search-box">
+<i class="fas fa-search" style="color:var(--yellow-dim);padding:10px"></i>
+<input type="text" id="search-input" placeholder="Search components..." oninput="filterProducts()">
+<button onclick="filterProducts()">Search</button>
+</div>
+<div class="category-filters" id="category-filters">
+<button class="cat-btn active" onclick="setCategory('all',this)">All</button>
+</div>
+</section>
+
+<section class="products-section" id="products-section" style="display:none">
+<h2><i class="fas fa-microchip"></i> Components</h2>
+<div class="products-grid" id="products-grid">
+<div class="loading-spinner"><div class="spinner"></div></div>
+</div>
+</section>
+
+<footer class="footer" id="footer" style="display:none">
+<div class="footer-brand">&#9889; ELLECTRA</div>
+<p>&copy; 2025 Ellectra. All rights reserved.</p>
+</footer>
+
+<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cart-sidebar">
+<div class="cart-header">
+<h2>&#9889; Your Cart</h2>
+<button class="cart-close" onclick="toggleCart()">&times;</button>
+</div>
+<div class="cart-items" id="cart-items">
+<div class="cart-empty"><i class="fas fa-shopping-cart"></i><p>Your cart is empty</p></div>
+</div>
+<div class="cart-footer">
+<div class="coupon-section">
+<input type="text" id="coupon-input" placeholder="Enter coupon code" maxlength="20">
+<button onclick="applyCoupon()">Apply</button>
+</div>
+<div class="coupon-msg" id="coupon-msg"></div>
+<div class="cart-summary" id="cart-summary">
+<div class="cart-summary-row"><span>Subtotal</span><span id="subtotal">&#8377;0</span></div>
+<div class="cart-summary-row discount" id="discount-row" style="display:none"><span>Discount (20%)</span><span id="discount-amount">-&#8377;0</span></div>
+<div class="cart-summary-row total"><span>Total</span><span id="total-amount">&#8377;0</span></div>
+</div>
+<button class="checkout-btn" id="checkout-btn" onclick="handleCheckout()" disabled><i class="fas fa-bolt"></i> CHECKOUT</button>
+</div>
+</div>
+
+<div class="modal-overlay auth-modal" id="auth-modal">
+<div class="modal">
+<div class="modal-header"><h2>&#9889; Sign In</h2><button class="modal-close" onclick="closeAuthModal()">&times;</button></div>
+<div class="modal-body">
+<p style="margin-bottom:25px;color:var(--text-secondary)">Sign in to place orders and track your purchases</p>
+<button class="google-btn" onclick="signInWithGoogle()">
+<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+Sign in with Google
+</button>
+<p class="auth-info">&#128274; Your data is secure. We only access your name and email.</p>
+</div>
+</div>
+</div>
+
+<div class="modal-overlay" id="checkout-modal">
+<div class="modal">
+<div class="modal-header"><h2>&#9889; Checkout</h2><button class="modal-close" onclick="closeCheckoutModal()">&times;</button></div>
+<div class="modal-body">
+<div class="form-group"><label>Full Name</label><input type="text" id="cust-name" placeholder="Your full name"></div>
+<div class="form-group"><label>Phone Number</label><input type="tel" id="cust-phone" placeholder="+91 XXXXXXXXXX"><div class="form-note">Required for delivery updates</div></div>
+<div class="form-group"><label>Email</label><input type="email" id="cust-email" readonly></div>
+<div class="form-group"><label>Delivery Address</label><textarea id="cust-address" placeholder="Full delivery address with pincode"></textarea></div>
+<div class="form-group"><label>Notes (Optional)</label><input type="text" id="cust-notes" placeholder="Any special instructions"></div>
+<div id="checkout-summary"></div>
+<button class="checkout-btn" onclick="placeOrder()" id="place-order-btn" style="margin-top:15px"><i class="fas fa-bolt"></i> PLACE ORDER</button>
+</div>
+</div>
+</div>
+
+<div class="modal-overlay receipt-modal" id="receipt-modal">
+<div class="modal" style="max-width:550px">
+<div class="modal-header"><h2>&#9889; Order Confirmed!</h2><button class="modal-close" onclick="closeReceiptModal()">&times;</button></div>
+<div class="modal-body" style="padding:10px">
+<div id="receipt-content"></div>
+<div class="receipt-actions">
+<button class="btn-download" onclick="downloadReceipt()"><i class="fas fa-download"></i> Download</button>
+<button class="btn-whatsapp" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> Share</button>
+</div>
+</div>
+</div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+const firebaseConfig={apiKey:"AIzaSyAJm0fEDPItyL6nBMWzWGQnSAjreDlCOpQ",authDomain:"ellectra-2b95d.firebaseapp.com",projectId:"ellectra-2b95d",storageBucket:"ellectra-2b95d.firebasestorage.app",messagingSenderId:"164410965069",appId:"1:164410965069:web:b86f8fd714f84c27e3f004"};
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.firestore();
+
+let currentUser=null;
+let products=[];
+let cart=[];
+let appliedCoupon=null;
+let currentCategory='all';
+let lastOrderData=null;
+
+const WHATSAPP_NUMBER="916388173447";
+const STORE_NAME="Ellectra";
+const CURRENCY="\u20B9";
+const LOGO_URL="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png";
+
+function createIntroSparks(){
+const container=document.getElementById('intro-sparks');
+const colors=['#ffd700','#ff8c00','#fff700','#ffaa00','#ffc107'];
+for(let i=0;i<60;i++){
+setTimeout(()=>{
+const spark=document.createElement('div');
+spark.className='spark';
+const x=Math.random()*window.innerWidth;
+const y=Math.random()*window.innerHeight;
+const tx=(Math.random()-0.5)*300;
+const ty=(Math.random()-0.5)*300;
+const dur=0.5+Math.random()*1.5;
+const size=2+Math.random()*6;
+const color=colors[Math.floor(Math.random()*colors.length)];
+spark.style.cssText=`left:${x}px;top:${y}px;width:${size}px;height:${size}px;background:${color};box-shadow:0 0 ${size*2}px ${color};--tx:${tx}px;--ty:${ty}px;animation-duration:${dur}s;`;
+container.appendChild(spark);
+setTimeout(()=>spark.remove(),dur*1000);
+},i*50);
+}
+for(let i=0;i<15;i++){
+setTimeout(()=>{
+const line=document.createElement('div');
+line.className='spark-line';
+const x=Math.random()*window.innerWidth;
+const h=30+Math.random()*80;
+const dur=0.8+Math.random()*1.2;
+const color=colors[Math.floor(Math.random()*colors.length)];
+line.style.cssText=`left:${x}px;top:${Math.random()*50}%;height:${h}px;background:linear-gradient(to bottom,transparent,${color},transparent);animation-duration:${dur}s;`;
+container.appendChild(line);
+setTimeout(()=>line.remove(),dur*1000);
+},i*200);
+}
+}
+
+function initIntro(){
+createIntroSparks();
+setTimeout(()=>{
+document.getElementById('intro-screen').classList.add('hidden');
+document.getElementById('navbar').style.display='flex';
+document.getElementById('hero').style.display='block';
+document.getElementById('search-section').style.display='block';
+document.getElementById('products-section').style.display='block';
+document.getElementById('footer').style.display='block';
+},3000);
+}
+
+function showAuthModal(){document.getElementById('auth-modal').classList.add('open')}
+function closeAuthModal(){document.getElementById('auth-modal').classList.remove('open')}
+
+function signInWithGoogle(){
+const provider=new firebase.auth.GoogleAuthProvider();
+auth.signInWithPopup(provider).then((result)=>{
+currentUser=result.user;
+updateAuthUI();
+closeAuthModal();
+showToast('Welcome, '+currentUser.displayName+'!','success');
+saveCustomer(currentUser);
+}).catch((error)=>{
+console.error('Auth error:',error);
+showToast('Sign in failed. Try again.','error');
+});
+}
+
+function signOut(){
+auth.signOut().then(()=>{
+currentUser=null;
+updateAuthUI();
+showToast('Signed out successfully','success');
+});
+}
+
+function updateAuthUI(){
+const authArea=document.getElementById('auth-area');
+if(currentUser){
+const photoURL=currentUser.photoURL||'https://ui-avatars.com/api/?name='+encodeURIComponent(currentUser.displayName)+'&background=ffd700&color=000';
+authArea.innerHTML='<div class="user-info" onclick="signOut()" style="cursor:pointer" title="Click to sign out"><img src="'+photoURL+'" class="user-avatar" alt="avatar" referrerpolicy="no-referrer"><span class="user-name">'+currentUser.displayName.split(' ')[0]+'</span></div>';
+}else{
+authArea.innerHTML='<button class="nav-btn" onclick="showAuthModal()"><i class="fas fa-bolt"></i><span>Sign In</span></button>';
+}
+}
+
+function saveCustomer(user){
+db.collection('customers').doc(user.uid).set({name:user.displayName,email:user.email,photoURL:user.photoURL||'',lastLogin:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});
+}
+
+auth.onAuthStateChanged((user)=>{currentUser=user;updateAuthUI()});
+
+function loadProducts(){
+db.collection('components').orderBy('createdAt','desc').onSnapshot((snapshot)=>{
+products=[];
+const categories=new Set();
+snapshot.forEach((doc)=>{
+const data={id:doc.id,...doc.data()};
+products.push(data);
+if(data.category)categories.add(data.category);
+});
+buildCategoryFilters(categories);
+renderProducts();
+},(error)=>{
+console.error('Error loading products:',error);
+document.getElementById('products-grid').innerHTML='<div class="no-products"><i class="fas fa-exclamation-triangle"></i><p>Failed to load products. Please refresh.</p></div>';
+});
+}
+
+function buildCategoryFilters(categories){
+const container=document.getElementById('category-filters');
+let html='<button class="cat-btn active" onclick="setCategory(\'all\',this)">All</button>';
+categories.forEach(cat=>{html+='<button class="cat-btn" onclick="setCategory(\''+cat+'\',this)">'+cat+'</button>';});
+container.innerHTML=html;
+}
+
+function setCategory(cat,btn){
+currentCategory=cat;
+document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+if(btn)btn.classList.add('active');
+renderProducts();
+}
+
+function filterProducts(){renderProducts()}
+
+function renderProducts(){
+const grid=document.getElementById('products-grid');
+const search=document.getElementById('search-input').value.toLowerCase();
+let filtered=products.filter(p=>{
+const matchSearch=!search||p.name.toLowerCase().includes(search)||(p.category&&p.category.toLowerCase().includes(search))||(p.description&&p.description.toLowerCase().includes(search));
+const matchCategory=currentCategory==='all'||p.category===currentCategory;
+return matchSearch&&matchCategory;
+});
+if(filtered.length===0){
+grid.innerHTML='<div class="no-products"><i class="fas fa-search"></i><p>No components found</p></div>';
+return;
+}
+grid.innerHTML=filtered.map(p=>{
+const inStock=p.stock===undefined||p.stock>0;
+const cartItem=cart.find(c=>c.id===p.id);
+return '<div class="product-card"><div class="product-img"><img src="'+(p.image||'https://via.placeholder.com/200x200/1a1a2e/ffd700?text=No+Image')+'" alt="'+p.name+'" loading="lazy" onerror="this.src=\'https://via.placeholder.com/200x200/1a1a2e/ffd700?text=No+Image\'"><span class="product-stock '+(inStock?'stock-in':'stock-out')+'">'+(inStock?(p.stock!==undefined?p.stock+' left':'In Stock'):'Out of Stock')+'</span></div><div class="product-info"><div class="product-category">'+(p.category||'Component')+'</div><div class="product-name">'+p.name+'</div><div class="product-price">'+CURRENCY+parseFloat(p.price).toFixed(2)+'</div></div><button class="add-cart-btn" onclick="addToCart(\''+p.id+'\')" '+(inStock?'':'disabled')+'>'+(!inStock?'<i class="fas fa-times"></i> Out of Stock':(cartItem?'<i class="fas fa-check"></i> In Cart ('+cartItem.qty+')':'<i class="fas fa-cart-plus"></i> Add to Cart'))+'</button></div>';
+}).join('');
+}
+
+function addToCart(productId){
+const product=products.find(p=>p.id===productId);
+if(!product)return;
+const existing=cart.find(c=>c.id===productId);
+if(existing){
+if(product.stock!==undefined&&existing.qty>=product.stock){showToast('Maximum stock reached','error');return;}
+existing.qty++;
+}else{cart.push({id:productId,qty:1,...product})}
+updateCart();renderProducts();showToast(product.name+' added to cart','success');
+}
+
+function removeFromCart(productId){cart=cart.filter(c=>c.id!==productId);updateCart();renderProducts()}
+
+function changeQty(productId,delta){
+const item=cart.find(c=>c.id===productId);
+if(!item)return;
+item.qty+=delta;
+if(item.qty<=0){removeFromCart(productId);return}
+const product=products.find(p=>p.id===productId);
+if(product&&product.stock!==undefined&&item.qty>product.stock){item.qty=product.stock;showToast('Maximum stock reached','error')}
+updateCart();
+}
+
+function updateCart(){
+const cartItemsEl=document.getElementById('cart-items');
+const cartCountEl=document.getElementById('cart-count');
+const totalCount=cart.reduce((sum,c)=>sum+c.qty,0);
+cartCountEl.textContent=totalCount;
+cartCountEl.style.display=totalCount>0?'flex':'none';
+if(cart.length===0){
+cartItemsEl.innerHTML='<div class="cart-empty"><i class="fas fa-shopping-cart"></i><p>Your cart is empty</p></div>';
+appliedCoupon=null;
+document.getElementById('coupon-msg').className='coupon-msg';
+document.getElementById('coupon-msg').textContent='';
+document.getElementById('coupon-input').value='';
+}else{
+cartItemsEl.innerHTML=cart.map(item=>'<div class="cart-item"><div class="cart-item-img"><img src="'+(item.image||'https://via.placeholder.com/60/1a1a2e/ffd700?text=?')+'" alt="'+item.name+'"></div><div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div><div class="cart-item-price">'+CURRENCY+parseFloat(item.price).toFixed(2)+'</div><div class="cart-item-qty"><button class="qty-btn" onclick="changeQty(\''+item.id+'\',-1)">&minus;</button><span>'+item.qty+'</span><button class="qty-btn" onclick="changeQty(\''+item.id+'\',1)">+</button></div></div><button class="cart-item-remove" onclick="removeFromCart(\''+item.id+'\')"><i class="fas fa-trash"></i></button></div>').join('');
+}
+updateCartTotals();saveCartLocal();
+}
+
+function updateCartTotals(){
+const subtotal=cart.reduce((sum,c)=>sum+(parseFloat(c.price)*c.qty),0);
+let discount=0;
+if(appliedCoupon){discount=subtotal*0.20}
+const total=subtotal-discount;
+document.getElementById('subtotal').textContent=CURRENCY+subtotal.toFixed(2);
+document.getElementById('discount-row').style.display=appliedCoupon?'flex':'none';
+document.getElementById('discount-amount').textContent='-'+CURRENCY+discount.toFixed(2);
+document.getElementById('total-amount').textContent=CURRENCY+total.toFixed(2);
+document.getElementById('checkout-btn').disabled=cart.length===0;
+}
+
+function toggleCart(){
+document.getElementById('cart-sidebar').classList.toggle('open');
+document.getElementById('cart-overlay').classList.toggle('open');
+}
+
+function saveCartLocal(){
+localStorage.setItem('ellectra_cart',JSON.stringify(cart));
+localStorage.setItem('ellectra_coupon',appliedCoupon?JSON.stringify(appliedCoupon):'');
+}
+
+function loadCartLocal(){
+try{
+const saved=localStorage.getItem('ellectra_cart');
+if(saved)cart=JSON.parse(saved);
+const savedCoupon=localStorage.getItem('ellectra_coupon');
+if(savedCoupon)appliedCoupon=JSON.parse(savedCoupon);
+}catch(e){}
+updateCart();
+}
+
+async function applyCoupon(){
+const code=document.getElementById('coupon-input').value.trim().toUpperCase();
+const msgEl=document.getElementById('coupon-msg');
+if(!code){msgEl.className='coupon-msg error';msgEl.textContent='Please enter a coupon code';return}
+if(cart.length===0){msgEl.className='coupon-msg error';msgEl.textContent='Add items to cart first';return}
+try{
+const snapshot=await db.collection('coupons').where('code','==',code).get();
+if(snapshot.empty){msgEl.className='coupon-msg error';msgEl.textContent='Invalid coupon code';appliedCoupon=null;updateCartTotals();return}
+const couponDoc=snapshot.docs[0];
+const couponData=couponDoc.data();
+if(couponData.used){msgEl.className='coupon-msg error';msgEl.textContent='This coupon has already been used';appliedCoupon=null;updateCartTotals();return}
+appliedCoupon={id:couponDoc.id,...couponData};
+msgEl.className='coupon-msg success';
+msgEl.textContent='Coupon applied! 20% discount activated!';
+updateCartTotals();saveCartLocal();showToast('Coupon applied! 20% OFF','success');
+}catch(error){
+console.error('Coupon error:',error);
+msgEl.className='coupon-msg error';
+msgEl.textContent='Error validating coupon. Try again.';
+}
+}
+
+function handleCheckout(){
+if(!currentUser){showAuthModal();showToast('Please sign in to checkout','error');return}
+if(cart.length===0)return;
+toggleCart();
+document.getElementById('cust-name').value=currentUser.displayName||'';
+document.getElementById('cust-email').value=currentUser.email||'';
+const subtotal=cart.reduce((sum,c)=>sum+(parseFloat(c.price)*c.qty),0);
+const discount=appliedCoupon?subtotal*0.20:0;
+const total=subtotal-discount;
+let s='<div style="background:var(--bg-card);padding:15px;border-radius:10px;margin-top:10px"><h3 style="color:var(--yellow-primary);font-family:Orbitron,sans-serif;font-size:0.9rem;margin-bottom:10px">Order Summary</h3>';
+cart.forEach(item=>{s+='<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.9rem"><span>'+item.name+' x '+item.qty+'</span><span>'+CURRENCY+(parseFloat(item.price)*item.qty).toFixed(2)+'</span></div>';});
+s+='<div style="border-top:1px solid var(--border-color);margin-top:8px;padding-top:8px"><div style="display:flex;justify-content:space-between"><span>Subtotal</span><span>'+CURRENCY+subtotal.toFixed(2)+'</span></div>';
+if(appliedCoupon){s+='<div style="display:flex;justify-content:space-between;color:var(--success)"><span>Discount (20%)</span><span>-'+CURRENCY+discount.toFixed(2)+'</span></div>';}
+s+='<div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.1rem;color:var(--yellow-primary);margin-top:5px"><span>Total</span><span>'+CURRENCY+total.toFixed(2)+'</span></div></div></div>';
+document.getElementById('checkout-summary').innerHTML=s;
+document.getElementById('checkout-modal').classList.add('open');
+}
+
+function closeCheckoutModal(){document.getElementById('checkout-modal').classList.remove('open')}
+
+async function placeOrder(){
+const name=document.getElementById('cust-name').value.trim();
+const phone=document.getElementById('cust-phone').value.trim();
+const email=document.getElementById('cust-email').value.trim();
+const address=document.getElementById('cust-address').value.trim();
+const notes=document.getElementById('cust-notes').value.trim();
+if(!name||!phone||!address){showToast('Please fill all required fields','error');return}
+if(!/^[\+]?[0-9]{10,15}$/.test(phone.replace(/\s/g,''))){showToast('Please enter a valid phone number','error');return}
+const btn=document.getElementById('place-order-btn');
+btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Processing...';
+try{
+const subtotal=cart.reduce((sum,c)=>sum+(parseFloat(c.price)*c.qty),0);
+const discount=appliedCoupon?subtotal*0.20:0;
+const total=subtotal-discount;
+const receiptId='ELC-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).substr(2,4).toUpperCase();
+const orderData={receiptId:receiptId,customerName:name,customerPhone:phone,customerEmail:email,customerAddress:address,customerNotes:notes,customerUid:currentUser.uid,
+items:cart.map(c=>({id:c.id,name:c.name,price:parseFloat(c.price),qty:c.qty,category:c.category||'',image:c.image||''})),
+subtotal:subtotal,couponCode:appliedCoupon?appliedCoupon.code:null,couponId:appliedCoupon?appliedCoupon.id:null,discount:discount,totalAmount:total,status:'pending',orderedAt:firebase.firestore.FieldValue.serverTimestamp(),orderDate:new Date().toISOString()};
+await db.collection('orders').add(orderData);
+if(appliedCoupon){await db.collection('coupons').doc(appliedCoupon.id).update({used:true,usedBy:currentUser.email,usedAt:firebase.firestore.FieldValue.serverTimestamp()})}
+for(const item of cart){const prod=products.find(p=>p.id===item.id);if(prod&&prod.stock!==undefined){await db.collection('components').doc(item.id).update({stock:firebase.firestore.FieldValue.increment(-item.qty)})}}
+lastOrderData={...orderData,orderDate:new Date().toISOString()};
+closeCheckoutModal();showReceipt(lastOrderData);sendWhatsAppBill(lastOrderData);
+cart=[];appliedCoupon=null;updateCart();renderProducts();
+localStorage.removeItem('ellectra_cart');localStorage.removeItem('ellectra_coupon');
+showToast('Order placed successfully!','success');
+}catch(error){console.error('Order error:',error);showToast('Failed to place order. Please try again.','error');}
+finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-bolt"></i> PLACE ORDER';}
+}
+
+function showReceipt(order){
+const date=new Date(order.orderDate);
+const dateStr=date.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+const timeStr=date.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+let itemsHTML='';
+order.items.forEach(item=>{itemsHTML+='<tr><td>'+item.name+'</td><td style="text-align:center">'+item.qty+'</td><td class="amt">'+CURRENCY+item.price.toFixed(2)+'</td><td class="amt">'+CURRENCY+(item.price*item.qty).toFixed(2)+'</td></tr>';});
+const receiptHTML='<div class="receipt" id="receipt-printable"><div class="receipt-header"><img src="'+LOGO_URL+'" class="receipt-logo" alt="Ellectra"><div class="receipt-store">'+STORE_NAME.toUpperCase()+'</div><div style="font-size:0.8rem;color:#777">Electrifying Components Store</div><div class="receipt-id" style="margin-top:8px"><strong>Receipt:</strong> '+order.receiptId+'<br><strong>Date:</strong> '+dateStr+' at '+timeStr+'</div></div><div style="margin:10px 0;font-size:0.85rem"><div><strong>Customer:</strong> '+order.customerName+'</div><div><strong>Phone:</strong> '+order.customerPhone+'</div><div><strong>Email:</strong> '+order.customerEmail+'</div><div><strong>Address:</strong> '+order.customerAddress+'</div></div><table class="receipt-table"><thead><tr><th>Item</th><th style="text-align:center">Qty</th><th class="amt">Price</th><th class="amt">Total</th></tr></thead><tbody>'+itemsHTML+'</tbody></table><div class="receipt-totals"><div><span>Subtotal:</span><span>'+CURRENCY+order.subtotal.toFixed(2)+'</span></div>'+(order.couponCode?'<div style="color:green"><span>Discount (20% - '+order.couponCode+'):</span><span>-'+CURRENCY+order.discount.toFixed(2)+'</span></div>':'')+'<div class="grand"><span>TOTAL:</span><span>'+CURRENCY+order.totalAmount.toFixed(2)+'</span></div></div><div class="receipt-footer"><div>Thank you for shopping at '+STORE_NAME+'!</div><div style="margin-top:5px">Status: Order Received | Payment: Cash on Delivery</div></div></div>';
+document.getElementById('receipt-content').innerHTML=receiptHTML;
+document.getElementById('receipt-modal').classList.add('open');
+}
+
+function closeReceiptModal(){document.getElementById('receipt-modal').classList.remove('open')}
+
+function downloadReceipt(){
+const element=document.getElementById('receipt-printable');
+html2canvas(element,{backgroundColor:'#ffffff',scale:2,useCORS:true,allowTaint:true}).then(canvas=>{
+const link=document.createElement('a');
+link.download='Ellectra_Receipt_'+(lastOrderData?lastOrderData.receiptId:'order')+'.png';
+link.href=canvas.toDataURL('image/png');link.click();
+showToast('Receipt downloaded!','success');
+}).catch(err=>{console.error('Download error:',err);window.print();});
+}
+
+function sendWhatsAppBill(order){
+let msg='*NEW ORDER - ELLECTRA*\n\n';
+msg+='Receipt: '+order.receiptId+'\n';
+msg+='Date: '+new Date(order.orderDate).toLocaleString('en-IN')+'\n\n';
+msg+='Customer: '+order.customerName+'\n';
+msg+='Phone: '+order.customerPhone+'\n';
+msg+='Email: '+order.customerEmail+'\n';
+msg+='Address: '+order.customerAddress+'\n';
+if(order.customerNotes)msg+='Notes: '+order.customerNotes+'\n';
+msg+='\n--- ORDER ITEMS ---\n\n';
+order.items.forEach((item,i)=>{msg+=(i+1)+'. '+item.name+'\n   Qty: '+item.qty+' x '+CURRENCY+item.price.toFixed(2)+' = '+CURRENCY+(item.price*item.qty).toFixed(2)+'\n\n';});
+msg+='-------------------\n';
+msg+='Subtotal: '+CURRENCY+order.subtotal.toFixed(2)+'\n';
+if(order.couponCode){msg+='Coupon: '+order.couponCode+' (20% OFF)\n';msg+='Discount: -'+CURRENCY+order.discount.toFixed(2)+'\n';}
+msg+='TOTAL: '+CURRENCY+order.totalAmount.toFixed(2)+'\n\n';
+msg+='Status: Pending';
+const url='https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(msg);
+window.open(url,'_blank');
+}
+
+function shareWhatsApp(){if(lastOrderData)sendWhatsAppBill(lastOrderData)}
+
+function showToast(message,type){
+type=type||'success';
+const container=document.getElementById('toast-container');
+const toast=document.createElement('div');
+toast.className='toast '+type;
+const icon=type==='success'?'fa-check-circle':'fa-exclamation-circle';
+const color=type==='success'?'var(--success)':'var(--danger)';
+toast.innerHTML='<i class="fas '+icon+'" style="color:'+color+'"></i>'+message;
+container.appendChild(toast);
+setTimeout(()=>{toast.style.opacity='0';toast.style.transform='translateX(100px)';toast.style.transition='all 0.3s ease';setTimeout(()=>toast.remove(),300);},3000);
+}
+
+window.addEventListener('DOMContentLoaded',()=>{initIntro();loadProducts();loadCartLocal()});
+</script>
+</body>
+</html>
