@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ellectra - Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg-primary:#ffffff;--bg-secondary:#f5f5f0;--bg-card:#fff;--card-border:#e0e0d8;--card-shadow:0 2px 15px rgba(0,0,0,0.08);--yellow:#FFD700;--yellow-dark:#e6c200;--yellow-glow:rgba(255,215,0,0.3);--black:#000;--text-primary:#1a1a1a;--text-secondary:#555;--text-muted:#999;--danger:#e74c3c;--success:#27ae60;--border-color:#e0e0d8}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh}
+.navbar{position:fixed;top:0;left:0;right:0;height:70px;background:var(--black);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:1000;box-shadow:0 2px 20px rgba(0,0,0,0.3)}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-logo{width:40px;height:40px}
+.nav-title{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:700;color:var(--yellow)}
+.nav-actions{display:flex;gap:12px}
+.nav-btn{background:transparent;border:1px solid var(--yellow-dark);color:var(--yellow);padding:8px 16px;border-radius:8px;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:600;transition:all 0.3s;display:flex;align-items:center;gap:6px;text-decoration:none}
+.nav-btn:hover{background:var(--yellow);color:var(--black)}
+.hero{margin-top:70px;padding:50px 20px;text-align:center;background:var(--black)}
+.hero h1{font-family:'Orbitron',sans-serif;font-size:2rem;color:var(--yellow);text-shadow:0 0 20px var(--yellow-glow)}
+.hero p{color:#aaa;font-size:1.1rem;margin-top:5px}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:25px;max-width:1200px;margin:40px auto;padding:0 20px}
+.service-card{background:var(--bg-card);border:2px solid var(--border-color);border-radius:16px;overflow:hidden;transition:all 0.3s;box-shadow:var(--card-shadow)}
+.service-card:hover{transform:translateY(-5px);border-color:var(--yellow);box-shadow:0 10px 35px rgba(255,215,0,0.15)}
+.service-img{height:200px;overflow:hidden;background:var(--bg-secondary);display:flex;align-items:center;justify-content:center}
+.service-img img{width:100%;height:100%;object-fit:cover}
+.service-info{padding:20px}
+.service-name{font-size:1.2rem;font-weight:700;margin-bottom:5px}
+.service-desc{color:var(--text-secondary);font-size:0.9rem;margin-bottom:10px}
+.service-price{font-family:'Orbitron',sans-serif;font-size:1.2rem;font-weight:700;color:var(--black);margin-bottom:10px}
+.book-btn{width:100%;padding:12px;background:var(--yellow);border:none;border-radius:0 0 14px 14px;color:var(--black);font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.3s}
+.book-btn:hover{background:var(--yellow-dark)}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:3000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg-card);border:2px solid var(--border-color);border-radius:20px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.modal-header{padding:20px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--border-color);background:var(--black);border-radius:18px 18px 0 0}
+.modal-header h2{font-family:'Orbitron',sans-serif;font-size:1.1rem;color:var(--yellow)}
+.modal-close{background:none;border:none;color:var(--yellow);font-size:1.5rem;cursor:pointer}
+.modal-body{padding:25px}
+.form-group{margin-bottom:15px}
+.form-group label{display:block;margin-bottom:5px;font-size:0.9rem;font-weight:600;color:var(--text-secondary)}
+.form-group input,.form-group textarea{width:100%;padding:12px;background:var(--bg-secondary);border:2px solid var(--border-color);color:var(--text-primary);border-radius:10px;font-family:'Rajdhani',sans-serif;font-size:1rem}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--yellow);outline:none}
+.form-group textarea{resize:vertical;min-height:80px}
+.submit-btn{width:100%;padding:14px;background:var(--yellow);border:none;border-radius:12px;color:var(--black);font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.3s}
+.submit-btn:hover{background:var(--yellow-dark)}
+.no-services{text-align:center;padding:60px;color:var(--text-muted);grid-column:1/-1}
+.footer{margin-top:60px;padding:30px 20px;text-align:center;background:var(--black)}
+.footer-brand{font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--yellow);margin-bottom:5px}
+.footer p{color:#888;font-size:0.85rem}
+.toast-container{position:fixed;top:80px;right:20px;z-index:5000;display:flex;flex-direction:column;gap:10px}
+.toast{padding:12px 20px;background:var(--black);border:2px solid var(--yellow);border-radius:10px;color:#fff;font-weight:600;display:flex;align-items:center;gap:10px;animation:toast-in 0.3s ease;min-width:250px}
+.toast.success{border-color:var(--success)}.toast.error{border-color:var(--danger)}
+@keyframes toast-in{0%{opacity:0;transform:translateX(100px)}100%{opacity:1;transform:translateX(0)}}
+.spinner{width:40px;height:40px;border:3px solid #ddd;border-top-color:var(--yellow);border-radius:50%;animation:spin 0.8s linear infinite;margin:60px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:768px){.nav-btn span{display:none}.nav-btn{padding:8px 10px}.services-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="toast-container" id="toast-container"></div>
+<nav class="navbar"><a href="index.html" class="nav-brand"><img src="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png" class="nav-logo"><span class="nav-title">ELLECTRA</span></a><div class="nav-actions"><a href="index.html" class="nav-btn"><i class="fas fa-home"></i><span>Home</span></a><a href="shop.html" class="nav-btn"><i class="fas fa-store"></i><span>Shop</span></a><a href="project.html" class="nav-btn"><i class="fas fa-project-diagram"></i><span>Projects</span></a></div></nav>
+<section class="hero"><h1>⚡ OUR SERVICES</h1><p>Professional Electronics Solutions</p></section>
+<div class="services-grid" id="services-grid"><div class="spinner"></div></div>
+<footer class="footer"><div class="footer-brand">⚡ ELLECTRA</div><p>© 2025 Ellectra</p></footer>
+
+<div class="modal-overlay" id="book-modal"><div class="modal"><div class="modal-header"><h2>⚡ Book Service</h2><button class="modal-close" onclick="closeBookModal()">×</button></div><div class="modal-body">
+<div style="margin-bottom:15px;padding:10px;background:var(--bg-secondary);border-radius:8px"><strong id="book-service-name"></strong></div>
+<div class="form-group"><label>Your Name *</label><input type="text" id="book-name"></div>
+<div class="form-group"><label>Phone *</label><input type="tel" id="book-phone" placeholder="+91 XXXXXXXXXX"></div>
+<div class="form-group"><label>Email</label><input type="email" id="book-email"></div>
+<div class="form-group"><label>Address</label><input type="text" id="book-address"></div>
+<div class="form-group"><label>Requirements / Details *</label><textarea id="book-details" placeholder="Describe what you need..."></textarea></div>
+<button class="submit-btn" onclick="submitBooking()" id="book-btn"><i class="fas fa-paper-plane"></i> SUBMIT REQUEST</button>
+</div></div></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+firebase.initializeApp({apiKey:"AIzaSyAJm0fEDPItyL6nBMWzWGQnSAjreDlCOpQ",authDomain:"ellectra-2b95d.firebaseapp.com",projectId:"ellectra-2b95d",storageBucket:"ellectra-2b95d.firebasestorage.app",messagingSenderId:"164410965069",appId:"1:164410965069:web:b86f8fd714f84c27e3f004"});
+const db=firebase.firestore(),WA="916381733447";
+let selectedService=null;
+
+db.collection('services').orderBy('createdAt','desc').onSnapshot(snap=>{
+const g=document.getElementById('services-grid');
+if(snap.empty){g.innerHTML='<div class="no-services"><i class="fas fa-tools" style="font-size:3rem;color:var(--yellow-dark);margin-bottom:10px;display:block"></i><p>No services available yet. Check back soon!</p></div>';return;}
+g.innerHTML='';
+snap.forEach(doc=>{const s={id:doc.id,...doc.data()};
+g.innerHTML+=`<div class="service-card"><div class="service-img"><img src="${s.image||'https://via.placeholder.com/400x200/f5f5f0/1a1a1a?text=Service'}" onerror="this.src='https://via.placeholder.com/400x200/f5f5f0/1a1a1a?text=Service'"></div><div class="service-info"><div class="service-name">${s.name}</div><div class="service-desc">${s.description||''}</div>${s.price?`<div class="service-price">₹${parseFloat(s.price).toFixed(2)}</div>`:''}</div><button class="book-btn" onclick='openBookModal(${JSON.stringify(s).replace(/'/g,"&#39;")})'>⚡ Book This Service</button></div>`;
+});});
+
+function openBookModal(s){selectedService=s;document.getElementById('book-service-name').textContent=s.name;document.getElementById('book-modal').classList.add('open');}
+function closeBookModal(){document.getElementById('book-modal').classList.remove('open');}
+
+async function submitBooking(){
+const n=document.getElementById('book-name').value.trim(),p=document.getElementById('book-phone').value.trim(),e=document.getElementById('book-email').value.trim(),a=document.getElementById('book-address').value.trim(),d=document.getElementById('book-details').value.trim();
+if(!n||!p||!d){showToast('Fill required fields','error');return;}
+const btn=document.getElementById('book-btn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Submitting...';
+try{
+const data={serviceName:selectedService.name,serviceId:selectedService.id,customerName:n,customerPhone:p,customerEmail:e,customerAddress:a,details:d,status:'pending',createdAt:firebase.firestore.FieldValue.serverTimestamp()};
+await db.collection('serviceRequests').add(data);
+let m='*SERVICE REQUEST - ELLECTRA*\n\nService: '+selectedService.name+'\n\nCustomer: '+n+'\nPhone: '+p+'\nEmail: '+e+'\nAddress: '+a+'\n\nDetails:\n'+d;
+window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(m),'_blank');
+closeBookModal();document.getElementById('book-name').value='';document.getElementById('book-phone').value='';document.getElementById('book-details').value='';
+showToast('Request submitted!','success');
+}catch(err){showToast('Error','error');}
+finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> SUBMIT REQUEST';}
+}
+
+function showToast(msg,type='success'){const c=document.getElementById('toast-container'),t=document.createElement('div');t.className='toast '+type;t.innerHTML='<i class="fas '+(type==='success'?'fa-check-circle':'fa-exclamation-circle')+'" style="color:'+(type==='success'?'var(--success)':'var(--danger)')+'"></i>'+msg;c.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(100px)';t.style.transition='all 0.3s';setTimeout(()=>t.remove(),300);},3000);}
+</script>
+</body>
+</html>
