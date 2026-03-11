@@ -34,6 +34,7 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 .conditional.show{display:block}
 .submit-btn{width:100%;padding:14px;background:var(--yellow);border:none;border-radius:12px;color:var(--black);font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.3s;margin-top:10px}
 .submit-btn:hover{background:var(--yellow-dark)}
+.submit-btn:disabled{background:#ccc;cursor:not-allowed}
 .footer{margin-top:60px;padding:30px 20px;text-align:center;background:var(--black)}
 .footer-brand{font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--yellow);margin-bottom:5px}
 .footer p{color:#888;font-size:0.85rem}
@@ -46,16 +47,22 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 </head>
 <body>
 <div class="toast-container" id="toast-container"></div>
+
 <nav class="navbar"><a href="index.html" class="nav-brand"><img src="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png" class="nav-logo"><span class="nav-title">ELLECTRA</span></a><div class="nav-actions"><a href="index.html" class="nav-btn"><i class="fas fa-home"></i><span>Home</span></a><a href="shop.html" class="nav-btn"><i class="fas fa-store"></i><span>Shop</span></a><a href="service.html" class="nav-btn"><i class="fas fa-tools"></i><span>Services</span></a></div></nav>
+
 <section class="hero"><h1>⚡ PROJECT INQUIRY</h1><p>Custom Electronics Projects for College & Companies</p></section>
+
 <div class="form-container">
 <div class="form-card">
 <h3><i class="fas fa-project-diagram"></i> Submit Your Project Request</h3>
+
 <div class="form-row">
 <div class="form-group"><label>Full Name *</label><input type="text" id="proj-name"></div>
 <div class="form-group"><label>Phone Number *</label><input type="tel" id="proj-phone" placeholder="+91 XXXXXXXXXX"></div>
 </div>
+
 <div class="form-group"><label>Email *</label><input type="email" id="proj-email"></div>
+
 <div class="form-group"><label>You are from *</label>
 <select id="proj-type" onchange="toggleType()">
 <option value="">Select</option>
@@ -63,20 +70,25 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 <option value="company">Company / Organization</option>
 </select>
 </div>
+
 <div class="conditional" id="college-fields">
 <div class="form-group"><label>College / University Name *</label><input type="text" id="proj-college"></div>
 <div class="form-group"><label>Department *</label><input type="text" id="proj-department" placeholder="e.g. ECE, CSE, EEE"></div>
 </div>
+
 <div class="conditional" id="company-fields">
 <div class="form-group"><label>Company Name *</label><input type="text" id="proj-company"></div>
 <div class="form-group"><label>Company Industry / Domain</label><input type="text" id="proj-industry" placeholder="e.g. IoT, Automation, Healthcare"></div>
 <div class="form-group"><label>Your Role / Designation</label><input type="text" id="proj-role"></div>
 </div>
+
 <div class="form-group"><label>Project Title *</label><input type="text" id="proj-title" placeholder="Brief title of your project"></div>
 <div class="form-group"><label>Project Description / Requirements *</label><textarea id="proj-desc" placeholder="Describe in detail what you need built, features required, timeline, budget range etc..."></textarea></div>
+
 <button class="submit-btn" onclick="submitProject()" id="proj-btn"><i class="fas fa-paper-plane"></i> SUBMIT PROJECT REQUEST</button>
 </div>
 </div>
+
 <footer class="footer"><div class="footer-brand">⚡ ELLECTRA</div><p>© 2025 Ellectra</p></footer>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
@@ -89,21 +101,34 @@ function toggleType(){const v=document.getElementById('proj-type').value;documen
 
 async function submitProject(){
 const n=document.getElementById('proj-name').value.trim(),p=document.getElementById('proj-phone').value.trim(),e=document.getElementById('proj-email').value.trim(),type=document.getElementById('proj-type').value,title=document.getElementById('proj-title').value.trim(),desc=document.getElementById('proj-desc').value.trim();
+
 if(!n||!p||!e||!type||!title||!desc){showToast('Fill all required fields','error');return;}
+
 const btn=document.getElementById('proj-btn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
 try{
 const data={name:n,phone:p,email:e,type,title,description:desc,status:'pending',createdAt:firebase.firestore.FieldValue.serverTimestamp()};
+
 if(type==='college'){data.collegeName=document.getElementById('proj-college').value.trim();data.department=document.getElementById('proj-department').value.trim();if(!data.collegeName||!data.department){showToast('Fill college details','error');btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> SUBMIT PROJECT REQUEST';return;}}
+
 if(type==='company'){data.companyName=document.getElementById('proj-company').value.trim();data.industry=document.getElementById('proj-industry').value.trim();data.role=document.getElementById('proj-role').value.trim();if(!data.companyName){showToast('Fill company name','error');btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> SUBMIT PROJECT REQUEST';return;}}
+
 await db.collection('projectRequests').add(data);
+
 let m='*PROJECT REQUEST - ELLECTRA*\n\nName: '+n+'\nPhone: '+p+'\nEmail: '+e+'\nType: '+type.toUpperCase()+'\n';
 if(type==='college')m+='College: '+data.collegeName+'\nDept: '+data.department+'\n';
 if(type==='company')m+='Company: '+data.companyName+'\nIndustry: '+(data.industry||'N/A')+'\nRole: '+(data.role||'N/A')+'\n';
 m+='\nProject: '+title+'\n\nDetails:\n'+desc;
+
 window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(m),'_blank');
-showToast('Request submitted! ⚡','success');
+
+showToast('Request submitted! ✅','success');
 document.getElementById('proj-name').value='';document.getElementById('proj-phone').value='';document.getElementById('proj-email').value='';document.getElementById('proj-type').value='';document.getElementById('proj-title').value='';document.getElementById('proj-desc').value='';toggleType();
-}catch(err){showToast('Error submitting','error');}
+
+}catch(err){
+console.error('Submit error:',err);
+showToast('Error: '+err.message,'error');
+}
 finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> SUBMIT PROJECT REQUEST';}
 }
 
