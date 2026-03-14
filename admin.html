@@ -103,8 +103,10 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);mi
 .coupon-card.used .coupon-code{color:var(--danger);text-decoration:line-through}
 .coupon-badge{font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:700}
 .badge-active{background:#d4edda;color:#155724}.badge-used{background:#f8d7da;color:#721c24}
-.generate-btn{display:flex;align-items:center;gap:8px;padding:12px 24px;background:var(--yellow);border:none;border-radius:10px;color:var(--black);font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;margin-bottom:20px}
+.coupon-discount-info{font-size:0.7rem;color:var(--ts);margin-top:2px}
+.generate-btn{display:flex;align-items:center;gap:8px;padding:12px 24px;background:var(--yellow);border:none;border-radius:10px;color:var(--black);font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;margin-bottom:10px}
 .generate-btn:hover{background:var(--yd)}
+.generate-btn:disabled{background:#ccc;cursor:not-allowed}
 .download-coupons{background:transparent;border:2px solid var(--yd);color:var(--black);padding:10px 20px;border-radius:8px;cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:600;margin-left:10px}
 .edit-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:3000;display:none;align-items:center;justify-content:center;padding:20px}
 .edit-modal.open{display:flex}
@@ -123,21 +125,24 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);mi
 </head>
 <body>
 <div class="toast-container" id="toast-container"></div>
+
 <div id="login-screen">
 <div class="login-card">
 <img src="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png" class="login-logo">
 <div class="login-title">ADMIN PANEL</div>
-<div class="login-subtitle">⚡ Ellectra Management Console</div>
+<div class="login-subtitle">Ellectra Management Console</div>
 <input type="password" class="login-input" id="admin-password" placeholder="Enter Admin Password" onkeypress="if(event.key==='Enter')adminLogin()">
 <button class="login-btn" onclick="adminLogin()"><i class="fas fa-lock"></i> ACCESS PANEL</button>
-<div class="login-error" id="login-error">❌ Invalid password</div>
+<div class="login-error" id="login-error">Invalid password</div>
 </div>
 </div>
+
 <div id="admin-panel">
 <div class="admin-header">
 <div class="admin-brand"><img src="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png"><span>ELLECTRA ADMIN</span></div>
 <button class="admin-logout" onclick="adminLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
 </div>
+
 <div class="admin-tabs">
 <button class="tab-btn active" onclick="switchTab('dashboard',this)"><i class="fas fa-chart-line"></i> Dashboard</button>
 <button class="tab-btn" onclick="switchTab('add-component',this)"><i class="fas fa-plus-circle"></i> Add Component</button>
@@ -153,7 +158,7 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);mi
 
 <!-- DASHBOARD -->
 <div class="tab-content active" id="tab-dashboard">
-<h2 style="font-family:'Orbitron',sans-serif;margin-bottom:20px">📊 Dashboard</h2>
+<h2 style="font-family:'Orbitron',sans-serif;margin-bottom:20px">Dashboard</h2>
 <div class="stat-cards">
 <div class="stat-card"><div class="stat-icon" style="background:rgba(255,215,0,0.15);color:var(--yd)"><i class="fas fa-microchip"></i></div><div class="stat-value" id="stat-products">0</div><div class="stat-label">Components</div></div>
 <div class="stat-card"><div class="stat-icon" style="background:rgba(39,174,96,0.1);color:var(--success)"><i class="fas fa-shopping-bag"></i></div><div class="stat-value" id="stat-orders">0</div><div class="stat-label">Orders</div></div>
@@ -222,11 +227,26 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);mi
 <!-- COUPONS -->
 <div class="tab-content" id="tab-coupons">
 <h2 style="font-family:'Orbitron',sans-serif;margin-bottom:20px"><i class="fas fa-ticket-alt" style="color:var(--yd)"></i> Coupon Codes</h2>
-<div class="stat-cards" id="coupon-stats" style="margin-bottom:20px"></div>
-<div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:20px">
-<button class="generate-btn" onclick="generateCoupons()" id="gen-btn"><i class="fas fa-bolt"></i> Generate 825 Coupons</button>
-<button class="download-coupons" onclick="downloadCoupons()"><i class="fas fa-download"></i> Download</button>
+
+<div style="background:var(--bg2);border:2px solid var(--border);border-radius:12px;padding:15px;margin-bottom:20px">
+<h4 style="color:var(--black);margin-bottom:8px"><i class="fas fa-info-circle" style="color:var(--yd)"></i> Coupon Rules</h4>
+<div style="font-size:0.9rem;color:var(--ts)">
+<div>• Code: <strong style="font-family:'Share Tech Mono',monospace;color:var(--black)">santha2026</strong> (500 identical coupons)</div>
+<div>• <strong>10% OFF</strong> on orders above ₹1,000</div>
+<div>• <strong>12% OFF</strong> on orders above ₹2,000</div>
+<div>• Each coupon can only be used once</div>
 </div>
+</div>
+
+<div class="stat-cards" id="coupon-stats" style="margin-bottom:20px"></div>
+
+<div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:20px">
+<button class="generate-btn" onclick="generateCoupons()" id="gen-btn"><i class="fas fa-bolt"></i> Generate 500 Coupons (santha2026)</button>
+<button class="download-coupons" onclick="downloadCoupons()"><i class="fas fa-download"></i> Download</button>
+<button class="generate-btn" onclick="deleteAllCoupons()" id="del-btn" style="background:#e74c3c;color:#fff"><i class="fas fa-trash-alt"></i> Delete All Coupons</button>
+<button class="generate-btn" onclick="deleteUsedCoupons()" id="del-used-btn" style="background:#f39c12;color:#fff"><i class="fas fa-broom"></i> Delete Used Only</button>
+</div>
+
 <div style="margin-bottom:15px"><input type="text" id="coupon-search" placeholder="Search code..." style="padding:10px 15px;background:var(--bg2);border:2px solid var(--border);color:var(--text);border-radius:8px;width:100%;max-width:300px;font-family:'Rajdhani',sans-serif" oninput="renderCoupons()"></div>
 <div class="coupon-grid" id="coupon-grid">Loading...</div>
 </div>
@@ -287,11 +307,12 @@ db.collection('customers').onSnapshot(s=>{allCustomers=[];s.forEach(d=>allCustom
 
 db.collection('feedbacks').orderBy('createdAt','desc').onSnapshot(s=>{const c=document.getElementById('feedbacks-list');if(s.empty){c.innerHTML='<p style="color:var(--tm)">No feedbacks yet</p>';return;}c.innerHTML='';s.forEach(d=>{const f=d.data();const stars='⭐'.repeat(f.rating||0);c.innerHTML+=`<div class="feedback-card"><div style="display:flex;justify-content:space-between;align-items:center"><strong>${f.name||'Anonymous'}</strong><span style="font-size:0.8rem;color:var(--tm)">${f.createdAt?f.createdAt.toDate().toLocaleDateString('en-IN'):'N/A'}</span></div><div class="feedback-stars">${stars}</div><div style="color:var(--ts);font-size:0.85rem">${f.email||''}</div><div style="margin-top:8px">${f.message}</div></div>`;});});
 
-db.collection('serviceRequests').orderBy('createdAt','desc').onSnapshot(s=>{const c=document.getElementById('service-requests-list');if(s.empty){c.innerHTML='<p style="color:var(--tm)">No requests yet</p>';return;}c.innerHTML='';s.forEach(d=>{const r=d.data();c.innerHTML+=`<div class="req-card"><h4>🔧 ${r.serviceName}</h4><div class="detail"><strong>Customer:</strong> ${r.customerName}</div><div class="detail"><strong>Phone:</strong> ${r.customerPhone}</div><div class="detail"><strong>Email:</strong> ${r.customerEmail||'N/A'}</div><div class="detail"><strong>Address:</strong> ${r.customerAddress||'N/A'}</div><div class="detail"><strong>Details:</strong> ${r.details}</div><div class="detail" style="color:var(--tm);font-size:0.8rem">${r.createdAt?r.createdAt.toDate().toLocaleString('en-IN'):'N/A'}</div></div>`;});});
+db.collection('serviceRequests').orderBy('createdAt','desc').onSnapshot(s=>{const c=document.getElementById('service-requests-list');if(s.empty){c.innerHTML='<p style="color:var(--tm)">No requests yet</p>';return;}c.innerHTML='';s.forEach(d=>{const r=d.data();c.innerHTML+=`<div class="req-card"><h4>${r.serviceName}</h4><div class="detail"><strong>Customer:</strong> ${r.customerName}</div><div class="detail"><strong>Phone:</strong> ${r.customerPhone}</div><div class="detail"><strong>Email:</strong> ${r.customerEmail||'N/A'}</div><div class="detail"><strong>Address:</strong> ${r.customerAddress||'N/A'}</div><div class="detail"><strong>Details:</strong> ${r.details}</div><div class="detail" style="color:var(--tm);font-size:0.8rem">${r.createdAt?r.createdAt.toDate().toLocaleString('en-IN'):'N/A'}</div></div>`;});});
 
-db.collection('projectRequests').orderBy('createdAt','desc').onSnapshot(s=>{const c=document.getElementById('project-requests-list');if(s.empty){c.innerHTML='<p style="color:var(--tm)">No requests yet</p>';return;}c.innerHTML='';s.forEach(d=>{const r=d.data();let extra='';if(r.type==='college')extra=`<div class="detail"><strong>College:</strong> ${r.collegeName||'N/A'}</div><div class="detail"><strong>Dept:</strong> ${r.department||'N/A'}</div>`;if(r.type==='company')extra=`<div class="detail"><strong>Company:</strong> ${r.companyName||'N/A'}</div><div class="detail"><strong>Industry:</strong> ${r.industry||'N/A'}</div><div class="detail"><strong>Role:</strong> ${r.role||'N/A'}</div>`;c.innerHTML+=`<div class="req-card"><h4>📋 ${r.title}</h4><div class="detail"><strong>Name:</strong> ${r.name}</div><div class="detail"><strong>Phone:</strong> ${r.phone}</div><div class="detail"><strong>Email:</strong> ${r.email}</div><div class="detail"><strong>Type:</strong> ${(r.type||'').toUpperCase()}</div>${extra}<div class="detail"><strong>Description:</strong> ${r.description}</div><div class="detail" style="color:var(--tm);font-size:0.8rem">${r.createdAt?r.createdAt.toDate().toLocaleString('en-IN'):'N/A'}</div></div>`;});});
+db.collection('projectRequests').orderBy('createdAt','desc').onSnapshot(s=>{const c=document.getElementById('project-requests-list');if(s.empty){c.innerHTML='<p style="color:var(--tm)">No requests yet</p>';return;}c.innerHTML='';s.forEach(d=>{const r=d.data();let extra='';if(r.type==='college')extra=`<div class="detail"><strong>College:</strong> ${r.collegeName||'N/A'}</div><div class="detail"><strong>Dept:</strong> ${r.department||'N/A'}</div>`;if(r.type==='company')extra=`<div class="detail"><strong>Company:</strong> ${r.companyName||'N/A'}</div><div class="detail"><strong>Industry:</strong> ${r.industry||'N/A'}</div><div class="detail"><strong>Role:</strong> ${r.role||'N/A'}</div>`;c.innerHTML+=`<div class="req-card"><h4>${r.title}</h4><div class="detail"><strong>Name:</strong> ${r.name}</div><div class="detail"><strong>Phone:</strong> ${r.phone}</div><div class="detail"><strong>Email:</strong> ${r.email}</div><div class="detail"><strong>Type:</strong> ${(r.type||'').toUpperCase()}</div>${extra}<div class="detail"><strong>Description:</strong> ${r.description}</div><div class="detail" style="color:var(--tm);font-size:0.8rem">${r.createdAt?r.createdAt.toDate().toLocaleString('en-IN'):'N/A'}</div></div>`;});});
 }
 
+// IMAGE HANDLING
 function handleImageSelect(e){const f=e.target.files[0];if(!f)return;if(f.size>5*1024*1024){showToast('Max 5MB','error');return;}const r=new FileReader();r.onload=x=>{selectedImageBase64=x.target.result;document.getElementById('preview-img').src=selectedImageBase64;document.getElementById('img-preview').style.display='block';document.getElementById('upload-area').style.display='none';};r.readAsDataURL(f);}
 
 function removeImage(){selectedImageBase64=null;document.getElementById('comp-image').value='';document.getElementById('img-preview').style.display='none';document.getElementById('upload-area').style.display='block';}
@@ -302,20 +323,25 @@ function removeSvcImage(){svcImageBase64=null;document.getElementById('svc-image
 
 async function uploadToImgBB(b64){const b=b64.split(',')[1];const fd=new FormData();fd.append('key',IMGBB_API_KEY);fd.append('image',b);const r=await fetch('https://api.imgbb.com/1/upload',{method:'POST',body:fd});if(!r.ok)throw new Error('Upload failed');const d=await r.json();if(!d.success)throw new Error('ImgBB error');return d.data.display_url;}
 
-async function addComponent(){const n=document.getElementById('comp-name').value.trim(),p=document.getElementById('comp-price').value,s=document.getElementById('comp-stock').value,cat=document.getElementById('comp-category').value,desc=document.getElementById('comp-description').value.trim();if(!n||!p||!cat){showToast('Fill Name, Price, Category','error');return;}if(!selectedImageBase64){showToast('Upload image','error');return;}const btn=document.getElementById('add-btn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Uploading...';try{const img=await uploadToImgBB(selectedImageBase64);await db.collection('components').add({name:n,price:parseFloat(p),stock:s?parseInt(s):999,category:cat,description:desc,image:img,createdAt:firebase.firestore.FieldValue.serverTimestamp()});document.getElementById('comp-name').value='';document.getElementById('comp-price').value='';document.getElementById('comp-stock').value='';document.getElementById('comp-category').value='';document.getElementById('comp-description').value='';removeImage();showToast('Component added! ✅','success');}catch(e){showToast('Error: '+e.message,'error');}finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-bolt"></i> ADD COMPONENT';}}
+// ADD COMPONENT
+async function addComponent(){const n=document.getElementById('comp-name').value.trim(),p=document.getElementById('comp-price').value,s=document.getElementById('comp-stock').value,cat=document.getElementById('comp-category').value,desc=document.getElementById('comp-description').value.trim();if(!n||!p||!cat){showToast('Fill Name, Price, Category','error');return;}if(!selectedImageBase64){showToast('Upload image','error');return;}const btn=document.getElementById('add-btn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Uploading...';try{const img=await uploadToImgBB(selectedImageBase64);await db.collection('components').add({name:n,price:parseFloat(p),stock:s?parseInt(s):999,category:cat,description:desc,image:img,createdAt:firebase.firestore.FieldValue.serverTimestamp()});document.getElementById('comp-name').value='';document.getElementById('comp-price').value='';document.getElementById('comp-stock').value='';document.getElementById('comp-category').value='';document.getElementById('comp-description').value='';removeImage();showToast('Component added!','success');}catch(e){showToast('Error: '+e.message,'error');}finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-bolt"></i> ADD COMPONENT';}}
 
-async function addService(){const n=document.getElementById('svc-name').value.trim(),desc=document.getElementById('svc-desc').value.trim(),p=document.getElementById('svc-price').value;if(!n){showToast('Enter service name','error');return;}if(!svcImageBase64){showToast('Upload image','error');return;}const btn=document.getElementById('add-svc-btn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Uploading...';try{const img=await uploadToImgBB(svcImageBase64);await db.collection('services').add({name:n,description:desc,price:p?parseFloat(p):null,image:img,createdAt:firebase.firestore.FieldValue.serverTimestamp()});document.getElementById('svc-name').value='';document.getElementById('svc-desc').value='';document.getElementById('svc-price').value='';removeSvcImage();showToast('Service added! ✅','success');}catch(e){showToast('Error: '+e.message,'error');}finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-bolt"></i> ADD SERVICE';}}
+// ADD SERVICE
+async function addService(){const n=document.getElementById('svc-name').value.trim(),desc=document.getElementById('svc-desc').value.trim(),p=document.getElementById('svc-price').value;if(!n){showToast('Enter service name','error');return;}if(!svcImageBase64){showToast('Upload image','error');return;}const btn=document.getElementById('add-svc-btn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Uploading...';try{const img=await uploadToImgBB(svcImageBase64);await db.collection('services').add({name:n,description:desc,price:p?parseFloat(p):null,image:img,createdAt:firebase.firestore.FieldValue.serverTimestamp()});document.getElementById('svc-name').value='';document.getElementById('svc-desc').value='';document.getElementById('svc-price').value='';removeSvcImage();showToast('Service added!','success');}catch(e){showToast('Error: '+e.message,'error');}finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-bolt"></i> ADD SERVICE';}}
 
+// COMPONENTS LIST
 function renderComponentsList(){const tbody=document.getElementById('components-tbody');const search=(document.getElementById('comp-search')?.value||'').toLowerCase();const filtered=allComponents.filter(c=>!search||c.name.toLowerCase().includes(search)||(c.category&&c.category.toLowerCase().includes(search)));if(!filtered.length){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--tm)">No components</td></tr>';return;}tbody.innerHTML=filtered.map(c=>`<tr class="comp-row"><td><img class="comp-img" src="${c.image||'https://via.placeholder.com/50/f5f5f0/1a1a1a?text=?'}" onerror="this.src='https://via.placeholder.com/50/f5f5f0/1a1a1a?text=?'"></td><td><div class="comp-name">${c.name}</div><div class="comp-cat">${c.category||''}</div></td><td class="comp-price">${CURRENCY}${parseFloat(c.price).toFixed(2)}</td><td>${c.category||'-'}</td><td><span class="comp-stock ${c.stock!==undefined&&c.stock<5?'low':'ok'}">${c.stock!==undefined?c.stock:'∞'}</span></td><td><button class="action-btn btn-edit" onclick="openEditModal('${c.id}')"><i class="fas fa-edit"></i></button><button class="action-btn btn-delete" onclick="deleteComponent('${c.id}','${c.name.replace(/'/g,"\\'")}')"><i class="fas fa-trash"></i></button></td></tr>`).join('');}
 
 function deleteComponent(id,name){if(!confirm('Delete "'+name+'"?'))return;db.collection('components').doc(id).delete().then(()=>showToast('Deleted','success')).catch(e=>showToast('Error','error'));}
 
+// EDIT MODAL
 function openEditModal(id){const c=allComponents.find(x=>x.id===id);if(!c)return;document.getElementById('edit-id').value=id;document.getElementById('edit-name').value=c.name;document.getElementById('edit-price').value=c.price;document.getElementById('edit-stock').value=c.stock!==undefined?c.stock:'';document.getElementById('edit-category').value=c.category||'';document.getElementById('edit-description').value=c.description||'';document.getElementById('edit-modal').classList.add('open');}
 
 function closeEditModal(){document.getElementById('edit-modal').classList.remove('open');}
 
 async function saveEdit(){const id=document.getElementById('edit-id').value;const u={name:document.getElementById('edit-name').value.trim(),price:parseFloat(document.getElementById('edit-price').value),stock:parseInt(document.getElementById('edit-stock').value)||999,category:document.getElementById('edit-category').value,description:document.getElementById('edit-description').value.trim()};const fi=document.getElementById('edit-image');if(fi.files.length>0){const r=new FileReader();r.onload=async x=>{try{u.image=await uploadToImgBB(x.target.result);await db.collection('components').doc(id).update(u);closeEditModal();showToast('Updated!','success');}catch(e){showToast('Error','error');}};r.readAsDataURL(fi.files[0]);}else{try{await db.collection('components').doc(id).update(u);closeEditModal();showToast('Updated!','success');}catch(e){showToast('Error','error');}}}
 
+// TRACKING BAR
 function getTrackingBar(status){
 const statuses=['pending','confirmed','shipped','out-for-delivery','delivered'];
 const labels=['Pending','Confirmed','Shipped','Out for Delivery','Delivered'];
@@ -323,30 +349,145 @@ const si=statuses.indexOf(status||'pending');
 if(status==='cancelled') return '<div style="color:var(--danger);font-weight:700;margin:10px 0"><i class="fas fa-times-circle"></i> Order Cancelled</div>';
 let t='<div class="tracking-bar">';
 statuses.forEach((s,i)=>{let cls='track-step';if(i<si)cls+=' completed';else if(i===si)cls+=' active';t+=`<div class="${cls}"><div class="track-dot"></div><div class="track-label">${labels[i]}</div>${i<statuses.length-1?'<div class="track-line"></div>':''}</div>`;});
-t+='</div>';
-return t;
+t+='</div>';return t;
 }
 
-function renderOrders(){const c=document.getElementById('orders-list'),filter=document.getElementById('order-filter').value,search=(document.getElementById('order-search')?.value||'').toLowerCase();let f=allOrders;if(filter!=='all')f=f.filter(o=>o.status===filter);if(search)f=f.filter(o=>(o.customerName||'').toLowerCase().includes(search)||(o.customerEmail||'').toLowerCase().includes(search)||(o.receiptId||'').toLowerCase().includes(search));if(!f.length){c.innerHTML='<div style="text-align:center;padding:40px;color:var(--tm)"><i class="fas fa-inbox" style="font-size:2rem;margin-bottom:10px;display:block"></i>No orders</div>';return;}c.innerHTML=f.map(o=>{const date=o.orderedAt?o.orderedAt.toDate().toLocaleString('en-IN'):(o.orderDate?new Date(o.orderDate).toLocaleString('en-IN'):'N/A');let items='';if(o.items)o.items.forEach(i=>items+=`<div><span>${i.name} × ${i.qty}</span><span>${CURRENCY}${(i.price*i.qty).toFixed(2)}</span></div>`);return`<div class="order-card"><div class="order-header"><div><span class="order-id">${o.receiptId||o.id}</span><span class="order-date" style="margin-left:10px">${date}</span></div><span class="order-status status-${o.status||'pending'}">${(o.status||'pending').replace(/-/g,' ').toUpperCase()}</span></div><div style="font-size:0.9rem;margin-bottom:8px"><div>👤 ${o.customerName} | 📞 ${o.customerPhone}</div><div>📧 ${o.customerEmail}</div><div>📍 ${o.customerAddress||'N/A'}</div>${o.couponCode?'<div>🎟️ Coupon: '+o.couponCode+'</div>':''}</div>${getTrackingBar(o.status)}<div class="order-items">${items}</div><div class="order-total"><span>Total${o.discount>0?' (after '+CURRENCY+o.discount.toFixed(0)+' off)':''}</span><span>${CURRENCY}${(o.totalAmount||0).toFixed(2)}</span></div><div class="order-actions"><select onchange="updateOrderStatus('${o.id}',this.value)"><option value="pending" ${o.status==='pending'?'selected':''}>📋 Pending</option><option value="confirmed" ${o.status==='confirmed'?'selected':''}>✅ Confirmed</option><option value="shipped" ${o.status==='shipped'?'selected':''}>📦 Shipped</option><option value="out-for-delivery" ${o.status==='out-for-delivery'?'selected':''}>🚚 Out for Delivery</option><option value="delivered" ${o.status==='delivered'?'selected':''}>✅ Delivered</option><option value="cancelled" ${o.status==='cancelled'?'selected':''}>❌ Cancelled</option></select></div></div>`;}).join('');}
+// ORDERS
+function renderOrders(){const c=document.getElementById('orders-list'),filter=document.getElementById('order-filter').value,search=(document.getElementById('order-search')?.value||'').toLowerCase();let f=allOrders;if(filter!=='all')f=f.filter(o=>o.status===filter);if(search)f=f.filter(o=>(o.customerName||'').toLowerCase().includes(search)||(o.customerEmail||'').toLowerCase().includes(search)||(o.receiptId||'').toLowerCase().includes(search));if(!f.length){c.innerHTML='<div style="text-align:center;padding:40px;color:var(--tm)"><i class="fas fa-inbox" style="font-size:2rem;margin-bottom:10px;display:block"></i>No orders</div>';return;}c.innerHTML=f.map(o=>{const date=o.orderedAt?o.orderedAt.toDate().toLocaleString('en-IN'):(o.orderDate?new Date(o.orderDate).toLocaleString('en-IN'):'N/A');let items='';if(o.items)o.items.forEach(i=>items+=`<div><span>${i.name} × ${i.qty}</span><span>${CURRENCY}${(i.price*i.qty).toFixed(2)}</span></div>`);return`<div class="order-card"><div class="order-header"><div><span class="order-id">${o.receiptId||o.id}</span><span class="order-date" style="margin-left:10px">${date}</span></div><span class="order-status status-${o.status||'pending'}">${(o.status||'pending').replace(/-/g,' ').toUpperCase()}</span></div><div style="font-size:0.9rem;margin-bottom:8px"><div>${o.customerName} | ${o.customerPhone}</div><div>${o.customerEmail}</div><div>${o.customerAddress||'N/A'}</div>${o.couponCode?'<div>Coupon: '+o.couponCode+' ('+o.discountPercent+'% off)</div>':''}</div>${getTrackingBar(o.status)}<div class="order-items">${items}</div><div class="order-total"><span>Total${o.discount>0?' (after '+CURRENCY+o.discount.toFixed(0)+' off)':''}</span><span>${CURRENCY}${(o.totalAmount||0).toFixed(2)}</span></div><div class="order-actions"><select onchange="updateOrderStatus('${o.id}',this.value)"><option value="pending" ${o.status==='pending'?'selected':''}>Pending</option><option value="confirmed" ${o.status==='confirmed'?'selected':''}>Confirmed</option><option value="shipped" ${o.status==='shipped'?'selected':''}>Shipped</option><option value="out-for-delivery" ${o.status==='out-for-delivery'?'selected':''}>Out for Delivery</option><option value="delivered" ${o.status==='delivered'?'selected':''}>Delivered</option><option value="cancelled" ${o.status==='cancelled'?'selected':''}>Cancelled</option></select></div></div>`;}).join('');}
 
 function renderRecentOrders(){const c=document.getElementById('recent-orders'),r=allOrders.slice(0,5);if(!r.length){c.innerHTML='<p style="color:var(--tm)">No orders yet</p>';return;}c.innerHTML=r.map(o=>`<div style="background:var(--card);padding:12px 15px;border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;border:2px solid var(--border)"><div><div style="font-weight:600">${o.customerName} <span style="color:var(--yd);font-size:0.85rem">${o.receiptId||''}</span></div><div style="font-size:0.85rem;color:var(--tm)">${o.items?o.items.length+' items':''}</div></div><div style="text-align:right"><div style="font-weight:700;font-family:'Orbitron',sans-serif">${CURRENCY}${(o.totalAmount||0).toFixed(0)}</div><span class="order-status status-${o.status||'pending'}" style="font-size:0.7rem">${(o.status||'pending').toUpperCase()}</span></div></div>`).join('');}
 
 function updateOrderStatus(id,status){db.collection('orders').doc(id).update({status}).then(()=>showToast('Status updated','success')).catch(e=>showToast('Error','error'));}
 
-const COUPON_PREFIXES=['ELEC','VOLT','CHIP','WIRE','TECH','BYTE','SEMI','FLUX','GRID','OHMS','NANO','CORE','WAVE','DIOD','FUSE','PULSE','SPARK','POWER','RELAY','MOTOR','MICRO','BOARD','AMP','LOGIC','SOLDER','OHM','LED','PCB','CIRCUIT','SENSOR'];
+// ========== GENERATE 500 COUPONS (santha2026) ==========
+async function generateCoupons(){
+if(allCoupons.length>=500){showToast('500 coupons already exist! Delete old ones first.','error');return;}
+if(!confirm('Generate 500 coupons with code "santha2026"?\n\nRules:\n• 10% off on orders above ₹1,000\n• 12% off on orders above ₹2,000'))return;
 
-function genCode(i){const p=COUPON_PREFIXES[i%COUPON_PREFIXES.length];const ch='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';let m='',s='';for(let j=0;j<4;j++){m+=ch[Math.floor(Math.random()*ch.length)];s+=ch[Math.floor(Math.random()*ch.length)];}return p+'-'+m+'-'+s;}
+const btn=document.getElementById('gen-btn');
+btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Generating...';
 
-async function generateCoupons(){if(allCoupons.length>=825){showToast('825 exist!','error');return;}if(!confirm('Generate 825 coupons?'))return;const btn=document.getElementById('gen-btn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Generating...';try{const existing=new Set(allCoupons.map(c=>c.code));const codes=[];const needed=825-allCoupons.length;while(codes.length<needed){const c=genCode(codes.length+allCoupons.length);if(!existing.has(c)&&!codes.includes(c))codes.push(c);}for(let i=0;i<codes.length;i+=450){const batch=db.batch();codes.slice(i,i+450).forEach(code=>{batch.set(db.collection('coupons').doc(),{code,discount:20,used:false,usedBy:null,usedAt:null,createdAt:firebase.firestore.FieldValue.serverTimestamp()});});await batch.commit();btn.innerHTML=`<i class="fas fa-spinner fa-spin"></i> ${Math.min(i+450,codes.length)}/${codes.length}...`;}showToast('825 coupons generated! ✅','success');}catch(e){showToast('Error','error');}finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-bolt"></i> Generate 825 Coupons';}}
+try{
+const needed=500-allCoupons.length;
+const COUPON_CODE='santha2026';
 
-function renderCouponStats(){const t=allCoupons.length,u=allCoupons.filter(c=>c.used).length,a=t-u;document.getElementById('coupon-stats').innerHTML=`<div class="stat-card"><div class="stat-value">${t}</div><div class="stat-label">Total</div></div><div class="stat-card"><div class="stat-value" style="color:var(--success)">${a}</div><div class="stat-label">Active</div></div><div class="stat-card"><div class="stat-value" style="color:var(--danger)">${u}</div><div class="stat-label">Used</div></div>`;}
+for(let i=0;i<needed;i+=450){
+const batch=db.batch();
+const count=Math.min(450,needed-i);
+for(let j=0;j<count;j++){
+batch.set(db.collection('coupons').doc(),{
+code:COUPON_CODE,
+discountType:'tiered',
+discount10:10,
+discount12:12,
+minOrder1000:1000,
+minOrder2000:2000,
+used:false,
+usedBy:null,
+usedAt:null,
+createdAt:firebase.firestore.FieldValue.serverTimestamp()
+});
+}
+await batch.commit();
+btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> '+Math.min(i+450,needed)+'/'+needed+'...';
+}
+showToast('500 coupons "santha2026" generated!','success');
+}catch(e){showToast('Error: '+e.message,'error');}
+finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-bolt"></i> Generate 500 Coupons (santha2026)';}
+}
 
-function renderCoupons(){const c=document.getElementById('coupon-grid'),search=(document.getElementById('coupon-search')?.value||'').toLowerCase();let f=allCoupons;if(search)f=f.filter(x=>x.code.toLowerCase().includes(search));f.sort((a,b)=>a.used===b.used?0:a.used?1:-1);if(!f.length){c.innerHTML='<div style="color:var(--tm);padding:20px;grid-column:1/-1;text-align:center">No coupons. Generate them.</div>';return;}c.innerHTML=f.map(x=>`<div class="coupon-card ${x.used?'used':''}"><span class="coupon-code">${x.code}</span><span class="coupon-badge ${x.used?'badge-used':'badge-active'}">${x.used?'USED':'ACTIVE'}</span></div>`).join('');}
+// ========== DELETE ALL COUPONS ==========
+async function deleteAllCoupons(){
+if(!allCoupons.length){showToast('No coupons to delete','error');return;}
 
-function downloadCoupons(){if(!allCoupons.length){showToast('No coupons','error');return;}let csv='Code,Status,Used By\n';[...allCoupons].sort((a,b)=>a.code.localeCompare(b.code)).forEach(c=>csv+=`${c.code},${c.used?'Used':'Active'},${c.usedBy||''}\n`);const b=new Blob([csv],{type:'text/csv'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='Ellectra_Coupons.csv';a.click();URL.revokeObjectURL(u);showToast('Downloaded!','success');}
+const usedCount=allCoupons.filter(c=>c.used).length;
+const activeCount=allCoupons.length-usedCount;
 
+if(!confirm('⚠️ DELETE ALL '+allCoupons.length+' COUPONS?\n\nActive: '+activeCount+'\nUsed: '+usedCount+'\n\nThis CANNOT be undone!'))return;
+if(!confirm('Are you REALLY sure? This will delete ALL '+allCoupons.length+' coupons permanently!'))return;
+
+const btn=document.getElementById('del-btn');
+btn.disabled=true;
+btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Deleting...';
+
+try{
+const totalToDelete=allCoupons.length;
+let deleted=0;
+
+// Copy array since allCoupons will update via onSnapshot
+const couponsToDelete=[...allCoupons];
+
+for(let i=0;i<couponsToDelete.length;i+=450){
+const batch=db.batch();
+const chunk=couponsToDelete.slice(i,i+450);
+chunk.forEach(c=>{
+batch.delete(db.collection('coupons').doc(c.id));
+});
+await batch.commit();
+deleted+=chunk.length;
+btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Deleted '+deleted+'/'+totalToDelete+'...';
+}
+
+showToast('All '+totalToDelete+' coupons deleted!','success');
+}catch(e){
+showToast('Error: '+e.message,'error');
+}finally{
+btn.disabled=false;
+btn.innerHTML='<i class="fas fa-trash-alt"></i> Delete All Coupons';
+}
+}
+
+// ========== DELETE USED COUPONS ONLY ==========
+async function deleteUsedCoupons(){
+const usedCoupons=allCoupons.filter(c=>c.used);
+
+if(!usedCoupons.length){showToast('No used coupons to delete','error');return;}
+
+if(!confirm('Delete '+usedCoupons.length+' USED coupons?\n\nActive coupons will NOT be affected.'))return;
+
+const btn=document.getElementById('del-used-btn');
+btn.disabled=true;
+btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Deleting used...';
+
+try{
+let deleted=0;
+const toDelete=[...usedCoupons];
+
+for(let i=0;i<toDelete.length;i+=450){
+const batch=db.batch();
+const chunk=toDelete.slice(i,i+450);
+chunk.forEach(c=>{
+batch.delete(db.collection('coupons').doc(c.id));
+});
+await batch.commit();
+deleted+=chunk.length;
+btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> '+deleted+'/'+toDelete.length+'...';
+}
+
+showToast(toDelete.length+' used coupons deleted!','success');
+}catch(e){
+showToast('Error: '+e.message,'error');
+}finally{
+btn.disabled=false;
+btn.innerHTML='<i class="fas fa-broom"></i> Delete Used Only';
+}
+}
+
+// COUPON STATS
+function renderCouponStats(){const t=allCoupons.length,u=allCoupons.filter(c=>c.used).length,a=t-u;document.getElementById('coupon-stats').innerHTML=`<div class="stat-card"><div class="stat-value">${t}</div><div class="stat-label">Total Coupons</div></div><div class="stat-card"><div class="stat-value" style="color:var(--success)">${a}</div><div class="stat-label">Active</div></div><div class="stat-card"><div class="stat-value" style="color:var(--danger)">${u}</div><div class="stat-label">Used</div></div>`;}
+
+// RENDER COUPONS
+function renderCoupons(){const c=document.getElementById('coupon-grid'),search=(document.getElementById('coupon-search')?.value||'').toLowerCase();let f=allCoupons;if(search)f=f.filter(x=>x.code.toLowerCase().includes(search));f.sort((a,b)=>a.used===b.used?0:a.used?1:-1);if(!f.length){c.innerHTML='<div style="color:var(--tm);padding:20px;grid-column:1/-1;text-align:center">No coupons. Generate them.</div>';return;}
+c.innerHTML=f.map((x,idx)=>`<div class="coupon-card ${x.used?'used':''}"><div><span class="coupon-code">${x.code}</span><div class="coupon-discount-info">#${idx+1} | 10% above ₹1K / 12% above ₹2K</div>${x.usedBy?'<div style="font-size:0.7rem;color:var(--danger);margin-top:2px">Used by: '+x.usedBy+'</div>':''}</div><span class="coupon-badge ${x.used?'badge-used':'badge-active'}">${x.used?'USED':'ACTIVE'}</span></div>`).join('');}
+
+// DOWNLOAD COUPONS
+function downloadCoupons(){if(!allCoupons.length){showToast('No coupons','error');return;}let csv='#,Code,Discount Rules,Status,Used By\n';
+[...allCoupons].sort((a,b)=>a.used===b.used?0:a.used?1:-1).forEach((c,i)=>csv+=`${i+1},${c.code},"10% above ₹1000 / 12% above ₹2000",${c.used?'Used':'Active'},${c.usedBy||''}\n`);const b=new Blob([csv],{type:'text/csv'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='Ellectra_Coupons_santha2026.csv';a.click();URL.revokeObjectURL(u);showToast('Downloaded!','success');}
+
+// CUSTOMERS
 function renderCustomers(){const c=document.getElementById('customers-list');if(!allCustomers.length){c.innerHTML='<p style="color:var(--tm);text-align:center;padding:40px">No customers yet</p>';return;}c.innerHTML=`<div style="overflow-x:auto"><table class="component-table"><thead><tr><th>Avatar</th><th>Name</th><th>Email</th><th>Last Login</th></tr></thead><tbody>${allCustomers.map(x=>`<tr class="comp-row"><td><img src="${x.photoURL||'https://ui-avatars.com/api/?name='+encodeURIComponent(x.name||'U')+'&background=FFD700&color=000'}" style="width:35px;height:35px;border-radius:50%;border:2px solid var(--yd)" referrerpolicy="no-referrer"></td><td style="font-weight:600">${x.name||'N/A'}</td><td style="color:var(--ts)">${x.email||'N/A'}</td><td style="color:var(--tm);font-size:0.85rem">${x.lastLogin?x.lastLogin.toDate().toLocaleString('en-IN'):'N/A'}</td></tr>`).join('')}</tbody></table></div>`;}
 
+// TOAST
 function showToast(msg,type='success'){const c=document.getElementById('toast-container'),t=document.createElement('div');t.className='toast '+type;t.innerHTML=`<i class="fas ${type==='success'?'fa-check-circle':'fa-exclamation-circle'}" style="color:${type==='success'?'var(--success)':'var(--danger)'}"></i>${msg}`;c.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(100px)';t.style.transition='all 0.3s';setTimeout(()=>t.remove(),300);},3000);}
 </script>
 </body>
