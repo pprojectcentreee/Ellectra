@@ -22,6 +22,7 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 ::-webkit-scrollbar{width:8px}
 ::-webkit-scrollbar-track{background:#f0f0f0}
 ::-webkit-scrollbar-thumb{background:var(--yellow-dark);border-radius:4px}
+
 #intro-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--black);z-index:10000;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.8s,visibility 0.8s}
 #intro-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
 .intro-logo{width:150px;height:150px;animation:intro-pulse 1.5s ease-in-out infinite alternate;filter:drop-shadow(0 0 30px var(--yellow)) drop-shadow(0 0 60px var(--yellow-dark))}
@@ -29,42 +30,82 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 .intro-tagline{font-family:'Share Tech Mono',monospace;color:var(--yellow-dark);font-size:1rem;margin-top:10px;letter-spacing:3px}
 @keyframes intro-pulse{0%{transform:scale(1)}100%{transform:scale(1.1)}}
 @keyframes intro-glow{0%{text-shadow:0 0 20px rgba(255,215,0,0.5)}100%{text-shadow:0 0 40px var(--yellow),0 0 80px var(--yellow-dark)}}
+
 .spark-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
 .spark{position:absolute;width:4px;height:4px;border-radius:50%;animation:spark-fly linear forwards}
 @keyframes spark-fly{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0)}}
 
-.navbar{position:fixed;top:0;left:0;right:0;height:70px;background:var(--black);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:1000;box-shadow:0 2px 20px rgba(0,0,0,0.3)}
+.particles-bg{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.particle{position:absolute;border-radius:50%;background:var(--yellow);opacity:0.15;animation:float-particle linear infinite}
+@keyframes float-particle{
+0%{transform:translateY(100vh) rotate(0deg);opacity:0}
+10%{opacity:0.15}
+90%{opacity:0.15}
+100%{transform:translateY(-10vh) rotate(720deg);opacity:0}
+}
+
+.navbar{position:fixed;top:0;left:0;right:0;height:70px;background:var(--black);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:1000;box-shadow:0 2px 20px rgba(0,0,0,0.3);transform:translateY(-100%);transition:transform 0.6s cubic-bezier(0.4,0,0.2,1)}
+.navbar.visible{transform:translateY(0)}
 .nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.nav-logo{width:40px;height:40px;filter:drop-shadow(0 0 8px var(--yellow-glow))}
+.nav-logo{width:40px;height:40px;filter:drop-shadow(0 0 8px var(--yellow-glow));transition:transform 0.3s}
+.nav-logo:hover{transform:rotate(360deg) scale(1.1)}
 .nav-title{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:700;color:var(--yellow)}
 .nav-actions{display:flex;align-items:center;gap:12px}
-.nav-btn{background:transparent;border:1px solid var(--yellow-dark);color:var(--yellow);padding:8px 16px;border-radius:8px;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:600;transition:all 0.3s;display:flex;align-items:center;gap:6px;text-decoration:none}
+.nav-btn{background:transparent;border:1px solid var(--yellow-dark);color:var(--yellow);padding:8px 16px;border-radius:8px;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:600;transition:all 0.3s;display:flex;align-items:center;gap:6px;text-decoration:none;position:relative;overflow:hidden}
+.nav-btn::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:var(--yellow);border-radius:50%;transform:translate(-50%,-50%);transition:width 0.4s,height 0.4s;opacity:0.3}
+.nav-btn:hover::after{width:200px;height:200px}
 .nav-btn:hover{background:var(--yellow);color:var(--black);box-shadow:0 0 15px var(--yellow-glow)}
-.user-avatar{width:35px;height:35px;border-radius:50%;border:2px solid var(--yellow);cursor:pointer}
+.user-avatar{width:35px;height:35px;border-radius:50%;border:2px solid var(--yellow);cursor:pointer;transition:transform 0.3s,box-shadow 0.3s}
+.user-avatar:hover{transform:scale(1.1);box-shadow:0 0 15px var(--yellow-glow)}
 .user-info{display:flex;align-items:center;gap:8px}
 .user-name{font-size:0.85rem;color:var(--yellow);font-weight:600;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-.hero{margin-top:70px;padding:80px 20px;text-align:center;background:linear-gradient(135deg,var(--black) 0%,#1a1a1a 100%);position:relative}
-.hero h1{font-family:'Orbitron',sans-serif;font-size:2.8rem;font-weight:900;color:var(--yellow);margin-bottom:10px;text-shadow:0 0 30px var(--yellow-glow)}
-.hero p{font-size:1.2rem;color:#ccc;font-weight:400;letter-spacing:1px}
-.hero-bolt{font-size:4rem;color:var(--yellow);filter:drop-shadow(0 0 20px var(--yellow-glow));animation:bolt-flicker 3s ease-in-out infinite;margin-bottom:10px}
-@keyframes bolt-flicker{0%,100%{opacity:1}50%{opacity:0.6}93%{opacity:0.3}94%{opacity:1}}
+.hero{margin-top:70px;padding:100px 20px 80px;text-align:center;background:linear-gradient(135deg,var(--black) 0%,#1a1a1a 50%,#0d0d0d 100%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,var(--yellow-glow),transparent,transparent);animation:hero-rotate 10s linear infinite;opacity:0.3}
+@keyframes hero-rotate{100%{transform:rotate(360deg)}}
+.hero-content{position:relative;z-index:1}
+.hero h1{font-family:'Orbitron',sans-serif;font-size:2.8rem;font-weight:900;color:var(--yellow);margin-bottom:10px;text-shadow:0 0 30px var(--yellow-glow);opacity:0;animation:hero-title-in 1s ease forwards 0.3s}
+.hero p{font-size:1.2rem;color:#ccc;font-weight:400;letter-spacing:1px;opacity:0;animation:hero-title-in 1s ease forwards 0.6s}
+@keyframes hero-title-in{0%{opacity:0;transform:translateY(30px)}100%{opacity:1;transform:translateY(0)}}
+.hero-bolt{font-size:4rem;color:var(--yellow);filter:drop-shadow(0 0 20px var(--yellow-glow));animation:bolt-flicker 3s ease-in-out infinite;margin-bottom:10px;display:inline-block}
+@keyframes bolt-flicker{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(0.95)}93%{opacity:0.3}94%{opacity:1}}
+
+.electric-lines{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden}
+.electric-line{position:absolute;height:2px;background:linear-gradient(90deg,transparent,var(--yellow),var(--yellow),transparent);opacity:0;animation:electric-dash 4s ease-in-out infinite}
+.electric-line:nth-child(1){top:20%;left:-100%;width:60%;animation-delay:0s}
+.electric-line:nth-child(2){top:50%;right:-100%;width:40%;animation-delay:1.5s;animation-direction:reverse}
+.electric-line:nth-child(3){top:75%;left:-100%;width:50%;animation-delay:3s}
+@keyframes electric-dash{
+0%{transform:translateX(-100%);opacity:0}
+20%{opacity:0.8}
+50%{opacity:0.8}
+80%{opacity:0.8}
+100%{transform:translateX(calc(100vw + 100%));opacity:0}
+}
 
 .main-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:25px;max-width:1050px;margin:50px auto;padding:0 20px}
-.option-card{background:var(--bg-card);border:2px solid var(--border-color);border-radius:20px;padding:40px 30px;text-align:center;cursor:pointer;transition:all 0.4s;text-decoration:none;color:var(--text-primary);position:relative;overflow:hidden;box-shadow:var(--card-shadow)}
-.option-card:hover{transform:translateY(-8px);border-color:var(--yellow);box-shadow:0 15px 40px rgba(255,215,0,0.2)}
-.option-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--yellow);transform:scaleX(0);transition:transform 0.4s;transform-origin:left}
+.option-card{background:var(--bg-card);border:2px solid var(--border-color);border-radius:20px;padding:40px 30px;text-align:center;cursor:pointer;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);text-decoration:none;color:var(--text-primary);position:relative;overflow:hidden;box-shadow:var(--card-shadow);opacity:0;transform:translateY(60px)}
+.option-card.animate-in{opacity:1;transform:translateY(0)}
+.option-card:hover{transform:translateY(-8px) scale(1.02);border-color:var(--yellow);box-shadow:0 15px 40px rgba(255,215,0,0.2)}
+.option-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--yellow),var(--yellow-dark),var(--yellow));transform:scaleX(0);transition:transform 0.4s;transform-origin:left}
 .option-card:hover::before{transform:scaleX(1)}
-.option-icon{font-size:3rem;color:var(--yellow-dark);margin-bottom:15px}
+.option-card::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,var(--yellow-glow) 0%,transparent 70%);opacity:0;transition:opacity 0.4s;pointer-events:none}
+.option-card:hover::after{opacity:0.1}
+.option-icon{font-size:3rem;color:var(--yellow-dark);margin-bottom:15px;transition:transform 0.4s,color 0.3s;display:inline-block}
+.option-card:hover .option-icon{transform:scale(1.2) rotateY(180deg);color:var(--yellow)}
 .option-title{font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--black);margin-bottom:10px;font-weight:700}
 .option-desc{color:var(--text-secondary);font-size:0.95rem;line-height:1.6}
+
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.revealed{opacity:1;transform:translateY(0)}
 
 .section-title{font-family:'Orbitron',sans-serif;font-size:1.4rem;color:var(--black);margin-bottom:20px;display:flex;align-items:center;gap:10px}
 .section-title i{color:var(--yellow-dark)}
 
 .my-orders-section{max-width:900px;margin:40px auto;padding:0 20px;display:none}
 .my-orders-section.visible{display:block}
-.my-order-card{background:var(--bg-card);border:2px solid var(--border-color);border-radius:14px;padding:18px;margin-bottom:12px;box-shadow:var(--card-shadow)}
+.my-order-card{background:var(--bg-card);border:2px solid var(--border-color);border-radius:14px;padding:18px;margin-bottom:12px;box-shadow:var(--card-shadow);transition:transform 0.3s,box-shadow 0.3s}
+.my-order-card:hover{transform:translateX(5px);box-shadow:0 5px 20px rgba(255,215,0,0.15)}
 .my-order-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px}
 .my-order-id{font-family:'Share Tech Mono',monospace;color:var(--black);font-weight:700;font-size:1rem}
 .my-order-status{padding:4px 14px;border-radius:20px;font-size:0.8rem;font-weight:700;text-transform:uppercase}
@@ -74,10 +115,12 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 .status-out-for-delivery{background:#ffe0cc;color:#cc5500}
 .status-delivered{background:#d4edda;color:#155724}
 .status-cancelled{background:#f8d7da;color:#721c24}
+
 .tracking-bar{display:flex;align-items:center;gap:0;margin:15px 0}
 .track-step{flex:1;text-align:center;position:relative}
 .track-dot{width:22px;height:22px;border-radius:50%;background:#ddd;margin:0 auto 5px;border:3px solid #ccc;transition:all 0.3s}
-.track-step.active .track-dot{background:var(--yellow);border-color:var(--yellow-dark);box-shadow:0 0 10px var(--yellow-glow)}
+.track-step.active .track-dot{background:var(--yellow);border-color:var(--yellow-dark);box-shadow:0 0 10px var(--yellow-glow);animation:dot-pulse 2s ease-in-out infinite}
+@keyframes dot-pulse{0%,100%{box-shadow:0 0 10px var(--yellow-glow)}50%{box-shadow:0 0 25px var(--yellow),0 0 40px var(--yellow-glow)}}
 .track-step.completed .track-dot{background:var(--success);border-color:#1e8449}
 .track-line{position:absolute;top:10px;left:50%;width:100%;height:3px;background:#ddd;z-index:-1}
 .track-step.completed .track-line{background:var(--success)}
@@ -85,20 +128,69 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 .track-step.active .track-label,.track-step.completed .track-label{color:var(--text-primary)}
 
 .feedback-section{max-width:600px;margin:50px auto;padding:0 20px}
-.feedback-card{background:var(--bg-card);border:2px solid var(--border-color);border-radius:16px;padding:30px;box-shadow:var(--card-shadow)}
+.feedback-card{background:var(--bg-card);border:2px solid var(--border-color);border-radius:16px;padding:30px;box-shadow:var(--card-shadow);transition:transform 0.3s,box-shadow 0.3s}
+.feedback-card:hover{box-shadow:0 8px 30px rgba(255,215,0,0.12)}
 .feedback-card h3{font-family:'Orbitron',sans-serif;font-size:1.1rem;color:var(--black);margin-bottom:20px;display:flex;align-items:center;gap:8px}
 .feedback-card h3 i{color:var(--yellow-dark)}
 .fb-group{margin-bottom:15px}
 .fb-group label{display:block;margin-bottom:5px;font-size:0.9rem;font-weight:600;color:var(--text-secondary)}
-.fb-group input,.fb-group textarea,.fb-group select{width:100%;padding:12px;background:var(--bg-secondary);border:2px solid var(--border-color);color:var(--text-primary);border-radius:10px;font-family:'Rajdhani',sans-serif;font-size:1rem;transition:border-color 0.3s}
-.fb-group input:focus,.fb-group textarea:focus,.fb-group select:focus{border-color:var(--yellow);outline:none;box-shadow:0 0 8px var(--yellow-glow)}
+.fb-group input,.fb-group textarea,.fb-group select{width:100%;padding:12px;background:var(--bg-secondary);border:2px solid var(--border-color);color:var(--text-primary);border-radius:10px;font-family:'Rajdhani',sans-serif;font-size:1rem;transition:border-color 0.3s,box-shadow 0.3s,transform 0.2s}
+.fb-group input:focus,.fb-group textarea:focus,.fb-group select:focus{border-color:var(--yellow);outline:none;box-shadow:0 0 8px var(--yellow-glow);transform:scale(1.01)}
 .fb-group textarea{resize:vertical;min-height:80px}
-.fb-btn{padding:12px 30px;background:var(--yellow);border:none;border-radius:10px;color:var(--black);font-family:'Orbitron',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.3s}
+.fb-btn{padding:12px 30px;background:var(--yellow);border:none;border-radius:10px;color:var(--black);font-family:'Orbitron',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden}
 .fb-btn:hover{background:var(--yellow-dark);box-shadow:0 0 20px var(--yellow-glow);transform:translateY(-2px)}
 
-.footer{margin-top:60px;padding:30px 20px;text-align:center;background:var(--black);color:#ccc}
-.footer-brand{font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--yellow);margin-bottom:5px}
-.footer p{color:#888;font-size:0.85rem}
+.stats-section{max-width:900px;margin:0 auto 40px;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.stat-card{background:var(--bg-card);border:2px solid var(--border-color);border-radius:16px;padding:25px;text-align:center;box-shadow:var(--card-shadow);position:relative;overflow:hidden;transition:transform 0.3s,border-color 0.3s}
+.stat-card:hover{transform:translateY(-5px);border-color:var(--yellow)}
+.stat-number{font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:900;color:var(--yellow-dark);margin-bottom:5px}
+.stat-label{font-size:0.9rem;color:var(--text-secondary);font-weight:600}
+.stat-icon{font-size:2rem;color:var(--yellow);margin-bottom:10px;opacity:0.6}
+
+.ticker-section{background:var(--black);padding:12px 0;overflow:hidden;position:relative}
+.ticker-content{display:flex;animation:ticker-scroll 25s linear infinite;white-space:nowrap}
+.ticker-content span{color:var(--yellow);font-family:'Share Tech Mono',monospace;font-size:0.85rem;padding:0 40px;letter-spacing:1px}
+@keyframes ticker-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ===== FOOTER STYLES ===== */
+.footer{margin-top:60px;background:var(--black);color:#ccc;position:relative;overflow:hidden}
+.footer::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--yellow),var(--yellow-dark),var(--yellow),transparent)}
+.footer-main{max-width:1200px;margin:0 auto;padding:50px 20px 30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px}
+.footer-col h3{font-family:'Orbitron',sans-serif;font-size:1.1rem;color:var(--yellow);margin-bottom:20px;position:relative;padding-bottom:10px}
+.footer-col h3::after{content:'';position:absolute;bottom:0;left:0;width:40px;height:3px;background:var(--yellow);border-radius:2px}
+.footer-col p{font-size:0.9rem;line-height:1.8;color:#aaa}
+.footer-brand-section{display:flex;align-items:center;gap:12px;margin-bottom:15px}
+.footer-brand-logo{width:45px;height:45px;filter:drop-shadow(0 0 10px var(--yellow-glow))}
+.footer-brand-name{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:900;color:var(--yellow)}
+.footer-links{list-style:none;padding:0}
+.footer-links li{margin-bottom:10px}
+.footer-links a{color:#aaa;text-decoration:none;font-size:0.95rem;font-weight:500;transition:all 0.3s;display:flex;align-items:center;gap:8px}
+.footer-links a:hover{color:var(--yellow);transform:translateX(5px)}
+.footer-links a i{color:var(--yellow-dark);width:18px;text-align:center;font-size:0.85rem}
+.footer-contact-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:15px;font-size:0.9rem;color:#aaa}
+.footer-contact-item i{color:var(--yellow);font-size:1.1rem;margin-top:3px;width:20px;text-align:center;flex-shrink:0}
+.footer-contact-item a{color:#aaa;text-decoration:none;transition:color 0.3s}
+.footer-contact-item a:hover{color:var(--yellow)}
+.footer-socials{display:flex;gap:12px;margin-top:20px}
+.footer-social-btn{width:42px;height:42px;border-radius:50%;background:rgba(255,215,0,0.1);border:2px solid rgba(255,215,0,0.3);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all 0.3s;color:var(--yellow)}
+.footer-social-btn:hover{background:var(--yellow);color:var(--black);transform:translateY(-3px);box-shadow:0 5px 20px var(--yellow-glow)}
+.footer-social-btn i{font-size:1.1rem}
+.footer-newsletter{margin-top:15px}
+.footer-newsletter p{font-size:0.85rem;color:#888;margin-bottom:10px}
+.newsletter-form{display:flex;gap:8px}
+.newsletter-form input{flex:1;padding:10px 14px;background:rgba(255,255,255,0.08);border:2px solid rgba(255,215,0,0.2);border-radius:8px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.3s}
+.newsletter-form input::placeholder{color:#666}
+.newsletter-form input:focus{border-color:var(--yellow)}
+.newsletter-form button{padding:10px 18px;background:var(--yellow);border:none;border-radius:8px;color:var(--black);font-weight:700;cursor:pointer;font-family:'Rajdhani',sans-serif;transition:all 0.3s}
+.newsletter-form button:hover{background:var(--yellow-dark);box-shadow:0 0 15px var(--yellow-glow)}
+.footer-bottom{border-top:1px solid rgba(255,215,0,0.15);padding:20px;text-align:center}
+.footer-bottom-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-bottom p{color:#666;font-size:0.8rem}
+.footer-bottom-links{display:flex;gap:20px}
+.footer-bottom-links a{color:#666;text-decoration:none;font-size:0.8rem;transition:color 0.3s}
+.footer-bottom-links a:hover{color:var(--yellow)}
+.footer-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.2);border-radius:20px;padding:4px 12px;font-size:0.75rem;color:var(--yellow);margin-top:10px}
+.footer-badge i{font-size:0.7rem}
 
 .toast-container{position:fixed;top:80px;right:20px;z-index:5000;display:flex;flex-direction:column;gap:10px}
 .toast{padding:12px 20px;background:var(--black);border:2px solid var(--yellow);border-radius:10px;color:#fff;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,0.3);animation:toast-in 0.3s ease;min-width:250px}
@@ -108,30 +200,44 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 
 .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:3000;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.open{display:flex}
-.modal{background:var(--bg-card);border:2px solid var(--border-color);border-radius:20px;width:100%;max-width:420px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.modal{background:var(--bg-card);border:2px solid var(--border-color);border-radius:20px;width:100%;max-width:420px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:modal-pop 0.4s cubic-bezier(0.4,0,0.2,1)}
+@keyframes modal-pop{0%{opacity:0;transform:scale(0.8) translateY(20px)}100%{opacity:1;transform:scale(1) translateY(0)}}
 .modal-header{padding:20px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--border-color);background:var(--black);border-radius:18px 18px 0 0}
 .modal-header h2{font-family:'Orbitron',sans-serif;font-size:1.2rem;color:var(--yellow)}
-.modal-close{background:none;border:none;color:var(--yellow);font-size:1.5rem;cursor:pointer}
+.modal-close{background:none;border:none;color:var(--yellow);font-size:1.5rem;cursor:pointer;transition:transform 0.3s}
+.modal-close:hover{transform:rotate(90deg)}
 .modal-body{padding:25px}
 .google-btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:14px;background:var(--yellow);color:var(--black);border:2px solid var(--yellow-dark);border-radius:12px;font-size:1.05rem;font-weight:700;cursor:pointer;transition:all 0.3s;font-family:'Rajdhani',sans-serif}
-.google-btn:hover{background:var(--yellow-dark);box-shadow:0 4px 20px var(--yellow-glow)}
+.google-btn:hover{background:var(--yellow-dark);box-shadow:0 4px 20px var(--yellow-glow);transform:translateY(-2px)}
 .google-btn img{width:24px;height:24px}
 .auth-info{margin-top:20px;font-size:0.85rem;color:var(--text-muted)}
 
-@media(max-width:768px){.nav-title{font-size:1.1rem}.user-name{display:none}.hero h1{font-size:2rem}.intro-title{font-size:2rem}.nav-btn span{display:none}.nav-btn{padding:8px 10px}.main-options{grid-template-columns:1fr}}
-@media(max-width:480px){.hero{padding:50px 15px}.hero h1{font-size:1.5rem}}
+@media(max-width:768px){
+.nav-title{font-size:1.1rem}.user-name{display:none}.hero h1{font-size:2rem}.intro-title{font-size:2rem}.nav-btn span{display:none}.nav-btn{padding:8px 10px}.main-options{grid-template-columns:1fr}.stats-section{grid-template-columns:repeat(2,1fr)}
+.footer-main{grid-template-columns:1fr;gap:30px;padding:30px 20px 20px}
+.footer-bottom-content{flex-direction:column;text-align:center}
+.footer-bottom-links{justify-content:center}
+}
+@media(max-width:480px){.hero{padding:50px 15px}.hero h1{font-size:1.5rem}.stats-section{grid-template-columns:1fr}.newsletter-form{flex-direction:column}}
 </style>
 </head>
 <body>
+
+<!-- Floating Particles Background -->
+<div class="particles-bg" id="particles-bg"></div>
+
+<!-- Intro Screen -->
 <div id="intro-screen">
 <div class="spark-container" id="intro-sparks"></div>
 <img src="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png" class="intro-logo" alt="Ellectra">
 <div class="intro-title">ELLECTRA</div>
 <div class="intro-tagline">⚡ ELECTRIFYING COMPONENTS ⚡</div>
 </div>
+
 <div class="toast-container" id="toast-container"></div>
 
-<nav class="navbar" id="navbar" style="display:none">
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
 <a href="index.html" class="nav-brand">
 <img src="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png" class="nav-logo" alt="Ellectra">
 <span class="nav-title">ELLECTRA</span>
@@ -144,38 +250,82 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 </div>
 </nav>
 
+<!-- Hero Section -->
 <section class="hero" id="hero" style="display:none">
+<div class="electric-lines">
+<div class="electric-line"></div>
+<div class="electric-line"></div>
+<div class="electric-line"></div>
+</div>
+<div class="hero-content">
 <div class="hero-bolt">⚡</div>
 <h1>ELLECTRA</h1>
 <p>Premium Electronic Components, Services & Project Solutions</p>
+</div>
 </section>
 
+<!-- Ticker -->
+<div class="ticker-section" id="ticker" style="display:none">
+<div class="ticker-content">
+<span>⚡ ARDUINO BOARDS ⚡ RASPBERRY PI ⚡ SENSORS ⚡ LED MODULES ⚡ MOTOR DRIVERS ⚡ PCB DESIGN ⚡ IOT SOLUTIONS ⚡ CUSTOM PROJECTS ⚡ SOLDERING SERVICES ⚡ FREE DELIVERY ABOVE ₹999 ⚡</span>
+<span>⚡ ARDUINO BOARDS ⚡ RASPBERRY PI ⚡ SENSORS ⚡ LED MODULES ⚡ MOTOR DRIVERS ⚡ PCB DESIGN ⚡ IOT SOLUTIONS ⚡ CUSTOM PROJECTS ⚡ SOLDERING SERVICES ⚡ FREE DELIVERY ABOVE ₹999 ⚡</span>
+</div>
+</div>
+
 <div id="main-content" style="display:none">
+
+<!-- Stats Section -->
+<div class="stats-section reveal">
+<div class="stat-card">
+<div class="stat-icon"><i class="fas fa-microchip"></i></div>
+<div class="stat-number"><span class="count-up" data-target="500">0</span>+</div>
+<div class="stat-label">Components Available</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon"><i class="fas fa-users"></i></div>
+<div class="stat-number"><span class="count-up" data-target="200">0</span>+</div>
+<div class="stat-label">Happy Customers</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon"><i class="fas fa-project-diagram"></i></div>
+<div class="stat-number"><span class="count-up" data-target="50">0</span>+</div>
+<div class="stat-label">Projects Delivered</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon"><i class="fas fa-headset"></i></div>
+<div class="stat-number">24/7</div>
+<div class="stat-label">Support Available</div>
+</div>
+</div>
+
+<!-- Main Options -->
 <div class="main-options">
-<a href="shop.html" class="option-card">
+<a href="shop.html" class="option-card" data-delay="0">
 <div class="option-icon"><i class="fas fa-microchip"></i></div>
 <div class="option-title">SHOP</div>
 <div class="option-desc">Browse and buy premium electronic components. Arduino, Sensors, ICs, LEDs and more at shocking prices!</div>
 </a>
-<a href="service.html" class="option-card">
+<a href="service.html" class="option-card" data-delay="150">
 <div class="option-icon"><i class="fas fa-tools"></i></div>
 <div class="option-title">SERVICES</div>
 <div class="option-desc">Professional electronics services — PCB design, soldering, repairs, IoT solutions and custom builds.</div>
 </a>
-<a href="project.html" class="option-card">
+<a href="project.html" class="option-card" data-delay="300">
 <div class="option-icon"><i class="fas fa-project-diagram"></i></div>
 <div class="option-title">PROJECTS</div>
 <div class="option-desc">Need a project for college or company? We build custom electronics projects tailored to your needs.</div>
 </a>
 </div>
 
+<!-- My Orders -->
 <div class="my-orders-section" id="my-orders-section">
-<h2 class="section-title"><i class="fas fa-box"></i> My Orders</h2>
+<h2 class="section-title reveal"><i class="fas fa-box"></i> My Orders</h2>
 <div id="my-orders-list"><p style="color:var(--text-muted)">Sign in to view your orders</p></div>
 </div>
 
+<!-- Feedback -->
 <div class="feedback-section">
-<div class="feedback-card">
+<div class="feedback-card reveal">
 <h3><i class="fas fa-comment-dots"></i> Send Feedback</h3>
 <div class="fb-group"><label>Your Name</label><input type="text" id="fb-name" placeholder="Your name"></div>
 <div class="fb-group"><label>Email</label><input type="email" id="fb-email" placeholder="Your email"></div>
@@ -193,11 +343,107 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 </div>
 </div>
 
+<!-- ===== FULL FOOTER ===== -->
 <footer class="footer" id="footer" style="display:none">
-<div class="footer-brand">⚡ ELLECTRA</div>
-<p>&copy; 2025 Ellectra. All rights reserved.</p>
+<div class="footer-main">
+
+<!-- Column 1: Brand & About -->
+<div class="footer-col">
+<div class="footer-brand-section">
+<img src="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png" class="footer-brand-logo" alt="Ellectra">
+<span class="footer-brand-name">ELLECTRA</span>
+</div>
+<p>Your one-stop destination for premium electronic components, professional services, and custom project solutions. Powering innovation since 2024.</p>
+<div class="footer-socials">
+<a href="https://www.instagram.com/ellectra.official" target="_blank" class="footer-social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+<a href="https://wa.me/916381733447" target="_blank" class="footer-social-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<a href="mailto:ellectra.components@gmail.com" class="footer-social-btn" title="Email"><i class="fas fa-envelope"></i></a>
+<a href="https://www.youtube.com/@ellectra" target="_blank" class="footer-social-btn" title="YouTube"><i class="fab fa-youtube"></i></a>
+<a href="https://t.me/ellectra" target="_blank" class="footer-social-btn" title="Telegram"><i class="fab fa-telegram"></i></a>
+</div>
+<div class="footer-badge"><i class="fas fa-shield-alt"></i> Trusted by 200+ customers</div>
+</div>
+
+<!-- Column 2: Quick Links -->
+<div class="footer-col">
+<h3>Quick Links</h3>
+<ul class="footer-links">
+<li><a href="shop.html"><i class="fas fa-store"></i> Component Shop</a></li>
+<li><a href="service.html"><i class="fas fa-tools"></i> Services</a></li>
+<li><a href="project.html"><i class="fas fa-project-diagram"></i> Custom Projects</a></li>
+<li><a href="#my-orders-section"><i class="fas fa-box"></i> My Orders</a></li>
+<li><a href="#"><i class="fas fa-question-circle"></i> FAQ & Help</a></li>
+<li><a href="#"><i class="fas fa-undo"></i> Return Policy</a></li>
+</ul>
+</div>
+
+<!-- Column 3: Contact Info -->
+<div class="footer-col">
+<h3>Contact Us</h3>
+<div class="footer-contact-item">
+<i class="fas fa-map-marker-alt"></i>
+<span>Ellectra Electronics,<br>Tamil Nadu, India</span>
+</div>
+<div class="footer-contact-item">
+<i class="fas fa-phone-alt"></i>
+<a href="tel:+916381733447">+91 63817 33447</a>
+</div>
+<div class="footer-contact-item">
+<i class="fab fa-whatsapp"></i>
+<a href="https://wa.me/916381733447" target="_blank">WhatsApp: +91 63817 33447</a>
+</div>
+<div class="footer-contact-item">
+<i class="fas fa-envelope"></i>
+<a href="mailto:ellectra2025@gmail.com">
+ellectra2025@gmail.com</a>
+</div>
+<div class="footer-contact-item">
+<i class="fab fa-instagram"></i>
+<a href="https://www.instagram.com/ellectra.official" target="_blank">@ellectra.official</a>
+</div>
+<div class="footer-contact-item">
+<i class="fas fa-clock"></i>
+<span>24/7 Support</span>
+</div>
+</div>
+
+<!-- Column 4: Newsletter -->
+<div class="footer-col">
+<h3>Stay Updated</h3>
+<p style="margin-bottom:15px">Get notified about new components, offers, and project ideas!</p>
+<div class="footer-newsletter">
+<div class="newsletter-form">
+<input type="email" id="newsletter-email" placeholder="Enter your email">
+<button onclick="subscribeNewsletter()"><i class="fas fa-paper-plane"></i></button>
+</div>
+<p style="font-size:0.75rem;color:#555;margin-top:8px">We respect your privacy. No spam ever.</p>
+</div>
+<div style="margin-top:20px">
+<h3 style="font-size:0.9rem;margin-bottom:10px">We Accept</h3>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<span style="background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.2);border-radius:6px;padding:5px 10px;font-size:0.75rem;color:var(--yellow)"><i class="fas fa-money-bill-wave"></i> Cash</span>
+<span style="background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.2);border-radius:6px;padding:5px 10px;font-size:0.75rem;color:var(--yellow)"><i class="fas fa-mobile-alt"></i> UPI</span>
+<span style="background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.2);border-radius:6px;padding:5px 10px;font-size:0.75rem;color:var(--yellow)"><i class="fas fa-university"></i> Bank</span>
+<span style="background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.2);border-radius:6px;padding:5px 10px;font-size:0.75rem;color:var(--yellow)"><i class="fas fa-truck"></i> COD</span>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Footer Bottom -->
+<div class="footer-bottom">
+<div class="footer-bottom-content">
+<p>&copy; 2025 Ellectra. All rights reserved. Made with ⚡ in India</p>
+<div class="footer-bottom-links">
+<a href="#">Privacy Policy</a>
+<a href="#">Terms of Service</a>
+<a href="#">Shipping Info</a>
+</div>
+</div>
+</div>
 </footer>
 
+<!-- Auth Modal -->
 <div class="modal-overlay auth-modal" id="auth-modal">
 <div class="modal">
 <div class="modal-header"><h2>⚡ Sign In</h2><button class="modal-close" onclick="closeAuthModal()">&times;</button></div>
@@ -220,19 +466,97 @@ firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth(),db=firebase.firestore();
 let currentUser=null;
 
+function createParticles(){
+const c=document.getElementById('particles-bg');
+for(let i=0;i<30;i++){
+const p=document.createElement('div');
+p.className='particle';
+const size=2+Math.random()*6;
+const left=Math.random()*100;
+const dur=15+Math.random()*25;
+const delay=Math.random()*20;
+p.style.cssText=`left:${left}%;width:${size}px;height:${size}px;animation-duration:${dur}s;animation-delay:${delay}s;`;
+c.appendChild(p);
+}
+}
+
 function createIntroSparks(){
 const c=document.getElementById('intro-sparks');
 const colors=['#FFD700','#FFC107','#FFAA00','#FFE44D','#E6C200'];
 for(let i=0;i<60;i++){setTimeout(()=>{const s=document.createElement('div');s.className='spark';const x=Math.random()*window.innerWidth,y=Math.random()*window.innerHeight,tx=(Math.random()-0.5)*300,ty=(Math.random()-0.5)*300,dur=0.5+Math.random()*1.5,size=2+Math.random()*6,color=colors[Math.floor(Math.random()*colors.length)];s.style.cssText=`left:${x}px;top:${y}px;width:${size}px;height:${size}px;background:${color};box-shadow:0 0 ${size*2}px ${color};--tx:${tx}px;--ty:${ty}px;animation-duration:${dur}s;`;c.appendChild(s);setTimeout(()=>s.remove(),dur*1000);},i*50);}
 }
 
-function initIntro(){createIntroSparks();setTimeout(()=>{document.getElementById('intro-screen').classList.add('hidden');document.getElementById('navbar').style.display='flex';document.getElementById('hero').style.display='block';document.getElementById('main-content').style.display='block';document.getElementById('footer').style.display='block';},3000);}
+function animateCounters(){
+document.querySelectorAll('.count-up').forEach(el=>{
+const target=parseInt(el.getAttribute('data-target'));
+if(!target)return;
+let current=0;
+const increment=target/60;
+const timer=setInterval(()=>{
+current+=increment;
+if(current>=target){current=target;clearInterval(timer);}
+el.textContent=Math.floor(current);
+},30);
+});
+}
+
+function setupScrollReveal(){
+const observer=new IntersectionObserver((entries)=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){entry.target.classList.add('revealed');observer.unobserve(entry.target);}
+});
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+}
+
+function animateOptionCards(){
+const observer=new IntersectionObserver((entries)=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+const delay=parseInt(entry.target.getAttribute('data-delay'))||0;
+setTimeout(()=>{entry.target.classList.add('animate-in');},delay);
+observer.unobserve(entry.target);
+}
+});
+},{threshold:0.1});
+document.querySelectorAll('.option-card').forEach(el=>observer.observe(el));
+}
+
+function setupCounterTrigger(){
+const observer=new IntersectionObserver((entries)=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){animateCounters();observer.unobserve(entry.target);}
+});
+},{threshold:0.3});
+const stats=document.querySelector('.stats-section');
+if(stats)observer.observe(stats);
+}
+
+function initIntro(){
+createIntroSparks();
+createParticles();
+setTimeout(()=>{
+document.getElementById('intro-screen').classList.add('hidden');
+document.getElementById('navbar').classList.add('visible');
+document.getElementById('hero').style.display='block';
+document.getElementById('ticker').style.display='block';
+document.getElementById('main-content').style.display='block';
+document.getElementById('footer').style.display='block';
+setTimeout(()=>{
+setupScrollReveal();
+animateOptionCards();
+setupCounterTrigger();
+},100);
+},3000);
+}
 
 function showAuthModal(){document.getElementById('auth-modal').classList.add('open')}
 function closeAuthModal(){document.getElementById('auth-modal').classList.remove('open')}
 function signInWithGoogle(){const p=new firebase.auth.GoogleAuthProvider();auth.signInWithPopup(p).then(r=>{currentUser=r.user;updateAuthUI();closeAuthModal();showToast('Welcome, '+currentUser.displayName+'!','success');saveCustomer(currentUser);loadMyOrders();}).catch(()=>showToast('Sign in failed','error'));}
 function signOut(){auth.signOut().then(()=>{currentUser=null;updateAuthUI();document.getElementById('my-orders-section').classList.remove('visible');showToast('Signed out','success');});}
+
 function updateAuthUI(){const a=document.getElementById('auth-area');if(currentUser){const p=currentUser.photoURL||'https://ui-avatars.com/api/?name='+encodeURIComponent(currentUser.displayName)+'&background=FFD700&color=000';a.innerHTML='<div class="user-info" onclick="signOut()" style="cursor:pointer" title="Sign out"><img src="'+p+'" class="user-avatar" referrerpolicy="no-referrer"><span class="user-name">'+currentUser.displayName.split(' ')[0]+'</span></div>';document.getElementById('fb-name').value=currentUser.displayName||'';document.getElementById('fb-email').value=currentUser.email||'';}else{a.innerHTML='<button class="nav-btn" onclick="showAuthModal()"><i class="fas fa-bolt"></i><span>Sign In</span></button>';}}
+
 function saveCustomer(u){db.collection('customers').doc(u.uid).set({name:u.displayName,email:u.email,photoURL:u.photoURL||'',lastLogin:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});}
 auth.onAuthStateChanged(u=>{currentUser=u;updateAuthUI();if(u)loadMyOrders();});
 
@@ -256,6 +580,17 @@ c.innerHTML+=`<div class="my-order-card"><div class="my-order-header"><span clas
 });});}
 
 async function submitFeedback(){const n=document.getElementById('fb-name').value.trim(),e=document.getElementById('fb-email').value.trim(),r=document.getElementById('fb-rating').value,m=document.getElementById('fb-message').value.trim();if(!n||!m){showToast('Please fill name and feedback','error');return;}try{await db.collection('feedbacks').add({name:n,email:e,rating:parseInt(r),message:m,createdAt:firebase.firestore.FieldValue.serverTimestamp(),userId:currentUser?currentUser.uid:null});document.getElementById('fb-message').value='';showToast('Thank you for your feedback! ⚡','success');}catch(err){showToast('Error submitting','error');}}
+
+// Newsletter subscribe
+async function subscribeNewsletter(){
+const email=document.getElementById('newsletter-email').value.trim();
+if(!email||!email.includes('@')){showToast('Enter a valid email','error');return;}
+try{
+await db.collection('newsletter').add({email:email,subscribedAt:firebase.firestore.FieldValue.serverTimestamp()});
+document.getElementById('newsletter-email').value='';
+showToast('Subscribed successfully! ⚡','success');
+}catch(e){showToast('Failed to subscribe','error');}
+}
 
 function showToast(msg,type='success'){const c=document.getElementById('toast-container'),t=document.createElement('div');t.className='toast '+type;const icon=type==='success'?'fa-check-circle':'fa-exclamation-circle';const color=type==='success'?'var(--success)':'var(--danger)';t.innerHTML='<i class="fas '+icon+'" style="color:'+color+'"></i>'+msg;c.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(100px)';t.style.transition='all 0.3s';setTimeout(()=>t.remove(),300);},3000);}
 
