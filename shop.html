@@ -105,22 +105,13 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 .form-group textarea{resize:vertical;min-height:60px}
 .form-note{font-size:0.75rem;color:var(--text-muted);margin-top:3px}
 
-/* GST Toggle Styles */
-.gst-toggle-group{margin-bottom:15px;padding:15px;background:var(--bg-secondary);border:2px solid var(--border-color);border-radius:12px;transition:border-color 0.3s}
-.gst-toggle-group.active{border-color:var(--yellow);background:var(--yellow-light)}
-.gst-toggle-label{display:flex;align-items:center;gap:12px;cursor:pointer;font-weight:600;font-size:0.95rem;color:var(--text-primary)}
-.gst-toggle-label i{color:var(--yellow-dark);font-size:1.2rem}
-.gst-toggle{position:relative;width:50px;height:26px;flex-shrink:0}
-.gst-toggle input{opacity:0;width:0;height:0}
-.gst-slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#ccc;transition:0.3s;border-radius:26px}
-.gst-slider:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:white;transition:0.3s;border-radius:50%}
-.gst-toggle input:checked+.gst-slider{background:var(--yellow-dark)}
-.gst-toggle input:checked+.gst-slider:before{transform:translateX(24px)}
-.gst-fields{margin-top:12px;display:none;animation:gst-slide-down 0.3s ease}
-.gst-fields.visible{display:block}
-@keyframes gst-slide-down{0%{opacity:0;max-height:0}100%{opacity:1;max-height:200px}}
-.gst-fields .form-group{margin-bottom:10px}
-.gst-info-text{font-size:0.8rem;color:var(--text-muted);margin-top:5px;font-style:italic}
+/* GST Toggle */
+.gst-option{margin:15px 0;padding:15px;background:var(--bg-secondary);border:2px solid var(--border-color);border-radius:12px;transition:all 0.3s}
+.gst-option.active{border-color:var(--yellow);background:var(--yellow-light)}
+.gst-option label{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:1rem;font-weight:700;color:var(--text-primary)}
+.gst-option label i{color:var(--yellow-dark);font-size:1.2rem}
+.gst-option input[type="checkbox"]{width:20px;height:20px;accent-color:var(--yellow-dark);cursor:pointer}
+.gst-option .gst-note{font-size:0.8rem;color:var(--text-muted);margin-top:8px;margin-left:30px;font-style:italic}
 
 .receipt{background:#fff;color:#000;padding:30px;border-radius:10px;border:2px solid #ddd;font-family:'Courier New',monospace}
 .receipt-header{text-align:center;margin-bottom:20px;border-bottom:2px dashed #000;padding-bottom:15px}
@@ -136,11 +127,14 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 .receipt-totals .grand{font-size:1.1rem;font-weight:700;border-top:1px solid #000;padding-top:8px;margin-top:5px}
 .receipt-footer{text-align:center;margin-top:20px;border-top:2px dashed #000;padding-top:15px;font-size:0.8rem;color:#555}
 .receipt-actions{display:flex;gap:10px;margin-top:15px;justify-content:center;flex-wrap:wrap}
-.receipt-actions button{padding:10px 20px;border-radius:8px;border:none;font-family:'Rajdhani',sans-serif;font-weight:700;cursor:pointer;font-size:0.95rem;display:flex;align-items:center;gap:6px}
+.receipt-actions button{padding:10px 20px;border-radius:8px;border:none;font-family:'Rajdhani',sans-serif;font-weight:700;cursor:pointer;font-size:0.95rem;display:flex;align-items:center;gap:6px;transition:all 0.3s}
 .btn-download{background:var(--yellow);color:var(--black)}
+.btn-download:hover{background:var(--yellow-dark)}
 .btn-whatsapp{background:#25D366;color:#fff}
+.btn-whatsapp:hover{background:#1da851}
 .btn-gst{background:var(--black);color:var(--yellow);border:2px solid var(--yellow)!important}
 .btn-gst:hover{background:var(--yellow);color:var(--black)}
+
 .google-btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:14px;background:var(--yellow);color:var(--black);border:2px solid var(--yellow-dark);border-radius:12px;font-size:1.05rem;font-weight:700;cursor:pointer;transition:all 0.3s;font-family:'Rajdhani',sans-serif}
 .google-btn:hover{background:var(--yellow-dark)}
 .google-btn img{width:24px;height:24px}
@@ -155,70 +149,116 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 .loading-spinner{display:flex;align-items:center;justify-content:center;padding:60px}
 .spinner{width:40px;height:40px;border:3px solid #ddd;border-top-color:var(--yellow);border-radius:50%;animation:spin 0.8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* GST Receipt specific */
-.gst-receipt{background:#fff;color:#000;padding:30px;border-radius:10px;border:2px solid #ddd;font-family:'Courier New',monospace}
-.gst-receipt .gst-header{text-align:center;border-bottom:2px solid #000;padding-bottom:15px;margin-bottom:15px}
-.gst-receipt .gst-label{font-size:1.2rem;font-weight:700;color:#000;margin-bottom:5px;text-transform:uppercase;letter-spacing:2px}
-.gst-receipt .gst-details{margin:10px 0;padding:10px;border:1px solid #ccc;border-radius:5px;font-size:0.85rem}
-.gst-receipt .gst-details div{padding:2px 0}
-
 @media(max-width:768px){.nav-title{font-size:1.1rem}.user-name{display:none}.hero h1{font-size:1.6rem}.products-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}.product-img{height:140px}.nav-btn span{display:none}.nav-btn{padding:8px 10px}}
 @media(max-width:480px){.products-grid{grid-template-columns:repeat(2,1fr);gap:10px}.product-info{padding:10px}.product-img{height:120px}}
 </style>
 </head>
 <body>
 <div class="toast-container" id="toast-container"></div>
-<nav class="navbar"><a href="index.html" class="nav-brand"><img src="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png" class="nav-logo"><span class="nav-title">ELLECTRA</span></a><div class="nav-actions"><a href="index.html" class="nav-btn"><i class="fas fa-home"></i><span>Home</span></a><div id="auth-area"><button class="nav-btn" onclick="showAuthModal()"><i class="fas fa-bolt"></i><span>Sign In</span></button></div><button class="nav-btn cart-badge" onclick="toggleCart()"><i class="fas fa-shopping-cart"></i><span>Cart</span><div class="cart-count" id="cart-count" style="display:none">0</div></button></div></nav>
+
+<nav class="navbar">
+<a href="index.html" class="nav-brand">
+<img src="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png" class="nav-logo">
+<span class="nav-title">ELLECTRA</span>
+</a>
+<div class="nav-actions">
+<a href="index.html" class="nav-btn"><i class="fas fa-home"></i><span>Home</span></a>
+<div id="auth-area"><button class="nav-btn" onclick="showAuthModal()"><i class="fas fa-bolt"></i><span>Sign In</span></button></div>
+<button class="nav-btn cart-badge" onclick="toggleCart()"><i class="fas fa-shopping-cart"></i><span>Cart</span><div class="cart-count" id="cart-count" style="display:none">0</div></button>
+</div>
+</nav>
 
 <section class="hero"><h1>⚡ COMPONENT SHOP</h1><p>Premium Electronic Components at Shocking Prices</p></section>
 
-<section class="search-section"><div class="search-box"><i class="fas fa-search" style="color:var(--yellow-dark);padding:10px"></i><input type="text" id="search-input" placeholder="Search components..." oninput="filterProducts()"><button onclick="filterProducts()">Search</button></div><div class="category-filters" id="category-filters"><button class="cat-btn active" onclick="setCategory('all',this)">All</button></div></section>
+<section class="search-section">
+<div class="search-box">
+<i class="fas fa-search" style="color:var(--yellow-dark);padding:10px"></i>
+<input type="text" id="search-input" placeholder="Search components..." oninput="filterProducts()">
+<button onclick="filterProducts()">Search</button>
+</div>
+<div class="category-filters" id="category-filters"><button class="cat-btn active" onclick="setCategory('all',this)">All</button></div>
+</section>
 
-<section class="products-section"><h2><i class="fas fa-microchip"></i> Components</h2><div class="products-grid" id="products-grid"><div class="loading-spinner"><div class="spinner"></div></div></div></section>
+<section class="products-section">
+<h2><i class="fas fa-microchip"></i> Components</h2>
+<div class="products-grid" id="products-grid"><div class="loading-spinner"><div class="spinner"></div></div></div>
+</section>
 
 <footer class="footer"><div class="footer-brand">⚡ ELLECTRA</div><p>© 2025 Ellectra</p></footer>
 
+<!-- Cart Sidebar -->
 <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
-<div class="cart-sidebar" id="cart-sidebar"><div class="cart-header"><h2>🛒 Cart</h2><button class="cart-close" onclick="toggleCart()">×</button></div><div class="cart-items" id="cart-items"><div class="cart-empty"><i class="fas fa-shopping-cart"></i><p>Cart is empty</p></div></div><div class="cart-footer"><div class="coupon-section"><input type="text" id="coupon-input" placeholder="Enter coupon code" maxlength="20"><button onclick="applyCoupon()">Apply</button></div><div class="coupon-msg" id="coupon-msg"></div><div class="cart-summary"><div class="cart-summary-row"><span>Subtotal</span><span id="subtotal">₹0</span></div><div class="cart-summary-row discount" id="discount-row" style="display:none"><span id="discount-label">Discount</span><span id="discount-amount">-₹0</span></div><div class="cart-summary-row total"><span>Total</span><span id="total-amount">₹0</span></div></div><button class="checkout-btn" id="checkout-btn" onclick="handleCheckout()" disabled><i class="fas fa-bolt"></i> CHECKOUT</button></div></div>
+<div class="cart-sidebar" id="cart-sidebar">
+<div class="cart-header"><h2>🛒 Cart</h2><button class="cart-close" onclick="toggleCart()">×</button></div>
+<div class="cart-items" id="cart-items"><div class="cart-empty"><i class="fas fa-shopping-cart"></i><p>Cart is empty</p></div></div>
+<div class="cart-footer">
+<div class="coupon-section"><input type="text" id="coupon-input" placeholder="Enter coupon code" maxlength="20"><button onclick="applyCoupon()">Apply</button></div>
+<div class="coupon-msg" id="coupon-msg"></div>
+<div class="cart-summary">
+<div class="cart-summary-row"><span>Subtotal</span><span id="subtotal">₹0</span></div>
+<div class="cart-summary-row discount" id="discount-row" style="display:none"><span id="discount-label">Discount</span><span id="discount-amount">-₹0</span></div>
+<div class="cart-summary-row total"><span>Total</span><span id="total-amount">₹0</span></div>
+</div>
+<button class="checkout-btn" id="checkout-btn" onclick="handleCheckout()" disabled><i class="fas fa-bolt"></i> CHECKOUT</button>
+</div>
+</div>
 
 <!-- Auth Modal -->
-<div class="modal-overlay auth-modal" id="auth-modal"><div class="modal"><div class="modal-header"><h2>⚡ Sign In</h2><button class="modal-close" onclick="closeAuthModal()">×</button></div><div class="modal-body" style="text-align:center"><p style="margin-bottom:25px;color:var(--text-secondary)">Sign in to place orders</p><button class="google-btn" onclick="signInWithGoogle()"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">Sign in with Google</button><p class="auth-info">🔒 Secure</p></div></div></div>
+<div class="modal-overlay auth-modal" id="auth-modal">
+<div class="modal">
+<div class="modal-header"><h2>⚡ Sign In</h2><button class="modal-close" onclick="closeAuthModal()">×</button></div>
+<div class="modal-body" style="text-align:center">
+<p style="margin-bottom:25px;color:var(--text-secondary)">Sign in to place orders</p>
+<button class="google-btn" onclick="signInWithGoogle()"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">Sign in with Google</button>
+<p class="auth-info">🔒 Secure</p>
+</div>
+</div>
+</div>
 
-<!-- Checkout Modal with GST option -->
-<div class="modal-overlay" id="checkout-modal"><div class="modal"><div class="modal-header"><h2>⚡ Checkout</h2><button class="modal-close" onclick="closeCheckoutModal()">×</button></div><div class="modal-body">
+<!-- Checkout Modal -->
+<div class="modal-overlay" id="checkout-modal">
+<div class="modal">
+<div class="modal-header"><h2>⚡ Checkout</h2><button class="modal-close" onclick="closeCheckoutModal()">×</button></div>
+<div class="modal-body">
 <div class="form-group"><label>Full Name</label><input type="text" id="cust-name"></div>
 <div class="form-group"><label>Phone</label><input type="tel" id="cust-phone" placeholder="+91 XXXXXXXXXX"><div class="form-note">Required for delivery</div></div>
 <div class="form-group"><label>Email</label><input type="email" id="cust-email" readonly></div>
 <div class="form-group"><label>Address</label><textarea id="cust-address" placeholder="Full address with pincode"></textarea></div>
 <div class="form-group"><label>Notes (Optional)</label><input type="text" id="cust-notes" placeholder="Special instructions"></div>
 
-<!-- GST Bill Toggle -->
-<div class="gst-toggle-group" id="gst-toggle-group">
-<label class="gst-toggle-label">
+<!-- Simple GST Option -->
+<div class="gst-option" id="gst-option">
+<label>
+<input type="checkbox" id="gst-checkbox" onchange="toggleGST()">
 <i class="fas fa-file-invoice"></i>
-<span>Need GST Bill?</span>
-<div class="gst-toggle">
-<input type="checkbox" id="gst-checkbox" onchange="toggleGSTFields()">
-<span class="gst-slider"></span>
-</div>
+I need a GST Bill
 </label>
-<div class="gst-fields" id="gst-fields">
-<div class="form-group"><label>GST Number (GSTIN)</label><input type="text" id="gst-number" placeholder="e.g. 22AAAAA0000A1Z5" maxlength="15" style="text-transform:uppercase"></div>
-<div class="form-group"><label>Company / Business Name</label><input type="text" id="gst-company" placeholder="Your company name"></div>
-<div class="gst-info-text"><i class="fas fa-info-circle"></i> GST bill will be sent to you separately via WhatsApp along with your regular receipt.</div>
-</div>
+<div class="gst-note">GST bill with tax breakdown will be provided separately via WhatsApp after order confirmation.</div>
 </div>
 
 <div id="checkout-summary"></div>
 <button class="checkout-btn" onclick="placeOrder()" id="place-order-btn" style="margin-top:15px"><i class="fas fa-bolt"></i> PLACE ORDER</button>
-</div></div></div>
+</div>
+</div>
+</div>
 
 <!-- Receipt Modal -->
-<div class="modal-overlay receipt-modal" id="receipt-modal"><div class="modal" style="max-width:550px"><div class="modal-header"><h2>✅ Order Confirmed!</h2><button class="modal-close" onclick="closeReceiptModal()">×</button></div><div class="modal-body" style="padding:10px"><div id="receipt-content"></div><div class="receipt-actions" id="receipt-actions"><button class="btn-download" onclick="downloadReceipt()"><i class="fas fa-download"></i> Download</button><button class="btn-whatsapp" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> Share</button></div></div></div></div>
+<div class="modal-overlay receipt-modal" id="receipt-modal">
+<div class="modal" style="max-width:550px">
+<div class="modal-header"><h2>✅ Order Confirmed!</h2><button class="modal-close" onclick="closeReceiptModal()">×</button></div>
+<div class="modal-body" style="padding:10px">
+<div id="receipt-content"></div>
+<div class="receipt-actions">
+<button class="btn-download" onclick="downloadReceipt()"><i class="fas fa-download"></i> Download</button>
+<button class="btn-whatsapp" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> Share</button>
+<button class="btn-gst" id="btn-send-gst" style="display:none" onclick="sendGSTBill()"><i class="fas fa-file-invoice"></i> Get GST Bill</button>
+</div>
+</div>
+</div>
+</div>
 
-<!-- GST Bill Modal (separate) -->
-<div class="modal-overlay" id="gst-modal"><div class="modal" style="max-width:550px"><div class="modal-header"><h2>📋 GST Bill</h2><button class="modal-close" onclick="closeGSTModal()">×</button></div><div class="modal-body" style="padding:10px"><div id="gst-receipt-content"></div><div class="receipt-actions"><button class="btn-download" onclick="downloadGSTReceipt()"><i class="fas fa-download"></i> Download GST Bill</button><button class="btn-whatsapp" onclick="shareGSTWhatsApp()"><i class="fab fa-whatsapp"></i> Send GST Bill</button></div></div></div></div>
+<!-- Hidden GST receipt container -->
+<div id="gst-receipt-container" style="position:absolute;left:-9999px;top:0"></div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
@@ -226,17 +266,25 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 const firebaseConfig={apiKey:"AIzaSyAJm0fEDPItyL6nBMWzWGQnSAjreDlCOpQ",authDomain:"ellectra-2b95d.firebaseapp.com",projectId:"ellectra-2b95d",storageBucket:"ellectra-2b95d.firebasestorage.app",messagingSenderId:"164410965069",appId:"1:164410965069:web:b86f8fd714f84c27e3f004"};
-firebase.initializeApp(firebaseConfig);const auth=firebase.auth(),db=firebase.firestore();
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth(),db=firebase.firestore();
 let currentUser=null,products=[],cart=[],appliedCoupon=null,currentCategory='all',lastOrderData=null;
 const WA="916381733447",CURRENCY="₹",LOGO="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png";
 
-// GST toggle
-function toggleGSTFields(){
+// Ellectra GST Details (YOUR details)
+const ELLECTRA_GST={
+  gstin:"33XXXXX0000X1ZX",
+  name:"ELLECTRA ELECTRONICS",
+  address:"Tamil Nadu, India",
+  state:"Tamil Nadu",
+  stateCode:"33"
+};
+
+function toggleGST(){
 const cb=document.getElementById('gst-checkbox');
-const fields=document.getElementById('gst-fields');
-const group=document.getElementById('gst-toggle-group');
-if(cb.checked){fields.classList.add('visible');group.classList.add('active');}
-else{fields.classList.remove('visible');group.classList.remove('active');}
+const opt=document.getElementById('gst-option');
+if(cb.checked){opt.classList.add('active');}
+else{opt.classList.remove('active');}
 }
 
 function showAuthModal(){document.getElementById('auth-modal').classList.add('open')}
@@ -258,31 +306,46 @@ function removeFromCart(id){cart=cart.filter(c=>c.id!==id);updateCart();renderPr
 function changeQty(id,d){const i=cart.find(c=>c.id===id);if(!i)return;i.qty+=d;if(i.qty<=0){removeFromCart(id);return;}const p=products.find(x=>x.id===id);if(p&&p.stock!==undefined&&i.qty>p.stock){i.qty=p.stock;showToast('Max stock','error');}updateCart();}
 function getDiscount(sub){if(sub>=2000)return{p:20,l:'Discount (20%)'};if(sub>=1000)return{p:10,l:'Discount (10%)'};return{p:0,l:''};}
 function updateCart(){const el=document.getElementById('cart-items'),cc=document.getElementById('cart-count'),tc=cart.reduce((s,c)=>s+c.qty,0);cc.textContent=tc;cc.style.display=tc>0?'flex':'none';if(!cart.length){el.innerHTML='<div class="cart-empty"><i class="fas fa-shopping-cart"></i><p>Cart is empty</p></div>';appliedCoupon=null;document.getElementById('coupon-msg').className='coupon-msg';document.getElementById('coupon-input').value='';}else el.innerHTML=cart.map(i=>`<div class="cart-item"><div class="cart-item-img"><img src="${i.image||''}"></div><div class="cart-item-info"><div class="cart-item-name">${i.name}</div><div class="cart-item-price">${CURRENCY}${parseFloat(i.price).toFixed(2)}</div><div class="cart-item-qty"><button class="qty-btn" onclick="changeQty('${i.id}',-1)">−</button><span>${i.qty}</span><button class="qty-btn" onclick="changeQty('${i.id}',1)">+</button></div></div><button class="cart-item-remove" onclick="removeFromCart('${i.id}')"><i class="fas fa-trash"></i></button></div>`).join('');updateTotals();localStorage.setItem('ellectra_shop_cart',JSON.stringify(cart));}
+
 function updateTotals(){const sub=cart.reduce((s,c)=>s+parseFloat(c.price)*c.qty,0);let disc=0,dl='';if(appliedCoupon){const di=getDiscount(sub);if(di.p>0){disc=sub*(di.p/100);dl=di.l;}else{appliedCoupon=null;document.getElementById('coupon-msg').className='coupon-msg error';document.getElementById('coupon-msg').textContent='Min ₹1000 required';}}const tot=sub-disc;document.getElementById('subtotal').textContent=CURRENCY+sub.toFixed(2);document.getElementById('discount-row').style.display=appliedCoupon&&disc>0?'flex':'none';document.getElementById('discount-label').textContent=dl;document.getElementById('discount-amount').textContent='-'+CURRENCY+disc.toFixed(2);document.getElementById('total-amount').textContent=CURRENCY+tot.toFixed(2);document.getElementById('checkout-btn').disabled=!cart.length;}
+
 function toggleCart(){document.getElementById('cart-sidebar').classList.toggle('open');document.getElementById('cart-overlay').classList.toggle('open');}
 
 async function applyCoupon(){const code=document.getElementById('coupon-input').value.trim(),m=document.getElementById('coupon-msg');if(!code){m.className='coupon-msg error';m.textContent='Enter code';return;}if(!cart.length){m.className='coupon-msg error';m.textContent='Add items first';return;}const sub=cart.reduce((s,c)=>s+parseFloat(c.price)*c.qty,0);if(sub<1000){m.className='coupon-msg error';m.textContent='Min ₹1000 order required';return;}try{const snap=await db.collection('coupons').where('code','==',code).get();if(snap.empty){m.className='coupon-msg error';m.textContent='Invalid code';appliedCoupon=null;updateTotals();return;}const doc=snap.docs[0],data=doc.data();if(data.used){m.className='coupon-msg error';m.textContent='Already used';appliedCoupon=null;updateTotals();return;}appliedCoupon={id:doc.id,...data};const di=getDiscount(sub);m.className='coupon-msg success';m.textContent='Applied! '+di.p+'% off!';updateTotals();showToast(di.p+'% OFF!','success');}catch(e){m.className='coupon-msg error';m.textContent='Error';}}
 
-function handleCheckout(){if(!currentUser){showAuthModal();showToast('Sign in first','error');return;}if(!cart.length)return;toggleCart();document.getElementById('cust-name').value=currentUser.displayName||'';document.getElementById('cust-email').value=currentUser.email||'';
-// Reset GST fields
+function handleCheckout(){
+if(!currentUser){showAuthModal();showToast('Sign in first','error');return;}
+if(!cart.length)return;
+toggleCart();
+document.getElementById('cust-name').value=currentUser.displayName||'';
+document.getElementById('cust-email').value=currentUser.email||'';
+// Reset GST checkbox
 document.getElementById('gst-checkbox').checked=false;
-document.getElementById('gst-fields').classList.remove('visible');
-document.getElementById('gst-toggle-group').classList.remove('active');
-document.getElementById('gst-number').value='';
-document.getElementById('gst-company').value='';
+toggleGST();
 
-const sub=cart.reduce((s,c)=>s+parseFloat(c.price)*c.qty,0);const di=appliedCoupon?getDiscount(sub):{p:0};const disc=sub*(di.p/100),tot=sub-disc;let s='<div style="background:var(--bg-secondary);padding:15px;border-radius:10px;margin-top:10px;border:2px solid var(--border-color)"><h3 style="color:var(--black);font-family:Orbitron,sans-serif;font-size:0.9rem;margin-bottom:10px">Order Summary</h3>';cart.forEach(i=>s+=`<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.9rem"><span>${i.name} × ${i.qty}</span><span>${CURRENCY}${(parseFloat(i.price)*i.qty).toFixed(2)}</span></div>`);s+=`<div style="border-top:2px solid var(--border-color);margin-top:8px;padding-top:8px"><div style="display:flex;justify-content:space-between"><span>Subtotal</span><span>${CURRENCY}${sub.toFixed(2)}</span></div>`;if(appliedCoupon&&disc>0)s+=`<div style="display:flex;justify-content:space-between;color:var(--success)"><span>Discount (${di.p}%)</span><span>-${CURRENCY}${disc.toFixed(2)}</span></div>`;s+=`<div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.1rem;margin-top:5px;font-family:Orbitron,sans-serif"><span>Total</span><span>${CURRENCY}${tot.toFixed(2)}</span></div></div></div>`;document.getElementById('checkout-summary').innerHTML=s;document.getElementById('checkout-modal').classList.add('open');}
+const sub=cart.reduce((s,c)=>s+parseFloat(c.price)*c.qty,0);
+const di=appliedCoupon?getDiscount(sub):{p:0};
+const disc=sub*(di.p/100),tot=sub-disc;
+let s='<div style="background:var(--bg-secondary);padding:15px;border-radius:10px;margin-top:10px;border:2px solid var(--border-color)"><h3 style="color:var(--black);font-family:Orbitron,sans-serif;font-size:0.9rem;margin-bottom:10px">Order Summary</h3>';
+cart.forEach(i=>s+=`<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.9rem"><span>${i.name} × ${i.qty}</span><span>${CURRENCY}${(parseFloat(i.price)*i.qty).toFixed(2)}</span></div>`);
+s+=`<div style="border-top:2px solid var(--border-color);margin-top:8px;padding-top:8px"><div style="display:flex;justify-content:space-between"><span>Subtotal</span><span>${CURRENCY}${sub.toFixed(2)}</span></div>`;
+if(appliedCoupon&&disc>0)s+=`<div style="display:flex;justify-content:space-between;color:var(--success)"><span>Discount (${di.p}%)</span><span>-${CURRENCY}${disc.toFixed(2)}</span></div>`;
+s+=`<div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.1rem;margin-top:5px;font-family:Orbitron,sans-serif"><span>Total</span><span>${CURRENCY}${tot.toFixed(2)}</span></div></div></div>`;
+document.getElementById('checkout-summary').innerHTML=s;
+document.getElementById('checkout-modal').classList.add('open');
+}
+
 function closeCheckoutModal(){document.getElementById('checkout-modal').classList.remove('open')}
 
 async function placeOrder(){
-const n=document.getElementById('cust-name').value.trim(),ph=document.getElementById('cust-phone').value.trim(),em=document.getElementById('cust-email').value.trim(),ad=document.getElementById('cust-address').value.trim(),nt=document.getElementById('cust-notes').value.trim();
-const needsGST=document.getElementById('gst-checkbox').checked;
-const gstNumber=document.getElementById('gst-number').value.trim().toUpperCase();
-const gstCompany=document.getElementById('gst-company').value.trim();
-
+const n=document.getElementById('cust-name').value.trim(),
+ph=document.getElementById('cust-phone').value.trim(),
+em=document.getElementById('cust-email').value.trim(),
+ad=document.getElementById('cust-address').value.trim(),
+nt=document.getElementById('cust-notes').value.trim();
 if(!n||!ph||!ad){showToast('Fill required fields','error');return;}
-if(needsGST&&(!gstNumber||gstNumber.length<15)){showToast('Enter valid 15-digit GSTIN','error');return;}
-if(needsGST&&!gstCompany){showToast('Enter company name for GST','error');return;}
+
+const needsGST=document.getElementById('gst-checkbox').checked;
 
 const btn=document.getElementById('place-order-btn');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Processing...';
 try{
@@ -293,19 +356,18 @@ const rid='ELC-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toStrin
 const od={
 receiptId:rid,customerName:n,customerPhone:ph,customerEmail:em,customerAddress:ad,customerNotes:nt,customerUid:currentUser.uid,
 items:cart.map(c=>({id:c.id,name:c.name,price:parseFloat(c.price),qty:c.qty,category:c.category||'',image:c.image||''})),
-subtotal:sub,couponCode:appliedCoupon?appliedCoupon.code:null,couponId:appliedCoupon?appliedCoupon.id:null,discount:disc,discountPercent:di.p,totalAmount:tot,
-status:'pending',orderedAt:firebase.firestore.FieldValue.serverTimestamp(),orderDate:new Date().toISOString(),type:'shop',
-needsGST:needsGST,gstNumber:needsGST?gstNumber:'',gstCompany:needsGST?gstCompany:''
+subtotal:sub,couponCode:appliedCoupon?appliedCoupon.code:null,couponId:appliedCoupon?appliedCoupon.id:null,
+discount:disc,discountPercent:di.p,totalAmount:tot,status:'pending',
+orderedAt:firebase.firestore.FieldValue.serverTimestamp(),orderDate:new Date().toISOString(),type:'shop',
+needsGSTBill:needsGST
 };
 await db.collection('orders').add(od);
 if(appliedCoupon)await db.collection('coupons').doc(appliedCoupon.id).update({used:true,usedBy:currentUser.email,usedAt:firebase.firestore.FieldValue.serverTimestamp()});
 for(const i of cart){const p=products.find(x=>x.id===i.id);if(p&&p.stock!==undefined)await db.collection('components').doc(i.id).update({stock:firebase.firestore.FieldValue.increment(-i.qty)});}
+
 lastOrderData={...od,orderDate:new Date().toISOString()};
-closeCheckoutModal();
-showReceipt(lastOrderData);
-sendWA(lastOrderData);
-cart=[];appliedCoupon=null;updateCart();renderProducts();localStorage.removeItem('ellectra_shop_cart');
-showToast('Order placed!','success');
+closeCheckoutModal();showReceipt(lastOrderData);sendWA(lastOrderData);
+cart=[];appliedCoupon=null;updateCart();renderProducts();localStorage.removeItem('ellectra_shop_cart');showToast('Order placed!','success');
 }catch(e){showToast('Failed: '+e.message,'error');}
 finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-bolt"></i> PLACE ORDER';}
 }
@@ -314,108 +376,34 @@ function showReceipt(o){
 const d=new Date(o.orderDate),ds=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}),ts=d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
 let ih='';o.items.forEach(i=>ih+=`<tr><td>${i.name}</td><td style="text-align:center">${i.qty}</td><td class="amt">${CURRENCY}${i.price.toFixed(2)}</td><td class="amt">${CURRENCY}${(i.price*i.qty).toFixed(2)}</td></tr>`);
 
-document.getElementById('receipt-content').innerHTML=`<div class="receipt" id="receipt-printable"><div class="receipt-header"><img src="${LOGO}" class="receipt-logo"><div class="receipt-store">ELLECTRA</div><div style="font-size:0.8rem;color:#777">Component Shop</div><div class="receipt-id" style="margin-top:8px"><strong>Receipt:</strong> ${o.receiptId}<br><strong>Date:</strong> ${ds} ${ts}</div></div><div style="margin:10px 0;font-size:0.85rem"><div><strong>Customer:</strong> ${o.customerName}</div><div><strong>Phone:</strong> ${o.customerPhone}</div><div><strong>Address:</strong> ${o.customerAddress}</div>${o.needsGST?'<div style="margin-top:5px;padding:5px 8px;background:#fff3cd;border-radius:5px;font-size:0.8rem"><strong>📋 GST Bill Requested</strong> — GSTIN: '+o.gstNumber+'</div>':''}</div><table class="receipt-table"><thead><tr><th>Item</th><th style="text-align:center">Qty</th><th class="amt">Price</th><th class="amt">Total</th></tr></thead><tbody>${ih}</tbody></table><div class="receipt-totals"><div><span>Subtotal:</span><span>${CURRENCY}${o.subtotal.toFixed(2)}</span></div>${o.couponCode?`<div style="color:green"><span>Discount (${o.discountPercent}%):</span><span>-${CURRENCY}${o.discount.toFixed(2)}</span></div>`:''}<div class="grand"><span>TOTAL:</span><span>${CURRENCY}${o.totalAmount.toFixed(2)}</span></div></div><div class="receipt-footer"><div>Thank you!</div><div style="margin-top:5px">Payment: Cash on Delivery</div></div></div>`;
-
-// Build receipt actions with GST button if needed
-let actionsHTML='<button class="btn-download" onclick="downloadReceipt()"><i class="fas fa-download"></i> Download</button><button class="btn-whatsapp" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> Share</button>';
-if(o.needsGST){
-actionsHTML+='<button class="btn-gst" onclick="showGSTBill()"><i class="fas fa-file-invoice"></i> View GST Bill</button>';
-}
-document.getElementById('receipt-actions').innerHTML=actionsHTML;
-document.getElementById('receipt-modal').classList.add('open');
-}
-
-// GST Bill functions
-function showGSTBill(){
-if(!lastOrderData||!lastOrderData.needsGST)return;
-const o=lastOrderData;
-const d=new Date(o.orderDate),ds=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}),ts=d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
-const GST_RATE=18;
-const taxableAmount=o.totalAmount/(1+GST_RATE/100);
-const cgst=taxableAmount*(GST_RATE/2)/100;
-const sgst=taxableAmount*(GST_RATE/2)/100;
-const totalGST=cgst+sgst;
-
-let ih='';o.items.forEach((i,idx)=>{
-const itemTotal=i.price*i.qty;
-const itemTaxable=itemTotal/(1+GST_RATE/100);
-const itemCGST=itemTaxable*(GST_RATE/2)/100;
-const itemSGST=itemTaxable*(GST_RATE/2)/100;
-ih+=`<tr><td>${idx+1}</td><td>${i.name}</td><td style="text-align:center">${i.qty}</td><td class="amt">${CURRENCY}${itemTaxable.toFixed(2)}</td><td class="amt">${(GST_RATE/2)}%</td><td class="amt">${CURRENCY}${itemCGST.toFixed(2)}</td><td class="amt">${(GST_RATE/2)}%</td><td class="amt">${CURRENCY}${itemSGST.toFixed(2)}</td><td class="amt">${CURRENCY}${itemTotal.toFixed(2)}</td></tr>`;
-});
-
-document.getElementById('gst-receipt-content').innerHTML=`
-<div class="gst-receipt" id="gst-receipt-printable">
-<div class="gst-header">
-<img src="${LOGO}" style="width:50px;margin-bottom:5px">
-<div class="gst-label">TAX INVOICE</div>
-<div style="font-size:1.1rem;font-weight:700">ELLECTRA</div>
-<div style="font-size:0.8rem;color:#555">Electronic Components & Services</div>
+document.getElementById('receipt-content').innerHTML=`<div class="receipt" id="receipt-printable">
+<div class="receipt-header">
+<img src="${LOGO}" class="receipt-logo">
+<div class="receipt-store">ELLECTRA</div>
+<div style="font-size:0.8rem;color:#777">Component Shop</div>
+<div class="receipt-id" style="margin-top:8px"><strong>Receipt:</strong> ${o.receiptId}<br><strong>Date:</strong> ${ds} ${ts}</div>
 </div>
-<div class="gst-details">
-<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
-<div>
-<div><strong>Invoice No:</strong> ${o.receiptId}</div>
-<div><strong>Date:</strong> ${ds} ${ts}</div>
+<div style="margin:10px 0;font-size:0.85rem">
+<div><strong>Customer:</strong> ${o.customerName}</div>
+<div><strong>Phone:</strong> ${o.customerPhone}</div>
+<div><strong>Address:</strong> ${o.customerAddress}</div>
 </div>
-<div style="text-align:right">
-<div><strong>Place of Supply:</strong> Tamil Nadu</div>
-</div>
-</div>
-</div>
-<div class="gst-details">
-<div><strong>Bill To:</strong></div>
-<div><strong>${o.gstCompany}</strong></div>
-<div>GSTIN: ${o.gstNumber}</div>
-<div>${o.customerName} | ${o.customerPhone}</div>
-<div>${o.customerAddress}</div>
-</div>
-<table class="receipt-table" style="font-size:0.75rem;margin:15px 0">
-<thead><tr><th>#</th><th>Item</th><th style="text-align:center">Qty</th><th class="amt">Taxable</th><th class="amt">CGST</th><th class="amt">CGST Amt</th><th class="amt">SGST</th><th class="amt">SGST Amt</th><th class="amt">Total</th></tr></thead>
-<tbody>${ih}</tbody>
-</table>
+<table class="receipt-table"><thead><tr><th>Item</th><th style="text-align:center">Qty</th><th class="amt">Price</th><th class="amt">Total</th></tr></thead><tbody>${ih}</tbody></table>
 <div class="receipt-totals">
-<div><span>Taxable Amount:</span><span>${CURRENCY}${taxableAmount.toFixed(2)}</span></div>
-<div><span>CGST (${GST_RATE/2}%):</span><span>${CURRENCY}${cgst.toFixed(2)}</span></div>
-<div><span>SGST (${GST_RATE/2}%):</span><span>${CURRENCY}${sgst.toFixed(2)}</span></div>
-${o.discount>0?`<div style="color:green"><span>Discount:</span><span>-${CURRENCY}${o.discount.toFixed(2)}</span></div>`:''}
-<div class="grand"><span>GRAND TOTAL:</span><span>${CURRENCY}${o.totalAmount.toFixed(2)}</span></div>
+<div><span>Subtotal:</span><span>${CURRENCY}${o.subtotal.toFixed(2)}</span></div>
+${o.couponCode?`<div style="color:green"><span>Discount (${o.discountPercent}%):</span><span>-${CURRENCY}${o.discount.toFixed(2)}</span></div>`:''}
+<div class="grand"><span>TOTAL:</span><span>${CURRENCY}${o.totalAmount.toFixed(2)}</span></div>
 </div>
 <div class="receipt-footer">
-<div style="font-size:0.75rem;margin-top:10px">This is a computer generated invoice.</div>
-<div style="margin-top:5px">Thank you for your business!</div>
+<div>Thank you for shopping with Ellectra!</div>
+<div style="margin-top:5px">Payment: Cash on Delivery</div>
+${o.needsGSTBill?'<div style="margin-top:8px;color:#1a5276;font-weight:700">📋 GST Bill requested — Click "Get GST Bill" below</div>':''}
 </div>
 </div>`;
-document.getElementById('gst-modal').classList.add('open');
-}
 
-function closeGSTModal(){document.getElementById('gst-modal').classList.remove('open')}
-
-function downloadGSTReceipt(){
-html2canvas(document.getElementById('gst-receipt-printable'),{backgroundColor:'#fff',scale:2,useCORS:true}).then(c=>{
-const l=document.createElement('a');l.download='Ellectra_GST_'+((lastOrderData&&lastOrderData.receiptId)||'bill')+'.png';l.href=c.toDataURL();l.click();showToast('GST Bill Downloaded!','success');
-}).catch(()=>window.print());
-}
-
-function shareGSTWhatsApp(){
-if(!lastOrderData||!lastOrderData.needsGST)return;
-const o=lastOrderData;
-const GST_RATE=18;
-const taxableAmount=o.totalAmount/(1+GST_RATE/100);
-const cgst=taxableAmount*(GST_RATE/2)/100;
-const sgst=taxableAmount*(GST_RATE/2)/100;
-
-let m='*GST TAX INVOICE - ELLECTRA*\n\nInvoice: '+o.receiptId+'\nDate: '+new Date(o.orderDate).toLocaleString('en-IN');
-m+='\n\n*Bill To:*\n'+o.gstCompany+'\nGSTIN: '+o.gstNumber+'\n'+o.customerName+'\n'+o.customerPhone+'\n'+o.customerAddress;
-m+='\n\n--- ITEMS ---\n';
-o.items.forEach((i,x)=>m+='\n'+(x+1)+'. '+i.name+' × '+i.qty+' = '+CURRENCY+(i.price*i.qty).toFixed(2));
-m+='\n\n--- TAX BREAKDOWN ---';
-m+='\nTaxable Amount: '+CURRENCY+taxableAmount.toFixed(2);
-m+='\nCGST ('+(GST_RATE/2)+'%): '+CURRENCY+cgst.toFixed(2);
-m+='\nSGST ('+(GST_RATE/2)+'%): '+CURRENCY+sgst.toFixed(2);
-if(o.discount>0)m+='\nDiscount: -'+CURRENCY+o.discount.toFixed(2);
-m+='\n\n*GRAND TOTAL: '+CURRENCY+o.totalAmount.toFixed(2)+'*';
-window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(m),'_blank');
+// Show GST button only if they requested it
+document.getElementById('btn-send-gst').style.display=o.needsGSTBill?'flex':'none';
+document.getElementById('receipt-modal').classList.add('open');
 }
 
 function closeReceiptModal(){document.getElementById('receipt-modal').classList.remove('open')}
@@ -425,13 +413,152 @@ function downloadReceipt(){html2canvas(document.getElementById('receipt-printabl
 function sendWA(o){
 let m='*NEW ORDER - ELLECTRA*\n\nReceipt: '+o.receiptId+'\nDate: '+new Date(o.orderDate).toLocaleString('en-IN')+'\n\nCustomer: '+o.customerName+'\nPhone: '+o.customerPhone+'\nEmail: '+o.customerEmail+'\nAddress: '+o.customerAddress+'\n';
 if(o.customerNotes)m+='Notes: '+o.customerNotes+'\n';
-if(o.needsGST)m+='\n📋 *GST BILL REQUESTED*\nGSTIN: '+o.gstNumber+'\nCompany: '+o.gstCompany+'\n';
-m+='\n--- ITEMS ---\n';
-o.items.forEach((i,x)=>m+='\n'+(x+1)+'. '+i.name+' × '+i.qty+' = '+CURRENCY+(i.price*i.qty).toFixed(2));
+if(o.needsGSTBill)m+='\n⚠️ *GST BILL REQUESTED* - Customer needs GST invoice\n';
+m+='\n--- ITEMS ---\n';o.items.forEach((i,x)=>m+='\n'+(x+1)+'. '+i.name+' × '+i.qty+' = '+CURRENCY+(i.price*i.qty).toFixed(2));
 m+='\n\n---\nSubtotal: '+CURRENCY+o.subtotal.toFixed(2);
 if(o.couponCode)m+='\nCoupon: '+o.couponCode+' ('+o.discountPercent+'%)\nDiscount: -'+CURRENCY+o.discount.toFixed(2);
 m+='\nTOTAL: '+CURRENCY+o.totalAmount.toFixed(2)+'\n\nStatus: Pending';
 window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(m),'_blank');
+}
+
+// Generate & Send GST Bill with ELLECTRA's GST details
+function sendGSTBill(){
+if(!lastOrderData)return;
+const o=lastOrderData;
+const d=new Date(o.orderDate);
+const ds=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+const ts=d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+
+// Tax calculations (18% GST inclusive in price)
+const taxableValue=parseFloat((o.totalAmount/1.18).toFixed(2));
+const totalGST=parseFloat((o.totalAmount-taxableValue).toFixed(2));
+const cgst=parseFloat((totalGST/2).toFixed(2));
+const sgst=parseFloat((totalGST/2).toFixed(2));
+
+// Build item rows with tax breakdown
+let itemRows='';
+o.items.forEach((it,idx)=>{
+const itemTotal=it.price*it.qty;
+const itemTaxable=parseFloat((itemTotal/1.18).toFixed(2));
+const itemCGST=parseFloat(((itemTotal-itemTaxable)/2).toFixed(2));
+const itemSGST=itemCGST;
+itemRows+=`<tr>
+<td style="border:1px solid #ddd;padding:6px">${idx+1}</td>
+<td style="border:1px solid #ddd;padding:6px">${it.name}</td>
+<td style="border:1px solid #ddd;padding:6px;text-align:center">${it.qty}</td>
+<td style="border:1px solid #ddd;padding:6px;text-align:right">${CURRENCY}${it.price.toFixed(2)}</td>
+<td style="border:1px solid #ddd;padding:6px;text-align:right">${CURRENCY}${itemTaxable.toFixed(2)}</td>
+<td style="border:1px solid #ddd;padding:6px;text-align:right">${CURRENCY}${itemCGST.toFixed(2)}</td>
+<td style="border:1px solid #ddd;padding:6px;text-align:right">${CURRENCY}${itemSGST.toFixed(2)}</td>
+<td style="border:1px solid #ddd;padding:6px;text-align:right">${CURRENCY}${itemTotal.toFixed(2)}</td>
+</tr>`;
+});
+
+const container=document.getElementById('gst-receipt-container');
+container.innerHTML=`<div id="gst-receipt-printable" style="width:600px;background:#fff;color:#000;padding:30px;font-family:'Courier New',monospace;border:2px solid #1a5276;border-radius:10px">
+<div style="text-align:center;border-bottom:3px double #1a5276;padding-bottom:15px;margin-bottom:15px">
+<img src="${LOGO}" style="width:50px;margin-bottom:5px"><br>
+<div style="font-size:1.3rem;font-weight:700">${ELLECTRA_GST.name}</div>
+<div style="font-size:1rem;font-weight:700;color:#1a5276;margin-top:5px;letter-spacing:2px">TAX INVOICE</div>
+<div style="font-size:0.8rem;color:#555;margin-top:5px">
+GSTIN: ${ELLECTRA_GST.gstin}<br>
+${ELLECTRA_GST.address} | State: ${ELLECTRA_GST.state} (${ELLECTRA_GST.stateCode})
+</div>
+</div>
+
+<div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:15px;flex-wrap:wrap;gap:10px">
+<div>
+<strong>Invoice No:</strong> ${o.receiptId}<br>
+<strong>Date:</strong> ${ds} ${ts}
+</div>
+<div style="text-align:right">
+<strong>Bill To:</strong><br>
+${o.customerName}<br>
+${o.customerPhone}<br>
+${o.customerAddress}
+</div>
+</div>
+
+<table style="width:100%;border-collapse:collapse;margin:10px 0;font-size:0.75rem">
+<thead>
+<tr style="background:#1a5276;color:#fff">
+<th style="border:1px solid #ddd;padding:6px">#</th>
+<th style="border:1px solid #ddd;padding:6px">Item Description</th>
+<th style="border:1px solid #ddd;padding:6px;text-align:center">Qty</th>
+<th style="border:1px solid #ddd;padding:6px;text-align:right">Rate</th>
+<th style="border:1px solid #ddd;padding:6px;text-align:right">Taxable Amt</th>
+<th style="border:1px solid #ddd;padding:6px;text-align:right">CGST 9%</th>
+<th style="border:1px solid #ddd;padding:6px;text-align:right">SGST 9%</th>
+<th style="border:1px solid #ddd;padding:6px;text-align:right">Total</th>
+</tr>
+</thead>
+<tbody>${itemRows}</tbody>
+</table>
+
+<div style="background:#f0f4f8;padding:12px;border-radius:8px;border:1px solid #1a5276;margin:15px 0">
+<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.9rem"><span>Taxable Value:</span><span>${CURRENCY}${taxableValue.toFixed(2)}</span></div>
+<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.9rem"><span>CGST @ 9%:</span><span>${CURRENCY}${cgst.toFixed(2)}</span></div>
+<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.9rem"><span>SGST @ 9%:</span><span>${CURRENCY}${sgst.toFixed(2)}</span></div>
+${o.discount>0?`<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.9rem;color:green"><span>Discount (${o.discountPercent}%):</span><span>-${CURRENCY}${o.discount.toFixed(2)}</span></div>`:''}
+<div style="display:flex;justify-content:space-between;padding:8px 0 4px;font-size:1.1rem;font-weight:700;border-top:2px solid #1a5276;margin-top:8px">
+<span>GRAND TOTAL (Incl. GST):</span><span>${CURRENCY}${o.totalAmount.toFixed(2)}</span>
+</div>
+</div>
+
+<div style="text-align:center;margin-top:15px;font-size:0.75rem;color:#555;border-top:2px dashed #1a5276;padding-top:12px">
+<div style="font-weight:700;margin-bottom:3px">This is a computer generated tax invoice</div>
+<div>${ELLECTRA_GST.name} | GSTIN: ${ELLECTRA_GST.gstin}</div>
+<div style="margin-top:3px">Thank you for your business! ⚡</div>
+</div>
+</div>`;
+
+// Download as image
+setTimeout(()=>{
+html2canvas(document.getElementById('gst-receipt-printable'),{backgroundColor:'#fff',scale:2,useCORS:true}).then(canvas=>{
+// Download the GST bill image
+const link=document.createElement('a');
+link.download='GST_Invoice_'+o.receiptId+'.png';
+link.href=canvas.toDataURL();
+link.click();
+showToast('GST Bill downloaded! Sending via WhatsApp...','success');
+
+// Send GST bill details via WhatsApp to customer
+setTimeout(()=>{
+let gm='*📋 GST TAX INVOICE - ELLECTRA*\n';
+gm+='━━━━━━━━━━━━━━━━━━\n\n';
+gm+='*From:* '+ELLECTRA_GST.name+'\n';
+gm+='*GSTIN:* '+ELLECTRA_GST.gstin+'\n';
+gm+='*Address:* '+ELLECTRA_GST.address+'\n\n';
+gm+='*Invoice No:* '+o.receiptId+'\n';
+gm+='*Date:* '+ds+' '+ts+'\n\n';
+gm+='*Bill To:* '+o.customerName+'\n';
+gm+='*Phone:* '+o.customerPhone+'\n';
+gm+='*Address:* '+o.customerAddress+'\n\n';
+gm+='*ITEMS:*\n';
+o.items.forEach((it,idx)=>{
+const itTotal=it.price*it.qty;
+const itTax=parseFloat((itTotal/1.18).toFixed(2));
+gm+=(idx+1)+'. '+it.name+'\n   Qty: '+it.qty+' × '+CURRENCY+it.price.toFixed(2)+' = '+CURRENCY+itTotal.toFixed(2)+'\n   (Taxable: '+CURRENCY+itTax.toFixed(2)+')\n';
+});
+gm+='\n━━━━━━━━━━━━━━━━━━\n';
+gm+='*TAX BREAKDOWN:*\n';
+gm+='Taxable Value: '+CURRENCY+taxableValue.toFixed(2)+'\n';
+gm+='CGST @ 9%: '+CURRENCY+cgst.toFixed(2)+'\n';
+gm+='SGST @ 9%: '+CURRENCY+sgst.toFixed(2)+'\n';
+if(o.discount>0)gm+='Discount: -'+CURRENCY+o.discount.toFixed(2)+'\n';
+gm+='\n*TOTAL (Incl. GST): '+CURRENCY+o.totalAmount.toFixed(2)+'*\n\n';
+gm+='━━━━━━━━━━━━━━━━━━\n';
+gm+='_Computer generated invoice_\n';
+gm+='_'+ELLECTRA_GST.name+' | GSTIN: '+ELLECTRA_GST.gstin+'_';
+
+// Send to customer's phone
+let custPhone=o.customerPhone.replace(/[^0-9]/g,'');
+if(custPhone.length===10)custPhone='91'+custPhone;
+window.open('https://wa.me/'+custPhone+'?text='+encodeURIComponent(gm),'_blank');
+},500);
+
+}).catch(()=>{showToast('Error generating GST bill','error');});
+},300);
 }
 
 function shareWhatsApp(){if(lastOrderData)sendWA(lastOrderData);}
