@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ellectra - Refund Policy</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg-primary:#ffffff;--bg-secondary:#f5f5f0;--bg-card:#fff;--card-border:#e0e0d8;--card-shadow:0 2px 15px rgba(0,0,0,0.08);--yellow:#FFD700;--yellow-dark:#e6c200;--yellow-light:#fff8dc;--yellow-glow:rgba(255,215,0,0.3);--black:#000;--black-soft:#1a1a1a;--text-primary:#1a1a1a;--text-secondary:#555;--text-muted:#999;--danger:#e74c3c;--success:#27ae60;--border-color:#e0e0d8}
+html{scroll-behavior:smooth}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#f0f0f0}::-webkit-scrollbar-thumb{background:var(--yellow-dark);border-radius:4px}
+.navbar{position:fixed;top:0;left:0;right:0;height:70px;background:var(--black);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:1000;box-shadow:0 2px 20px rgba(0,0,0,0.3)}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-logo{width:40px;height:40px;filter:drop-shadow(0 0 8px var(--yellow-glow))}
+.nav-title{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:700;color:var(--yellow)}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.nav-btn{background:transparent;border:1px solid var(--yellow-dark);color:var(--yellow);padding:8px 16px;border-radius:8px;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:600;transition:all 0.3s;display:flex;align-items:center;gap:6px;text-decoration:none}
+.nav-btn:hover{background:var(--yellow);color:var(--black)}
+.hero{margin-top:70px;padding:50px 20px;text-align:center;background:var(--black)}
+.hero h1{font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:900;color:var(--yellow);text-shadow:0 0 20px var(--yellow-glow)}
+.hero p{font-size:1.1rem;color:#aaa;margin-top:8px}
+.policy-container{max-width:900px;margin:40px auto;padding:0 20px 60px}
+.policy-card{background:var(--bg-card);border:2px solid var(--border-color);border-radius:16px;padding:35px;margin-bottom:25px;box-shadow:var(--card-shadow);transition:all 0.3s}
+.policy-card:hover{border-color:var(--yellow);box-shadow:0 5px 25px rgba(255,215,0,0.1)}
+.policy-card h2{font-family:'Orbitron',sans-serif;font-size:1.2rem;color:var(--black);margin-bottom:15px;display:flex;align-items:center;gap:10px;padding-bottom:12px;border-bottom:2px solid var(--border-color)}
+.policy-card h2 i{color:var(--yellow-dark);font-size:1.3rem}
+.policy-card h3{font-size:1.05rem;font-weight:700;color:var(--black-soft);margin:18px 0 8px;display:flex;align-items:center;gap:8px}
+.policy-card h3 i{color:var(--yellow-dark);font-size:0.9rem}
+.policy-card p{font-size:0.95rem;color:var(--text-secondary);line-height:1.8;margin-bottom:10px}
+.policy-card ul{padding-left:20px;margin-bottom:12px}
+.policy-card ul li{font-size:0.95rem;color:var(--text-secondary);line-height:1.9;position:relative;padding-left:10px;margin-bottom:5px}
+.policy-card ul li::marker{color:var(--yellow-dark)}
+.policy-card ol{padding-left:20px;margin-bottom:12px}
+.policy-card ol li{font-size:0.95rem;color:var(--text-secondary);line-height:1.9;padding-left:5px;margin-bottom:5px}
+.policy-card ol li::marker{color:var(--yellow-dark);font-weight:700}
+.highlight-box{background:var(--yellow-light);border:2px solid var(--yellow);border-radius:12px;padding:18px 20px;margin:15px 0;display:flex;align-items:flex-start;gap:12px}
+.highlight-box i{color:var(--yellow-dark);font-size:1.3rem;margin-top:3px;flex-shrink:0}
+.highlight-box p{margin:0;font-weight:600;color:var(--black-soft)}
+.warning-box{background:#fff5f5;border:2px solid var(--danger);border-radius:12px;padding:18px 20px;margin:15px 0;display:flex;align-items:flex-start;gap:12px}
+.warning-box i{color:var(--danger);font-size:1.3rem;margin-top:3px;flex-shrink:0}
+.warning-box p{margin:0;font-weight:600;color:#721c24}
+.info-box{background:#e8f4fd;border:2px solid #3498db;border-radius:12px;padding:18px 20px;margin:15px 0;display:flex;align-items:flex-start;gap:12px}
+.info-box i{color:#3498db;font-size:1.3rem;margin-top:3px;flex-shrink:0}
+.info-box p{margin:0;font-weight:600;color:#004085}
+.success-box{background:#f0fff4;border:2px solid var(--success);border-radius:12px;padding:18px 20px;margin:15px 0;display:flex;align-items:flex-start;gap:12px}
+.success-box i{color:var(--success);font-size:1.3rem;margin-top:3px;flex-shrink:0}
+.success-box p{margin:0;font-weight:600;color:#155724}
+.timeline{position:relative;padding-left:30px;margin:20px 0}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:3px;background:var(--yellow);border-radius:3px}
+.timeline-item{position:relative;margin-bottom:20px;padding-left:20px}
+.timeline-item::before{content:'';position:absolute;left:-26px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--yellow);border:3px solid var(--yellow-dark);z-index:1}
+.timeline-item h4{font-size:1rem;font-weight:700;color:var(--black);margin-bottom:4px}
+.timeline-item p{font-size:0.9rem;color:var(--text-secondary);margin:0}
+.refund-table{width:100%;border-collapse:collapse;margin:15px 0;border-radius:10px;overflow:hidden;border:2px solid var(--border-color)}
+.refund-table th{background:var(--black);color:var(--yellow);padding:12px 15px;text-align:left;font-family:'Orbitron',sans-serif;font-size:0.8rem;letter-spacing:1px}
+.refund-table td{padding:12px 15px;border-bottom:1px solid var(--border-color);font-size:0.9rem;color:var(--text-secondary)}
+.refund-table tr:nth-child(even){background:var(--bg-secondary)}
+.refund-table tr:hover{background:var(--yellow-light)}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-top:15px}
+.contact-card{background:var(--bg-secondary);border:2px solid var(--border-color);border-radius:12px;padding:18px;text-align:center;transition:all 0.3s}
+.contact-card:hover{border-color:var(--yellow);transform:translateY(-3px)}
+.contact-card i{font-size:1.8rem;color:var(--yellow-dark);margin-bottom:8px}
+.contact-card h4{font-size:0.9rem;color:var(--black);margin-bottom:5px}
+.contact-card a,.contact-card p{font-size:0.85rem;color:var(--text-secondary);text-decoration:none}
+.contact-card a:hover{color:var(--yellow-dark)}
+.back-to-shop{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;background:var(--yellow);color:var(--black);border:none;border-radius:12px;font-family:'Orbitron',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all 0.3s;text-decoration:none;margin-top:20px}
+.back-to-shop:hover{background:var(--yellow-dark);box-shadow:0 0 25px var(--yellow-glow);transform:translateY(-2px)}
+.last-updated{text-align:center;color:var(--text-muted);font-size:0.85rem;margin-top:30px;padding:15px;border-top:2px solid var(--border-color)}
+.footer{margin-top:60px;padding:30px 20px;text-align:center;background:var(--black)}
+.footer-brand{font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--yellow);margin-bottom:5px}
+.footer p{color:#888;font-size:0.85rem}
+.footer-links{display:flex;gap:20px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.footer-links a{color:#888;text-decoration:none;font-size:0.8rem;transition:color 0.3s}
+.footer-links a:hover{color:var(--yellow)}
+.shipping-charges-box{background:linear-gradient(135deg,#1a1a1a,#2d2d2d);border:2px solid var(--yellow);border-radius:14px;padding:25px;margin:20px 0;color:#fff}
+.shipping-charges-box h3{font-family:'Orbitron',sans-serif;font-size:1rem;color:var(--yellow);margin-bottom:15px;text-align:center}
+.shipping-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,215,0,0.15)}
+.shipping-row:last-child{border-bottom:none}
+.shipping-row .label{display:flex;align-items:center;gap:8px;font-size:0.95rem;color:#ccc}
+.shipping-row .label i{color:var(--yellow);font-size:1.1rem}
+.shipping-row .price{font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:var(--yellow)}
+.strip-fee-box{background:linear-gradient(135deg,#0a2647,#144272);border:2px solid #3498db;border-radius:14px;padding:20px;margin:15px 0;color:#fff}
+.strip-fee-box h4{font-size:0.95rem;color:#5dade2;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.strip-fee-box p{font-size:0.9rem;color:#aed6f1;line-height:1.7;margin:0}
+@media(max-width:768px){
+.nav-title{font-size:1.1rem}.hero h1{font-size:1.5rem}.policy-card{padding:22px}.policy-card h2{font-size:1.05rem}
+.nav-btn span{display:none}.nav-btn{padding:8px 10px}
+.contact-grid{grid-template-columns:1fr}
+.shipping-row{flex-direction:column;align-items:flex-start;gap:5px}
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+<a href="index.html" class="nav-brand">
+<img src="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png" class="nav-logo">
+<span class="nav-title">ELLECTRA</span>
+</a>
+<div class="nav-actions">
+<a href="index.html" class="nav-btn"><i class="fas fa-home"></i><span>Home</span></a>
+<a href="shop.html" class="nav-btn"><i class="fas fa-store"></i><span>Shop</span></a>
+</div>
+</nav>
+
+<section class="hero">
+<h1>📋 REFUND & SHIPPING POLICY</h1>
+<p>Your satisfaction matters — Read our refund, shipping & payment guidelines</p>
+</section>
+
+<div class="policy-container">
+
+<!-- Section 1: Overview -->
+<div class="policy-card">
+<h2><i class="fas fa-shield-alt"></i> Overview</h2>
+<p>At <strong>Ellectra Electronics</strong>, we are committed to delivering high-quality electronic components to your doorstep. This policy outlines our shipping charges, payment methods, refund conditions, and important terms you must know before placing an order.</p>
+<div class="highlight-box">
+<i class="fas fa-info-circle"></i>
+<p>By placing an order on Ellectra, you agree to ALL the terms outlined in this Refund & Shipping Policy. You must accept this policy checkbox during checkout to place your order.</p>
+</div>
+</div>
+
+<!-- Section 2: Shipping & Delivery -->
+<div class="policy-card">
+<h2><i class="fas fa-truck"></i> Shipping & Delivery</h2>
+<p>All orders are shipped via <strong>Standard Flat Shipping</strong> across India. Delivery timelines and charges are as follows:</p>
+
+<div class="shipping-charges-box">
+<h3>📦 SHIPPING & DELIVERY CHARGES</h3>
+<div class="shipping-row">
+<div class="label"><i class="fas fa-shipping-fast"></i> Standard Flat Shipping</div>
+<div class="price">₹120</div>
+</div>
+<div class="shipping-row">
+<div class="label"><i class="fas fa-hand-holding-usd"></i> Pay on Delivery (COD) — Extra Charge</div>
+<div class="price">+ ₹60</div>
+</div>
+<div class="shipping-row">
+<div class="label"><i class="fas fa-clock"></i> Delivery Time</div>
+<div class="price">3 - 15 Days</div>
+</div>
+</div>
+
+<ul>
+<li><strong>Standard Flat Shipping:</strong> ₹120 applies to ALL orders regardless of order value.</li>
+<li><strong>Pay on Delivery (COD):</strong> If you choose Cash on Delivery, an additional ₹60 will be added to your order total.</li>
+<li><strong>Delivery Timeline:</strong> Orders are delivered within <strong>3 to 15 business days</strong> depending on your location.</li>
+<li>Shipping charges are <strong>non-refundable</strong> once the order has been shipped.</li>
+</ul>
+
+<div class="info-box">
+<i class="fas fa-map-marker-alt"></i>
+<p>Delivery times may vary based on your location. Remote areas may take up to 15 days. Metro cities usually receive within 3-7 days.</p>
+</div>
+</div>
+
+<!-- Section 3: Payment Methods -->
+<div class="policy-card">
+<h2><i class="fas fa-credit-card"></i> Payment Methods</h2>
+<p>We accept the following payment methods:</p>
+
+<h3><i class="fas fa-qrcode"></i> Online Payment (UPI / QR Code) — Recommended</h3>
+<ul>
+<li>Scan our <strong>QR Code</strong> to pay via any UPI app (Google Pay, PhonePe, Paytm, etc.)</li>
+<li>After payment, take a <strong>screenshot of the payment confirmation</strong></li>
+<li>Send the payment screenshot to our <strong>WhatsApp: +91 63817 33447</strong></li>
+<li>Your order will be confirmed once payment is verified</li>
+</ul>
+
+<div class="success-box">
+<i class="fas fa-check-circle"></i>
+<p>Online payment via QR Code is the fastest way to get your order confirmed and shipped!</p>
+</div>
+
+<h3><i class="fas fa-money-bill-wave"></i> Pay on Delivery (COD)</h3>
+<ul>
+<li>Pay cash when the product is delivered to your doorstep</li>
+<li>An extra charge of <strong>₹60</strong> applies for COD orders</li>
+<li>COD is available for all pincodes where delivery is supported</li>
+</ul>
+
+<div class="strip-fee-box">
+<h4><i class="fas fa-percentage"></i> Stripe Processing Fee</h4>
+<p>A <strong>2% processing fee</strong> (Stripe fee) is included in all transactions. This is a standard payment gateway charge and is <strong>non-refundable</strong>.</p>
+</div>
+</div>
+
+<!-- Section 4: Refund Eligibility -->
+<div class="policy-card">
+<h2><i class="fas fa-check-circle"></i> Refund Eligibility</h2>
+<p>You may be eligible for a refund <strong>ONLY</strong> under the following conditions:</p>
+
+<h3><i class="fas fa-box-open"></i> Missing Products</h3>
+<ul>
+<li>If any product listed in your order is <strong>missing</strong> from the delivered package, we will issue a <strong>full refund</strong> for that specific missing item.</li>
+<li>You MUST provide an <strong>unboxing video</strong> as proof (see mandatory requirement below).</li>
+</ul>
+
+<h3><i class="fas fa-exclamation-circle"></i> Product Out of Stock After Order</h3>
+<ul>
+<li>If a product becomes <strong>out of stock</strong> after you have placed and paid for your order, we will issue a <strong>full refund</strong> for that item.</li>
+<li>Refund will be processed to your original payment method.</li>
+</ul>
+
+<div class="warning-box">
+<i class="fas fa-exclamation-triangle"></i>
+<p>IMPORTANT: Apart from missing products and out-of-stock situations, NO other refund requests will be entertained. We do NOT offer refunds for change of mind, wrong ordering, or buyer's remorse.</p>
+</div>
+</div>
+
+<!-- Section 5: MANDATORY UNBOXING VIDEO -->
+<div class="policy-card">
+<h2><i class="fas fa-video"></i> Mandatory Unboxing Video — REQUIRED</h2>
+<p>This is the <strong>MOST IMPORTANT</strong> requirement for any refund claim:</p>
+
+<div class="warning-box">
+<i class="fas fa-camera"></i>
+<p>You MUST record a complete, uncut unboxing video of your package from the moment you start opening it. Without this video, NO refund will be processed — no exceptions.</p>
+</div>
+
+<h3><i class="fas fa-list-ol"></i> Unboxing Video Requirements</h3>
+<ol>
+<li>Start recording <strong>BEFORE</strong> you open the package — show the sealed package clearly.</li>
+<li>Record the <strong>entire unboxing process</strong> in one continuous, uncut video.</li>
+<li>Show <strong>all items</strong> received clearly, one by one.</li>
+<li>Show the <strong>shipping label</strong> and <strong>invoice/receipt</strong> in the video.</li>
+<li>The video must be <strong>clear, well-lit, and unedited</strong>.</li>
+<li>If any product is missing, state it clearly in the video.</li>
+</ol>
+
+<div class="highlight-box">
+<i class="fas fa-film"></i>
+<p>Send your unboxing video to our WhatsApp (+91 63817 33447) along with your Order ID when raising a refund claim.</p>
+</div>
+</div>
+
+<!-- Section 6: NO Refund Cases -->
+<div class="policy-card">
+<h2><i class="fas fa-times-circle"></i> When Refund Will NOT Be Given</h2>
+<p>Refund will be <strong>REJECTED</strong> in the following cases:</p>
+<ul>
+<li>❌ <strong>No unboxing video</strong> — If you don't have a complete unboxing video, refund is automatically denied.</li>
+<li>❌ <strong>Video has cuts or edits</strong> — If the unboxing video is edited, cut, or not continuous, refund will be denied.</li>
+<li>❌ <strong>Products used, soldered, or modified</strong> — Once you use, solder, or modify the product, no refund.</li>
+<li>❌ <strong>Physical damage by customer</strong> — Damage caused by mishandling, wrong wiring, or improper usage.</li>
+<li>❌ <strong>Change of mind</strong> — We don't refund because you changed your mind after ordering.</li>
+<li>❌ <strong>Wrong product ordered by customer</strong> — If you ordered the wrong item, no refund.</li>
+<li>❌ <strong>Package opened without video</strong> — If you opened the package without recording, no proof = no refund.</li>
+<li>❌ <strong>Shipping charges</strong> — Shipping fee (₹120) and COD fee (₹60) are non-refundable.</li>
+<li>❌ <strong>Stripe processing fee (2%)</strong> — Payment processing fee is non-refundable.</li>
+<li>❌ <strong>Refund request after 3 days</strong> — Claim must be raised within 3 days of delivery.</li>
+</ul>
+
+<div class="warning-box">
+<i class="fas fa-gavel"></i>
+<p>Our decision on refund claims is FINAL. We review the unboxing video and evidence carefully before making any decision.</p>
+</div>
+</div>
+
+<!-- Section 7: Refund Process -->
+<div class="policy-card">
+<h2><i class="fas fa-sync-alt"></i> How to Claim a Refund</h2>
+<p>Follow these steps if you have a valid refund claim:</p>
+<div class="timeline">
+<div class="timeline-item">
+<h4>Step 1: Record Unboxing Video</h4>
+<p>Record a complete, uncut unboxing video showing all items received (or missing items).</p>
+</div>
+<div class="timeline-item">
+<h4>Step 2: Contact Us Within 3 Days</h4>
+<p>WhatsApp us at +91 63817 33447 within 3 days of delivery with your Order ID and unboxing video.</p>
+</div>
+<div class="timeline-item">
+<h4>Step 3: We Review Your Claim</h4>
+<p>Our team will review your unboxing video and order details within 1-2 business days.</p>
+</div>
+<div class="timeline-item">
+<h4>Step 4: Refund Processed</h4>
+<p>If approved, refund will be processed within 5-7 business days to your original payment method (minus Stripe 2% fee and shipping charges).</p>
+</div>
+</div>
+</div>
+
+<!-- Section 8: Refund Amount Breakdown -->
+<div class="policy-card">
+<h2><i class="fas fa-calculator"></i> Refund Amount Breakdown</h2>
+<p>When a refund is approved, here's what gets refunded and what doesn't:</p>
+<table class="refund-table">
+<thead>
+<tr>
+<th>Item</th>
+<th>Refundable?</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><i class="fas fa-box" style="color:var(--yellow-dark)"></i> Missing Product Price</td>
+<td style="color:var(--success);font-weight:700">✅ YES</td>
+<td>Full product price refunded</td>
+</tr>
+<tr>
+<td><i class="fas fa-warehouse" style="color:var(--yellow-dark)"></i> Out of Stock Product Price</td>
+<td style="color:var(--success);font-weight:700">✅ YES</td>
+<td>Full product price refunded</td>
+</tr>
+<tr>
+<td><i class="fas fa-shipping-fast" style="color:var(--yellow-dark)"></i> Shipping Charge (₹120)</td>
+<td style="color:var(--danger);font-weight:700">❌ NO</td>
+<td>Non-refundable</td>
+</tr>
+<tr>
+<td><i class="fas fa-hand-holding-usd" style="color:var(--yellow-dark)"></i> COD Extra Charge (₹60)</td>
+<td style="color:var(--danger);font-weight:700">❌ NO</td>
+<td>Non-refundable</td>
+</tr>
+<tr>
+<td><i class="fas fa-percentage" style="color:var(--yellow-dark)"></i> Stripe Fee (2%)</td>
+<td style="color:var(--danger);font-weight:700">❌ NO</td>
+<td>Payment processing fee, non-refundable</td>
+</tr>
+</tbody>
+</table>
+
+<div class="info-box">
+<i class="fas fa-calculator"></i>
+<p><strong>Example:</strong> If you paid ₹500 for a product + ₹120 shipping + 2% Stripe fee (₹12.40) = Total ₹632.40. If the product is missing, you get ₹500 refund. Shipping (₹120) and Stripe fee (₹12.40) are NOT refunded.</p>
+</div>
+</div>
+
+<!-- Section 9: Refund Timeline -->
+<div class="policy-card">
+<h2><i class="fas fa-clock"></i> Refund Processing Time</h2>
+<table class="refund-table">
+<thead>
+<tr>
+<th>Payment Method</th>
+<th>Refund Time</th>
+<th>Refunded To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><i class="fas fa-qrcode" style="color:var(--yellow-dark)"></i> UPI / QR Code Payment</td>
+<td>3-5 Business Days</td>
+<td>Same UPI ID</td>
+</tr>
+<tr>
+<td><i class="fas fa-university" style="color:var(--yellow-dark)"></i> Bank Transfer</td>
+<td>5-7 Business Days</td>
+<td>Same Bank Account</td>
+</tr>
+<tr>
+<td><i class="fas fa-money-bill-wave" style="color:var(--yellow-dark)"></i> Cash on Delivery</td>
+<td>5-7 Business Days</td>
+<td>Via UPI or Bank Transfer</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- Section 10: Important Notes -->
+<div class="policy-card">
+<h2><i class="fas fa-exclamation-circle"></i> Important Notes</h2>
+<ul>
+<li>📹 <strong>Unboxing video is MANDATORY</strong> — No video = No refund. No exceptions.</li>
+<li>⏰ <strong>3 day window</strong> — Refund claims must be raised within 3 days of delivery.</li>
+<li>🚚 <strong>Shipping charges (₹120) are non-refundable</strong> once the order is shipped.</li>
+<li>💰 <strong>COD extra charge (₹60) is non-refundable.</strong></li>
+<li>💳 <strong>2% Stripe processing fee is non-refundable.</strong></li>
+<li>📦 <strong>Delivery takes 3-15 business days</strong> — please be patient.</li>
+<li>📸 <strong>Payment screenshot must be sent to WhatsApp</strong> after scanning QR code.</li>
+<li>🔄 We do NOT offer replacements or exchanges — only refunds for eligible cases.</li>
+<li>🚫 We do NOT accept order cancellations once the order is placed.</li>
+<li>⚖️ Ellectra's decision on refund claims is final and binding.</li>
+</ul>
+
+<div class="highlight-box">
+<i class="fas fa-hand-point-right"></i>
+<p>By placing an order, you confirm that you have read, understood, and accepted ALL the terms in this Refund & Shipping Policy.</p>
+</div>
+</div>
+
+<!-- Section 11: Contact -->
+<div class="policy-card">
+<h2><i class="fas fa-headset"></i> Contact Us</h2>
+<p>For refund claims, payment confirmations, or any queries:</p>
+<div class="contact-grid">
+<div class="contact-card">
+<i class="fab fa-whatsapp"></i>
+<h4>WhatsApp</h4>
+<a href="https://wa.me/916381733447" target="_blank">+91 63817 33447</a>
+<p style="font-size:0.75rem;color:var(--text-muted);margin-top:4px">Send payment screenshots here</p>
+</div>
+<div class="contact-card">
+<i class="fas fa-envelope"></i>
+<h4>Email</h4>
+<a href="mailto:ellectra2025@gmail.com">ellectra2025@gmail.com</a>
+</div>
+<div class="contact-card">
+<i class="fab fa-instagram"></i>
+<h4>Instagram</h4>
+<a href="https://www.instagram.com/ellectra.official" target="_blank">@ellectra.official</a>
+</div>
+<div class="contact-card">
+<i class="fas fa-phone-alt"></i>
+<h4>Phone</h4>
+<a href="tel:+916381733447">+91 63817 33447</a>
+</div>
+</div>
+</div>
+
+<!-- Back to Shop -->
+<div style="text-align:center">
+<a href="shop.html" class="back-to-shop"><i class="fas fa-arrow-left"></i> BACK TO SHOP</a>
+</div>
+
+<div class="last-updated">
+<p>📅 Last Updated: January 2025 | This policy is subject to change without prior notice.</p>
+</div>
+
+</div>
+
+<footer class="footer">
+<div class="footer-brand">⚡ ELLECTRA</div>
+<p>© 2025 Ellectra. All rights reserved.</p>
+<div class="footer-links">
+<a href="index.html">Home</a>
+<a href="shop.html">Shop</a>
+<a href="service.html">Services</a>
+<a href="refund-policy.html">Refund Policy</a>
+</div>
+</footer>
+
+</body>
+</html>
