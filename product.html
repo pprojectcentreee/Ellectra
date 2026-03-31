@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ellectra - Component Details</title>
+<meta name="description" content="Buy premium electronic components from Ellectra. Best prices, fast delivery.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="">
+<!-- Open Graph -->
+<meta property="og:type" content="product">
+<meta property="og:site_name" content="Ellectra Electronics">
+<meta property="og:title" content="Ellectra Component">
+<meta property="og:description" content="">
+<meta property="og:image" content="">
+<meta property="og:url" content="">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="">
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- JSON-LD Structured Data for Google Merchant -->
+<script type="application/ld+json" id="product-jsonld">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "",
+  "image": "",
+  "description": "",
+  "brand": {
+    "@type": "Brand",
+    "name": "Ellectra"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "",
+    "priceCurrency": "INR",
+    "price": "",
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@type": "Organization",
+      "name": "Ellectra Electronics"
+    }
+  }
+}
+</script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg-primary:#ffffff;--bg-secondary:#f5f5f0;--bg-card:#fff;--card-border:#e0e0d8;--card-shadow:0 2px 15px rgba(0,0,0,0.08);--yellow:#FFD700;--yellow-dark:#e6c200;--yellow-light:#fff8dc;--yellow-glow:rgba(255,215,0,0.3);--black:#000;--black-soft:#1a1a1a;--text-primary:#1a1a1a;--text-secondary:#555;--text-muted:#999;--danger:#e74c3c;--success:#27ae60;--border-color:#e0e0d8}
+html{scroll-behavior:smooth}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#f0f0f0}::-webkit-scrollbar-thumb{background:var(--yellow-dark);border-radius:4px}
+
+/* Navbar */
+.navbar{position:fixed;top:0;left:0;right:0;height:70px;background:var(--black);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:1000;box-shadow:0 2px 20px rgba(0,0,0,0.3)}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-logo{width:40px;height:40px;filter:drop-shadow(0 0 8px var(--yellow-glow))}
+.nav-title{font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:700;color:var(--yellow)}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.nav-btn{background:transparent;border:1px solid var(--yellow-dark);color:var(--yellow);padding:8px 16px;border-radius:8px;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.9rem;font-weight:600;transition:all 0.3s;display:flex;align-items:center;gap:6px;text-decoration:none}
+.nav-btn:hover{background:var(--yellow);color:var(--black)}
+.cart-badge{position:relative}
+.cart-count{position:absolute;top:-8px;right:-8px;background:var(--danger);color:#fff;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700}
+.user-avatar{width:35px;height:35px;border-radius:50%;border:2px solid var(--yellow);cursor:pointer}
+.user-info{display:flex;align-items:center;gap:8px}
+.user-name{font-size:0.85rem;color:var(--yellow);font-weight:600;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Breadcrumb */
+.breadcrumb{margin-top:70px;padding:15px 20px;background:var(--bg-secondary);border-bottom:2px solid var(--border-color);max-width:100%}
+.breadcrumb-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;font-size:0.9rem;flex-wrap:wrap}
+.breadcrumb a{color:var(--yellow-dark);text-decoration:none;font-weight:600}
+.breadcrumb a:hover{text-decoration:underline}
+.breadcrumb span{color:var(--text-muted)}
+.breadcrumb .current{color:var(--text-primary);font-weight:600}
+
+/* Product Detail */
+.product-detail-container{max-width:1200px;margin:0 auto;padding:30px 20px}
+.product-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+
+/* Image Section */
+.pd-image-section{position:sticky;top:100px}
+.pd-image-main{background:var(--bg-secondary);border:2px solid var(--border-color);border-radius:20px;padding:30px;display:flex;align-items:center;justify-content:center;min-height:400px;overflow:hidden;position:relative}
+.pd-image-main img{max-width:100%;max-height:450px;object-fit:contain;transition:transform 0.4s ease}
+.pd-image-main:hover img{transform:scale(1.06)}
+.pd-image-zoom-hint{position:absolute;bottom:15px;right:15px;background:rgba(0,0,0,0.6);color:#fff;padding:5px 12px;border-radius:20px;font-size:0.75rem;display:flex;align-items:center;gap:5px;opacity:0.7}
+
+/* Info Section */
+.pd-info-section{padding:10px 0}
+.pd-category-badge{display:inline-block;background:var(--yellow);color:var(--black);padding:5px 16px;border-radius:20px;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:15px}
+.pd-name{font-family:'Orbitron',sans-serif;font-size:1.8rem;font-weight:900;color:var(--black);margin-bottom:12px;line-height:1.3}
+.pd-price-box{display:flex;align-items:baseline;gap:10px;margin-bottom:20px;padding:15px 20px;background:var(--bg-secondary);border-radius:12px;border:2px solid var(--border-color)}
+.pd-price{font-family:'Orbitron',sans-serif;font-size:2.2rem;font-weight:900;color:var(--black)}
+.pd-price-note{font-size:0.9rem;color:var(--text-muted);font-weight:400}
+.pd-stock-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:10px;font-size:0.95rem;font-weight:700;margin-bottom:20px}
+.pd-stock-badge.in-stock{background:#d4edda;color:#155724}
+.pd-stock-badge.out-of-stock{background:#f8d7da;color:#721c24}
+.pd-stock-badge i{font-size:1.1rem}
+
+/* Add to Cart */
+.pd-add-cart-section{margin:25px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.pd-qty-control{display:flex;align-items:center;border:2px solid var(--border-color);border-radius:10px;overflow:hidden;background:var(--bg-card)}
+.pd-qty-btn{width:40px;height:44px;background:var(--bg-secondary);border:none;color:var(--text-primary);font-size:1.2rem;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center}
+.pd-qty-btn:hover{background:var(--yellow);color:var(--black)}
+.pd-qty-value{width:50px;text-align:center;font-size:1.1rem;font-weight:700;border:none;background:transparent;color:var(--text-primary);font-family:'Rajdhani',sans-serif}
+.pd-add-btn{flex:1;min-width:200px;padding:14px 30px;background:var(--yellow);border:none;border-radius:12px;color:var(--black);font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:10px}
+.pd-add-btn:hover{background:var(--yellow-dark);box-shadow:0 0 25px var(--yellow-glow);transform:translateY(-2px)}
+.pd-add-btn:disabled{background:#ccc;color:#888;cursor:not-allowed;transform:none;box-shadow:none}
+.pd-buy-now-btn{padding:14px 30px;background:var(--black);border:2px solid var(--yellow);border-radius:12px;color:var(--yellow);font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:10px}
+.pd-buy-now-btn:hover{background:var(--yellow);color:var(--black)}
+
+/* Divider */
+.pd-divider{height:2px;background:var(--border-color);margin:25px 0;border-radius:1px}
+
+/* Description */
+.pd-desc-section{margin-bottom:30px}
+.pd-section-title{font-family:'Orbitron',sans-serif;font-size:1.1rem;color:var(--black);margin-bottom:15px;display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:2px solid var(--border-color)}
+.pd-section-title i{color:var(--yellow-dark);font-size:1.2rem}
+.pd-description{font-size:1.05rem;line-height:1.8;color:var(--text-secondary);white-space:pre-wrap;background:var(--bg-secondary);padding:25px;border-radius:14px;border:2px solid var(--border-color)}
+
+/* Features */
+.pd-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.pd-feature{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--bg-card);border:2px solid var(--border-color);border-radius:10px;font-size:0.9rem;font-weight:600;color:var(--text-secondary)}
+.pd-feature i{color:var(--yellow-dark);font-size:1.1rem;width:20px;text-align:center}
+
+/* Related Products */
+.pd-related-section{margin-top:50px;padding-top:30px;border-top:2px solid var(--border-color)}
+.pd-related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:15px;margin-top:20px}
+.pd-related-card{background:var(--bg-card);border:2px solid var(--border-color);border-radius:14px;overflow:hidden;transition:all 0.3s;cursor:pointer;text-decoration:none;color:inherit}
+.pd-related-card:hover{transform:translateY(-4px);border-color:var(--yellow);box-shadow:0 8px 25px rgba(255,215,0,0.15)}
+.pd-related-img{height:140px;background:var(--bg-secondary);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.pd-related-img img{max-width:100%;max-height:100%;object-fit:contain;padding:10px}
+.pd-related-info{padding:12px}
+.pd-related-name{font-size:0.95rem;font-weight:700;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pd-related-price{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;color:var(--black)}
+.pd-related-cat{font-size:0.75rem;color:var(--yellow-dark);font-weight:600;text-transform:uppercase;margin-bottom:4px}
+
+/* Loading */
+.pd-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:20px}
+.pd-loading .spinner{width:50px;height:50px;border:4px solid #ddd;border-top-color:var(--yellow);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pd-loading p{color:var(--text-muted);font-size:1.1rem}
+
+/* Not Found */
+.pd-not-found{text-align:center;padding:80px 20px;min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.pd-not-found i{font-size:4rem;color:var(--yellow-dark);margin-bottom:20px}
+.pd-not-found h2{font-family:'Orbitron',sans-serif;font-size:1.5rem;color:var(--black);margin-bottom:10px}
+.pd-not-found p{color:var(--text-muted);margin-bottom:25px}
+.pd-not-found a{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--yellow);color:var(--black);border-radius:10px;text-decoration:none;font-weight:700;font-family:'Orbitron',sans-serif;font-size:0.9rem;transition:all 0.3s}
+.pd-not-found a:hover{background:var(--yellow-dark);transform:translateY(-2px)}
+
+/* Footer */
+.footer{margin-top:60px;padding:30px 20px;text-align:center;background:var(--black)}
+.footer-brand{font-family:'Orbitron',sans-serif;font-size:1.3rem;color:var(--yellow);margin-bottom:5px}
+.footer p{color:#888;font-size:0.85rem}
+
+/* Toast */
+.toast-container{position:fixed;top:80px;right:20px;z-index:5000;display:flex;flex-direction:column;gap:10px}
+.toast{padding:12px 20px;background:var(--black);border:2px solid var(--yellow);border-radius:10px;color:#fff;font-weight:600;display:flex;align-items:center;gap:10px;box-shadow:0 4px 20px rgba(0,0,0,0.3);animation:toast-in 0.3s ease;min-width:250px}
+.toast.success{border-color:var(--success)}.toast.error{border-color:var(--danger)}
+@keyframes toast-in{0%{opacity:0;transform:translateX(100px)}100%{opacity:1;transform:translateX(0)}}
+
+/* Share buttons */
+.pd-share-section{display:flex;align-items:center;gap:10px;margin-top:15px;flex-wrap:wrap}
+.pd-share-label{font-size:0.9rem;color:var(--text-muted);font-weight:600}
+.pd-share-btn{width:38px;height:38px;border-radius:50%;border:2px solid var(--border-color);background:var(--bg-card);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;color:var(--text-secondary);font-size:1rem;text-decoration:none}
+.pd-share-btn:hover{border-color:var(--yellow);color:var(--yellow-dark);transform:scale(1.1)}
+.pd-share-btn.whatsapp:hover{border-color:#25D366;color:#25D366}
+.pd-share-btn.copy:hover{border-color:var(--success);color:var(--success)}
+
+/* Responsive */
+@media(max-width:900px){
+.product-detail-grid{grid-template-columns:1fr;gap:25px}
+.pd-image-section{position:static}
+.pd-image-main{min-height:280px}
+.pd-name{font-size:1.4rem}
+.pd-price{font-size:1.8rem}
+.pd-features{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+.pd-add-cart-section{flex-direction:column}
+.pd-add-btn,.pd-buy-now-btn{width:100%}
+.pd-image-main{min-height:220px;padding:20px}
+.pd-related-grid{grid-template-columns:repeat(2,1fr)}
+.nav-title{font-size:1.1rem}
+.nav-btn span{display:none}
+.nav-btn{padding:8px 10px}
+}
+</style>
+</head>
+<body>
+
+<div class="toast-container" id="toast-container"></div>
+
+<!-- Navbar -->
+<nav class="navbar">
+<a href="index.html" class="nav-brand">
+<img src="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png" class="nav-logo" alt="Ellectra Logo">
+<span class="nav-title">ELLECTRA</span>
+</a>
+<div class="nav-actions">
+<a href="index.html" class="nav-btn"><i class="fas fa-home"></i><span>Home</span></a>
+<a href="shop.html" class="nav-btn"><i class="fas fa-store"></i><span>Shop</span></a>
+<div id="auth-area"><button class="nav-btn" onclick="showAuthModal()"><i class="fas fa-bolt"></i><span>Sign In</span></button></div>
+<button class="nav-btn cart-badge" onclick="window.location.href='shop.html'"><i class="fas fa-shopping-cart"></i><span>Cart</span><div class="cart-count" id="cart-count" style="display:none">0</div></button>
+</div>
+</nav>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+<div class="breadcrumb-inner">
+<a href="index.html"><i class="fas fa-home"></i> Home</a>
+<span>/</span>
+<a href="shop.html">Shop</a>
+<span>/</span>
+<span class="current" id="breadcrumb-name">Loading...</span>
+</div>
+</div>
+
+<!-- Main Content -->
+<div id="product-content">
+<div class="pd-loading">
+<div class="spinner"></div>
+<p>Loading component details...</p>
+</div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+<div class="footer-brand">⚡ ELLECTRA</div>
+<p>© 2025 Ellectra Electronics. All rights reserved.</p>
+</footer>
+
+<!-- Auth Modal -->
+<div style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:3000;display:none;align-items:center;justify-content:center;padding:20px" id="auth-modal" class="modal-overlay">
+<div style="background:var(--bg-card);border:2px solid var(--border-color);border-radius:20px;width:100%;max-width:400px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3)">
+<div style="padding:20px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--border-color);background:var(--black);border-radius:18px 18px 0 0">
+<h2 style="font-family:'Orbitron',sans-serif;font-size:1.2rem;color:var(--yellow)">⚡ Sign In</h2>
+<button onclick="closeAuthModal()" style="background:none;border:none;color:var(--yellow);font-size:1.5rem;cursor:pointer">×</button>
+</div>
+<div style="padding:25px;text-align:center">
+<p style="margin-bottom:25px;color:var(--text-secondary)">Sign in to add items to cart</p>
+<button onclick="signInWithGoogle()" style="display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:14px;background:var(--yellow);color:var(--black);border:2px solid var(--yellow-dark);border-radius:12px;font-size:1.05rem;font-weight:700;cursor:pointer;font-family:'Rajdhani',sans-serif"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width:24px;height:24px">Sign in with Google</button>
+<p style="margin-top:20px;font-size:0.85rem;color:var(--text-muted)">🔒 Secure authentication</p>
+</div>
+</div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig={apiKey:"AIzaSyAJm0fEDPItyL6nBMWzWGQnSAjreDlCOpQ",authDomain:"ellectra-2b95d.firebaseapp.com",projectId:"ellectra-2b95d",storageBucket:"ellectra-2b95d.firebasestorage.app",messagingSenderId:"164410965069",appId:"1:164410965069:web:b86f8fd714f84c27e3f004"};
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth(),db=firebase.firestore();
+
+const CURRENCY='₹';
+const LOGO='https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png';
+const BASE_URL=window.location.origin+window.location.pathname.replace('product.html','');
+
+let currentUser=null;
+let currentProduct=null;
+let allProducts=[];
+let cart=[];
+let qty=1;
+
+// AUTH
+function showAuthModal(){document.getElementById('auth-modal').style.display='flex';}
+function closeAuthModal(){document.getElementById('auth-modal').style.display='none';}
+function signInWithGoogle(){auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(r=>{currentUser=r.user;updateAuthUI();closeAuthModal();showToast('Welcome, '+r.user.displayName.split(' ')[0]+'!','success');db.collection('customers').doc(r.user.uid).set({name:r.user.displayName,email:r.user.email,photoURL:r.user.photoURL||'',lastLogin:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});}).catch(()=>showToast('Sign in failed','error'));}
+function signOut(){auth.signOut().then(()=>{currentUser=null;updateAuthUI();showToast('Signed out','success');});}
+function updateAuthUI(){const a=document.getElementById('auth-area');if(currentUser){const p=currentUser.photoURL||'https://ui-avatars.com/api/?name='+encodeURIComponent(currentUser.displayName)+'&background=FFD700&color=000';a.innerHTML='<div class="user-info" onclick="signOut()" style="cursor:pointer" title="Sign out"><img src="'+p+'" class="user-avatar" referrerpolicy="no-referrer"><span class="user-name">'+currentUser.displayName.split(' ')[0]+'</span></div>';}else{a.innerHTML='<button class="nav-btn" onclick="showAuthModal()"><i class="fas fa-bolt"></i><span>Sign In</span></button>';}}
+auth.onAuthStateChanged(u=>{currentUser=u;updateAuthUI();});
+
+// CART (synced with shop.html via localStorage)
+function loadCart(){try{const s=localStorage.getItem('ellectra_shop_cart');if(s)cart=JSON.parse(s);}catch(e){cart=[];}updateCartCount();}
+function saveCart(){localStorage.setItem('ellectra_shop_cart',JSON.stringify(cart));updateCartCount();}
+function updateCartCount(){const cc=document.getElementById('cart-count');const tc=cart.reduce((s,c)=>s+c.qty,0);cc.textContent=tc;cc.style.display=tc>0?'flex':'none';}
+
+function addToCartFromDetail(){
+if(!currentProduct)return;
+const p=currentProduct;
+const inS=p.stock===undefined||p.stock>0;
+if(!inS){showToast('Out of stock','error');return;}
+
+const existing=cart.find(c=>c.id===p.id);
+if(existing){
+const newQty=existing.qty+qty;
+if(p.stock!==undefined&&newQty>p.stock){showToast('Max stock reached ('+p.stock+')','error');return;}
+existing.qty=newQty;
+}else{
+if(p.stock!==undefined&&qty>p.stock){showToast('Max stock is '+p.stock,'error');return;}
+cart.push({id:p.id,name:p.name,price:parseFloat(p.price),qty:qty,category:p.category||'',image:p.image||''});
+}
+saveCart();
+updateAddButton();
+showToast(p.name+' added to cart!','success');
+}
+
+function buyNow(){
+addToCartFromDetail();
+setTimeout(()=>{window.location.href='shop.html';},300);
+}
+
+function changeDetailQty(d){
+if(!currentProduct)return;
+qty+=d;
+if(qty<1)qty=1;
+if(currentProduct.stock!==undefined&&qty>currentProduct.stock){qty=currentProduct.stock;showToast('Max stock: '+currentProduct.stock,'error');}
+document.getElementById('pd-qty-display').textContent=qty;
+}
+
+function updateAddButton(){
+const btn=document.getElementById('pd-add-btn');
+if(!btn||!currentProduct)return;
+const ci=cart.find(c=>c.id===currentProduct.id);
+if(ci){
+btn.innerHTML='<i class="fas fa-check"></i> In Cart ('+ci.qty+') — Add More';
+}
+}
+
+// LOAD PRODUCT
+function getProductId(){
+const params=new URLSearchParams(window.location.search);
+return params.get('id');
+}
+
+async function loadProduct(){
+const id=getProductId();
+if(!id){showNotFound();return;}
+
+try{
+const doc=await db.collection('components').doc(id).get();
+if(!doc.exists){showNotFound();return;}
+
+currentProduct={id:doc.id,...doc.data()};
+const p=currentProduct;
+
+// Update page title and meta
+document.title='Ellectra - '+p.name;
+updateMeta(p);
+updateStructuredData(p);
+
+// Update breadcrumb
+document.getElementById('breadcrumb-name').textContent=p.name;
+
+// Load related products
+loadRelatedProducts(p.category,p.id);
+
+// Render product
+renderProduct(p);
+
+}catch(e){
+console.error(e);
+showNotFound();
+}
+}
+
+function updateMeta(p){
+const desc=(p.description||'Buy '+p.name+' from Ellectra Electronics. Best prices on electronic components.').substring(0,160);
+const url=window.location.href;
+const img=p.image||LOGO;
+
+document.querySelector('meta[name="description"]').setAttribute('content',desc);
+document.querySelector('link[rel="canonical"]').setAttribute('href',url);
+document.querySelector('meta[property="og:title"]').setAttribute('content',p.name+' - Ellectra');
+document.querySelector('meta[property="og:description"]').setAttribute('content',desc);
+document.querySelector('meta[property="og:image"]').setAttribute('content',img);
+document.querySelector('meta[property="og:url"]').setAttribute('content',url);
+document.querySelector('meta[name="twitter:title"]').setAttribute('content',p.name+' - Ellectra');
+document.querySelector('meta[name="twitter:description"]').setAttribute('content',desc);
+document.querySelector('meta[name="twitter:image"]').setAttribute('content',img);
+}
+
+function updateStructuredData(p){
+const inStock=p.stock===undefined||p.stock>0;
+const jsonld={
+"@context":"https://schema.org",
+"@type":"Product",
+"name":p.name,
+"image":p.image||'',
+"description":p.description||'Electronic component from Ellectra',
+"category":p.category||'Electronic Components',
+"sku":p.id,
+"brand":{"@type":"Brand","name":"Ellectra"},
+"offers":{
+"@type":"Offer",
+"url":window.location.href,
+"priceCurrency":"INR",
+"price":parseFloat(p.price).toFixed(2),
+"availability":inStock?"https://schema.org/InStock":"https://schema.org/OutOfStock",
+"seller":{"@type":"Organization","name":"Ellectra Electronics"},
+"itemCondition":"https://schema.org/NewCondition"
+}
+};
+document.getElementById('product-jsonld').textContent=JSON.stringify(jsonld);
+}
+
+function renderProduct(p){
+const inS=p.stock===undefined||p.stock>0;
+const stockText=inS?(p.stock!==undefined?p.stock+' units in stock':'In Stock'):'Out of Stock';
+const stockClass=inS?'in-stock':'out-of-stock';
+const description=p.description||'No detailed description available for this component yet. Please contact us for specifications, datasheets, and usage information.';
+const ci=cart.find(c=>c.id===p.id);
+
+const content=document.getElementById('product-content');
+content.innerHTML=`
+<div class="product-detail-container">
+<div class="product-detail-grid">
+
+<!-- Image Section -->
+<div class="pd-image-section">
+<div class="pd-image-main">
+<img src="${p.image||'https://via.placeholder.com/500/f5f5f0/1a1a1a?text=No+Image'}" alt="${p.name}" id="pd-main-img" onerror="this.src='https://via.placeholder.com/500/f5f5f0/1a1a1a?text=No+Image'">
+<div class="pd-image-zoom-hint"><i class="fas fa-search-plus"></i> Hover to zoom</div>
+</div>
+
+<!-- Share -->
+<div class="pd-share-section">
+<span class="pd-share-label">Share:</span>
+<a class="pd-share-btn whatsapp" href="https://wa.me/?text=${encodeURIComponent(p.name+' - '+CURRENCY+parseFloat(p.price).toFixed(2)+' | '+window.location.href)}" target="_blank" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<button class="pd-share-btn copy" onclick="copyProductLink()" title="Copy link"><i class="fas fa-link"></i></button>
+</div>
+</div>
+
+<!-- Info Section -->
+<div class="pd-info-section">
+<span class="pd-category-badge">${p.category||'Component'}</span>
+<h1 class="pd-name">${p.name}</h1>
+
+<div class="pd-price-box">
+<span class="pd-price">${CURRENCY}${parseFloat(p.price).toFixed(2)}</span>
+<span class="pd-price-note">Inclusive of all taxes</span>
+</div>
+
+<div class="pd-stock-badge ${stockClass}">
+<i class="fas ${inS?'fa-check-circle':'fa-times-circle'}"></i>
+${stockText}
+</div>
+
+<!-- Quantity & Add to Cart -->
+<div class="pd-add-cart-section">
+<div class="pd-qty-control">
+<button class="pd-qty-btn" onclick="changeDetailQty(-1)">−</button>
+<span class="pd-qty-value" id="pd-qty-display">1</span>
+<button class="pd-qty-btn" onclick="changeDetailQty(1)">+</button>
+</div>
+<button class="pd-add-btn" id="pd-add-btn" onclick="addToCartFromDetail()" ${inS?'':'disabled'}>
+${!inS?'<i class="fas fa-times"></i> Out of Stock':(ci?'<i class="fas fa-check"></i> In Cart ('+ci.qty+') — Add More':'<i class="fas fa-cart-plus"></i> Add to Cart')}
+</button>
+<button class="pd-buy-now-btn" onclick="buyNow()" ${inS?'':'disabled'}>
+<i class="fas fa-bolt"></i> Buy Now
+</button>
+</div>
+
+<div class="pd-divider"></div>
+
+<!-- Description -->
+<div class="pd-desc-section">
+<div class="pd-section-title"><i class="fas fa-info-circle"></i> Description</div>
+<div class="pd-description">${description}</div>
+</div>
+
+<!-- Features -->
+<div class="pd-features">
+<div class="pd-feature"><i class="fas fa-truck"></i> Fast Delivery</div>
+<div class="pd-feature"><i class="fas fa-shield-alt"></i> Quality Assured</div>
+<div class="pd-feature"><i class="fas fa-undo"></i> Easy Returns</div>
+<div class="pd-feature"><i class="fas fa-headset"></i> Support Available</div>
+<div class="pd-feature"><i class="fas fa-money-bill-wave"></i> Cash on Delivery</div>
+<div class="pd-feature"><i class="fas fa-tag"></i> Best Price Guarantee</div>
+</div>
+</div>
+</div>
+
+<!-- Related Products -->
+<div class="pd-related-section" id="related-section" style="display:none">
+<div class="pd-section-title"><i class="fas fa-th-large"></i> Related Components</div>
+<div class="pd-related-grid" id="related-grid"></div>
+</div>
+</div>`;
+}
+
+async function loadRelatedProducts(category,currentId){
+if(!category)return;
+try{
+const snap=await db.collection('components').where('category','==',category).limit(9).get();
+const related=[];
+snap.forEach(d=>{
+if(d.id!==currentId)related.push({id:d.id,...d.data()});
+});
+if(!related.length)return;
+
+const section=document.getElementById('related-section');
+const grid=document.getElementById('related-grid');
+if(!section||!grid)return;
+
+section.style.display='block';
+grid.innerHTML=related.slice(0,8).map(r=>`
+<a href="product.html?id=${r.id}" class="pd-related-card">
+<div class="pd-related-img">
+<img src="${r.image||'https://via.placeholder.com/200/f5f5f0/1a1a1a?text=?'}" alt="${r.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/200/f5f5f0/1a1a1a?text=?'">
+</div>
+<div class="pd-related-info">
+<div class="pd-related-cat">${r.category||'Component'}</div>
+<div class="pd-related-name">${r.name}</div>
+<div class="pd-related-price">${CURRENCY}${parseFloat(r.price).toFixed(2)}</div>
+</div>
+</a>
+`).join('');
+}catch(e){console.error('Related products error:',e);}
+}
+
+function showNotFound(){
+document.getElementById('breadcrumb-name').textContent='Not Found';
+document.title='Ellectra - Product Not Found';
+document.getElementById('product-content').innerHTML=`
+<div class="pd-not-found">
+<i class="fas fa-microchip"></i>
+<h2>Component Not Found</h2>
+<p>The component you're looking for doesn't exist or has been removed.</p>
+<a href="shop.html"><i class="fas fa-arrow-left"></i> Back to Shop</a>
+</div>`;
+}
+
+function copyProductLink(){
+navigator.clipboard.writeText(window.location.href).then(()=>{
+showToast('Link copied!','success');
+}).catch(()=>{
+const ta=document.createElement('textarea');
+ta.value=window.location.href;
+document.body.appendChild(ta);
+ta.select();
+document.execCommand('copy');
+document.body.removeChild(ta);
+showToast('Link copied!','success');
+});
+}
+
+function showToast(msg,type='success'){const c=document.getElementById('toast-container'),t=document.createElement('div');t.className='toast '+type;t.innerHTML='<i class="fas '+(type==='success'?'fa-check-circle':'fa-exclamation-circle')+'" style="color:'+(type==='success'?'var(--success)':'var(--danger)')+'"></i>'+msg;c.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(100px)';t.style.transition='all 0.3s';setTimeout(()=>t.remove(),300);},3000);}
+
+// INIT
+window.addEventListener('DOMContentLoaded',()=>{
+loadCart();
+loadProduct();
+});
+</script>
+</body>
+</html>
