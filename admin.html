@@ -198,7 +198,10 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);mi
 <!-- COMPONENTS LIST -->
 <div class="tab-content" id="tab-components">
 <h2 style="font-family:'Orbitron',sans-serif;margin-bottom:20px"><i class="fas fa-microchip" style="color:var(--yd)"></i> All Components</h2>
-<div style="margin-bottom:15px"><input type="text" id="comp-search" placeholder="Search..." style="padding:10px 15px;background:var(--bg2);border:2px solid var(--border);color:var(--text);border-radius:8px;width:100%;max-width:400px;font-family:'Rajdhani',sans-serif;font-size:1rem" oninput="renderComponentsList()"></div>
+<div style="display:flex;gap:10px;margin-bottom:15px;flex-wrap:wrap;align-items:center">
+<input type="text" id="comp-search" placeholder="Search..." style="padding:10px 15px;background:var(--bg2);border:2px solid var(--border);color:var(--text);border-radius:8px;width:100%;max-width:400px;font-family:'Rajdhani',sans-serif;font-size:1rem" oninput="renderComponentsList()">
+<button class="generate-btn" onclick="exportComponentsCSV()" style="margin-bottom:0"><i class="fas fa-file-csv"></i> Export Components to CSV</button>
+</div>
 <div style="overflow-x:auto"><table class="component-table"><thead><tr><th>Image</th><th>Name</th><th>Price</th><th>Category</th><th>Stock</th><th>Actions</th></tr></thead><tbody id="components-tbody"></tbody></table></div>
 </div>
 
@@ -227,7 +230,6 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);mi
 <!-- COUPONS -->
 <div class="tab-content" id="tab-coupons">
 <h2 style="font-family:'Orbitron',sans-serif;margin-bottom:20px"><i class="fas fa-ticket-alt" style="color:var(--yd)"></i> Coupon Codes</h2>
-
 <div style="background:var(--bg2);border:2px solid var(--border);border-radius:12px;padding:15px;margin-bottom:20px">
 <h4 style="color:var(--black);margin-bottom:8px"><i class="fas fa-info-circle" style="color:var(--yd)"></i> Coupon Rules</h4>
 <div style="font-size:0.9rem;color:var(--ts)">
@@ -237,16 +239,13 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);mi
 <div>• Each coupon can only be used once</div>
 </div>
 </div>
-
 <div class="stat-cards" id="coupon-stats" style="margin-bottom:20px"></div>
-
 <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:20px">
 <button class="generate-btn" onclick="generateCoupons()" id="gen-btn"><i class="fas fa-bolt"></i> Generate 500 Coupons (santha2026)</button>
 <button class="download-coupons" onclick="downloadCoupons()"><i class="fas fa-download"></i> Download</button>
 <button class="generate-btn" onclick="deleteAllCoupons()" id="del-btn" style="background:#e74c3c;color:#fff"><i class="fas fa-trash-alt"></i> Delete All Coupons</button>
 <button class="generate-btn" onclick="deleteUsedCoupons()" id="del-used-btn" style="background:#f39c12;color:#fff"><i class="fas fa-broom"></i> Delete Used Only</button>
 </div>
-
 <div style="margin-bottom:15px"><input type="text" id="coupon-search" placeholder="Search code..." style="padding:10px 15px;background:var(--bg2);border:2px solid var(--border);color:var(--text);border-radius:8px;width:100%;max-width:300px;font-family:'Rajdhani',sans-serif" oninput="renderCoupons()"></div>
 <div class="coupon-grid" id="coupon-grid">Loading...</div>
 </div>
@@ -285,7 +284,6 @@ const firebaseConfig={apiKey:"AIzaSyAJm0fEDPItyL6nBMWzWGQnSAjreDlCOpQ",authDomai
 firebase.initializeApp(firebaseConfig);const db=firebase.firestore();
 
 const ADMIN_PASSWORD="chikoom@ellectra",IMGBB_API_KEY="8b9a50b8147da320350bd7d612050f4e",CURRENCY="₹";
-
 let allComponents=[],allOrders=[],allCoupons=[],allCustomers=[],selectedImageBase64=null,svcImageBase64=null;
 
 function adminLogin(){const pw=document.getElementById('admin-password').value;if(pw===ADMIN_PASSWORD){document.getElementById('login-screen').style.display='none';document.getElementById('admin-panel').style.display='block';sessionStorage.setItem('ellectra_admin','true');loadAllData();}else{const e=document.getElementById('login-error');e.style.display='block';setTimeout(()=>e.style.display='none',3000);}}
@@ -359,33 +357,22 @@ function renderRecentOrders(){const c=document.getElementById('recent-orders'),r
 
 function updateOrderStatus(id,status){db.collection('orders').doc(id).update({status}).then(()=>showToast('Status updated','success')).catch(e=>showToast('Error','error'));}
 
-// ========== GENERATE 500 COUPONS (santha2026) ==========
+// GENERATE 500 COUPONS
 async function generateCoupons(){
 if(allCoupons.length>=500){showToast('500 coupons already exist! Delete old ones first.','error');return;}
 if(!confirm('Generate 500 coupons with code "santha2026"?\n\nRules:\n• 10% off on orders above ₹1,000\n• 12% off on orders above ₹2,000'))return;
-
 const btn=document.getElementById('gen-btn');
 btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Generating...';
-
 try{
 const needed=500-allCoupons.length;
 const COUPON_CODE='santha2026';
-
 for(let i=0;i<needed;i+=450){
 const batch=db.batch();
 const count=Math.min(450,needed-i);
 for(let j=0;j<count;j++){
 batch.set(db.collection('coupons').doc(),{
-code:COUPON_CODE,
-discountType:'tiered',
-discount10:10,
-discount12:12,
-minOrder1000:1000,
-minOrder2000:2000,
-used:false,
-usedBy:null,
-usedAt:null,
-createdAt:firebase.firestore.FieldValue.serverTimestamp()
+code:COUPON_CODE,discountType:'tiered',discount10:10,discount12:12,minOrder1000:1000,minOrder2000:2000,
+used:false,usedBy:null,usedAt:null,createdAt:firebase.firestore.FieldValue.serverTimestamp()
 });
 }
 await batch.commit();
@@ -396,81 +383,51 @@ showToast('500 coupons "santha2026" generated!','success');
 finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-bolt"></i> Generate 500 Coupons (santha2026)';}
 }
 
-// ========== DELETE ALL COUPONS ==========
+// DELETE ALL COUPONS
 async function deleteAllCoupons(){
 if(!allCoupons.length){showToast('No coupons to delete','error');return;}
-
 const usedCount=allCoupons.filter(c=>c.used).length;
 const activeCount=allCoupons.length-usedCount;
-
 if(!confirm('⚠️ DELETE ALL '+allCoupons.length+' COUPONS?\n\nActive: '+activeCount+'\nUsed: '+usedCount+'\n\nThis CANNOT be undone!'))return;
 if(!confirm('Are you REALLY sure? This will delete ALL '+allCoupons.length+' coupons permanently!'))return;
-
 const btn=document.getElementById('del-btn');
-btn.disabled=true;
-btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Deleting...';
-
+btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Deleting...';
 try{
-const totalToDelete=allCoupons.length;
-let deleted=0;
-
-// Copy array since allCoupons will update via onSnapshot
+const totalToDelete=allCoupons.length;let deleted=0;
 const couponsToDelete=[...allCoupons];
-
 for(let i=0;i<couponsToDelete.length;i+=450){
 const batch=db.batch();
 const chunk=couponsToDelete.slice(i,i+450);
-chunk.forEach(c=>{
-batch.delete(db.collection('coupons').doc(c.id));
-});
+chunk.forEach(c=>{batch.delete(db.collection('coupons').doc(c.id));});
 await batch.commit();
 deleted+=chunk.length;
 btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Deleted '+deleted+'/'+totalToDelete+'...';
 }
-
 showToast('All '+totalToDelete+' coupons deleted!','success');
-}catch(e){
-showToast('Error: '+e.message,'error');
-}finally{
-btn.disabled=false;
-btn.innerHTML='<i class="fas fa-trash-alt"></i> Delete All Coupons';
-}
+}catch(e){showToast('Error: '+e.message,'error');}
+finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-trash-alt"></i> Delete All Coupons';}
 }
 
-// ========== DELETE USED COUPONS ONLY ==========
+// DELETE USED COUPONS ONLY
 async function deleteUsedCoupons(){
 const usedCoupons=allCoupons.filter(c=>c.used);
-
 if(!usedCoupons.length){showToast('No used coupons to delete','error');return;}
-
 if(!confirm('Delete '+usedCoupons.length+' USED coupons?\n\nActive coupons will NOT be affected.'))return;
-
 const btn=document.getElementById('del-used-btn');
-btn.disabled=true;
-btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Deleting used...';
-
+btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Deleting used...';
 try{
-let deleted=0;
-const toDelete=[...usedCoupons];
-
+let deleted=0;const toDelete=[...usedCoupons];
 for(let i=0;i<toDelete.length;i+=450){
 const batch=db.batch();
 const chunk=toDelete.slice(i,i+450);
-chunk.forEach(c=>{
-batch.delete(db.collection('coupons').doc(c.id));
-});
+chunk.forEach(c=>{batch.delete(db.collection('coupons').doc(c.id));});
 await batch.commit();
 deleted+=chunk.length;
 btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> '+deleted+'/'+toDelete.length+'...';
 }
-
 showToast(toDelete.length+' used coupons deleted!','success');
-}catch(e){
-showToast('Error: '+e.message,'error');
-}finally{
-btn.disabled=false;
-btn.innerHTML='<i class="fas fa-broom"></i> Delete Used Only';
-}
+}catch(e){showToast('Error: '+e.message,'error');}
+finally{btn.disabled=false;btn.innerHTML='<i class="fas fa-broom"></i> Delete Used Only';}
 }
 
 // COUPON STATS
@@ -482,7 +439,35 @@ c.innerHTML=f.map((x,idx)=>`<div class="coupon-card ${x.used?'used':''}"><div><s
 
 // DOWNLOAD COUPONS
 function downloadCoupons(){if(!allCoupons.length){showToast('No coupons','error');return;}let csv='#,Code,Discount Rules,Status,Used By\n';
-[...allCoupons].sort((a,b)=>a.used===b.used?0:a.used?1:-1).forEach((c,i)=>csv+=`${i+1},${c.code},"10% above ₹1000 / 12% above ₹2000",${c.used?'Used':'Active'},${c.usedBy||''}\n`);const b=new Blob([csv],{type:'text/csv'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='Ellectra_Coupons_santha2026.csv';a.click();URL.revokeObjectURL(u);showToast('Downloaded!','success');}
+[...allCoupons].sort((a,b)=>a.used===b.used?0:a.used?1:-1).forEach((c,i)=>csv+=`${i+1},${c.code},"10% above ₹1000 / 12% above ₹2000",${c.used?'Used':'Active'},${c.usedBy||''}\n`);const b=new Blob([csv],{type:'text/csv'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='Ellectra_Coupons_santha2026.csv';a.click();URL.revokeObjectURL(u);}
+
+// EXPORT COMPONENTS TO CSV
+// EXPORT COMPONENTS TO CSV
+function exportComponentsCSV(){
+if(!allComponents.length){showToast('No components to export','error');return;}
+let csv='\uFEFF';
+csv+='#,Product ID,Name,Category,Price (₹),Stock,Description,Image URL,Product Page URL,Created Date\n';
+allComponents.forEach((c,i)=>{
+const pid='"'+c.id+'"';
+const name='"'+(c.name||'').replace(/"/g,'""')+'"';
+const cat='"'+(c.category||'').replace(/"/g,'""')+'"';
+const price=parseFloat(c.price||0).toFixed(2);
+const stock=c.stock!==undefined?c.stock:'999';
+const desc='"'+(c.description||'').replace(/"/g,'""').replace(/\n/g,' ')+'"';
+const img='"'+(c.image||'').replace(/"/g,'""')+'"';
+const productURL='"https://ellectra.com/product.html?id='+c.id+'"';
+const date=c.createdAt?c.createdAt.toDate().toLocaleString('en-IN'):'N/A';
+csv+=`${i+1},${pid},${name},${cat},${price},${stock},${desc},${img},${productURL},${date}\n`;
+});
+const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;
+a.download='Ellectra_Components_'+new Date().toISOString().slice(0,10)+'.csv';
+a.click();
+URL.revokeObjectURL(url);
+showToast('CSV exported! '+allComponents.length+' components with Product IDs','success');
+}
 
 // CUSTOMERS
 function renderCustomers(){const c=document.getElementById('customers-list');if(!allCustomers.length){c.innerHTML='<p style="color:var(--tm);text-align:center;padding:40px">No customers yet</p>';return;}c.innerHTML=`<div style="overflow-x:auto"><table class="component-table"><thead><tr><th>Avatar</th><th>Name</th><th>Email</th><th>Last Login</th></tr></thead><tbody>${allCustomers.map(x=>`<tr class="comp-row"><td><img src="${x.photoURL||'https://ui-avatars.com/api/?name='+encodeURIComponent(x.name||'U')+'&background=FFD700&color=000'}" style="width:35px;height:35px;border-radius:50%;border:2px solid var(--yd)" referrerpolicy="no-referrer"></td><td style="font-weight:600">${x.name||'N/A'}</td><td style="color:var(--ts)">${x.email||'N/A'}</td><td style="color:var(--tm);font-size:0.85rem">${x.lastLogin?x.lastLogin.toDate().toLocaleString('en-IN'):'N/A'}</td></tr>`).join('')}</tbody></table></div>`;}
