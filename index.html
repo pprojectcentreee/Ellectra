@@ -24,9 +24,10 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 ::-webkit-scrollbar-thumb{background:var(--yellow-dark);border-radius:4px}
 #intro-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--black);z-index:10000;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.8s,visibility 0.8s}
 #intro-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.intro-logo{width:150px;height:150px;animation:intro-pulse 1.5s ease-in-out infinite alternate;filter:drop-shadow(0 0 30px var(--yellow)) drop-shadow(0 0 60px var(--yellow-dark))}
-.intro-title{font-family:'Orbitron',sans-serif;font-size:3rem;font-weight:900;color:var(--yellow);margin-top:20px;animation:intro-glow 2s ease-in-out infinite alternate}
-.intro-tagline{font-family:'Share Tech Mono',monospace;color:var(--yellow-dark);font-size:1rem;margin-top:10px;letter-spacing:3px}
+.intro-logo-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;text-align:center}
+.intro-logo{width:180px;height:180px;display:block;margin:0 auto;animation:intro-pulse 1.5s ease-in-out infinite alternate;filter:drop-shadow(0 0 30px var(--yellow)) drop-shadow(0 0 60px var(--yellow-dark))}
+.intro-title{font-family:'Orbitron',sans-serif;font-size:3rem;font-weight:900;color:var(--yellow);margin-top:20px;text-align:center;width:100%;animation:intro-glow 2s ease-in-out infinite alternate}
+.intro-tagline{font-family:'Share Tech Mono',monospace;color:var(--yellow-dark);font-size:1rem;margin-top:10px;letter-spacing:3px;text-align:center;width:100%}
 @keyframes intro-pulse{0%{transform:scale(1)}100%{transform:scale(1.1)}}
 @keyframes intro-glow{0%{text-shadow:0 0 20px rgba(255,215,0,0.5)}100%{text-shadow:0 0 40px var(--yellow),0 0 80px var(--yellow-dark)}}
 .spark-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
@@ -55,16 +56,18 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 .user-avatar:hover{transform:scale(1.1);box-shadow:0 0 15px var(--yellow-glow)}
 .user-info{display:flex;align-items:center;gap:8px}
 .user-name{font-size:0.85rem;color:var(--yellow);font-weight:600;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hero{margin-top:70px;padding:100px 20px 80px;text-align:center;background:linear-gradient(135deg,var(--black) 0%,#1a1a1a 50%,#0d0d0d 100%);position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,var(--yellow-glow),transparent,transparent);animation:hero-rotate 10s linear infinite;opacity:0.3}
+.hero{margin-top:70px;padding:100px 20px 80px;text-align:center;background:linear-gradient(135deg,var(--black) 0%,#1a1a1a 50%,#0d0d0d 100%);position:relative;overflow:hidden;min-height:420px}
+.hero-video-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.45;pointer-events:none}
+.hero-video-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.45) 50%,rgba(0,0,0,0.65) 100%);z-index:1;pointer-events:none}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,var(--yellow-glow),transparent,transparent);animation:hero-rotate 10s linear infinite;opacity:0.3;z-index:2}
 @keyframes hero-rotate{100%{transform:rotate(360deg)}}
-.hero-content{position:relative;z-index:1}
+.hero-content{position:relative;z-index:3}
 .hero h1{font-family:'Orbitron',sans-serif;font-size:2.8rem;font-weight:900;color:var(--yellow);margin-bottom:10px;text-shadow:0 0 30px var(--yellow-glow);opacity:0;animation:hero-title-in 1s ease forwards 0.3s}
 .hero p{font-size:1.2rem;color:#ccc;font-weight:400;letter-spacing:1px;opacity:0;animation:hero-title-in 1s ease forwards 0.6s}
 @keyframes hero-title-in{0%{opacity:0;transform:translateY(30px)}100%{opacity:1;transform:translateY(0)}}
 .hero-bolt{font-size:4rem;color:var(--yellow);filter:drop-shadow(0 0 20px var(--yellow-glow));animation:bolt-flicker 3s ease-in-out infinite;margin-bottom:10px;display:inline-block}
 @keyframes bolt-flicker{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(0.95)}93%{opacity:0.3}94%{opacity:1}}
-.electric-lines{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden}
+.electric-lines{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:2}
 .electric-line{position:absolute;height:2px;background:linear-gradient(90deg,transparent,var(--yellow),var(--yellow),transparent);opacity:0;animation:electric-dash 4s ease-in-out infinite}
 .electric-line:nth-child(1){top:20%;left:-100%;width:60%;animation-delay:0s}
 .electric-line:nth-child(2){top:50%;right:-100%;width:40%;animation-delay:1.5s;animation-direction:reverse}
@@ -209,9 +212,11 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 <!-- Intro Screen -->
 <div id="intro-screen">
 <div class="spark-container" id="intro-sparks"></div>
+<div class="intro-logo-wrap">
 <img src="https://raw.githubusercontent.com/pprojectcentreee/Ellectra/main/Ellectra_w01wap%20(2).png" class="intro-logo" alt="Ellectra">
 <div class="intro-title">ELLECTRA</div>
 <div class="intro-tagline">⚡ ELECTRIFYING COMPONENTS ⚡</div>
+</div>
 </div>
 
 <div class="toast-container" id="toast-container"></div>
@@ -232,6 +237,11 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg-primary);color:var(--
 
 <!-- Hero Section -->
 <section class="hero" id="hero" style="display:none">
+<!-- Video Background -->
+<video class="hero-video-bg" id="hero-video" autoplay muted loop playsinline preload="auto">
+  <source src="https://drive.google.com/uc?export=download&id=19m8k3iOfYV3UOwpxVnhhxbQo5Ly1bY-6" type="video/mp4">
+</video>
+<div class="hero-video-overlay"></div>
 <div class="electric-lines">
 <div class="electric-line"></div>
 <div class="electric-line"></div>
@@ -520,6 +530,9 @@ document.getElementById('hero').style.display='block';
 document.getElementById('ticker').style.display='block';
 document.getElementById('main-content').style.display='block';
 document.getElementById('footer').style.display='block';
+// Ensure video plays when hero is revealed
+const vid=document.getElementById('hero-video');
+if(vid){vid.play().catch(()=>{});}
 setTimeout(()=>{
 setupScrollReveal();
 animateOptionCards();
